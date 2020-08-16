@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        script(src="./main.js")
+        
+    body
+        .text
+            input(type="number", id="output-left")
+            input(type="number", id="output-right")
+        .middle
+            .multi-range-slider
+                input(type="range", id="input-left", min="0", max="100", value="25")
+                input(type="range", id="input-right", min="0", max="100", value="75")
+            .slider
+                .track
+                .range
+                .thumb.left
+                .thumb.right
+    script(src="./double-range.js")
