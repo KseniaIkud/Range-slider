@@ -150,8 +150,32 @@ function setRightValue() {
   outputRight.value = _this.value;
 }
 
+function getLeftValue() {
+  var _this = outputLeft,
+      min = parseInt(inputLeft.min),
+      max = parseInt(inputLeft.max);
+  var percent = (_this.value - min) / (max - min) * 100;
+  thumbLeft.style.left = percent + "%";
+  range.style.left = percent + "%";
+  inputLeft.value = _this.value;
+  outputLeft.max = parseInt(inputRight.value) - 1;
+}
+
+function getRightValue() {
+  var _this = outputRight,
+      min = parseInt(inputRight.min),
+      max = parseInt(inputRight.max);
+  var percent = (_this.value - min) / (max - min) * 100;
+  thumbRight.style.right = 100 - percent + "%";
+  range.style.right = 100 - percent + "%";
+  inputRight.value = _this.value;
+  outputRight.min = parseInt(inputLeft.value) + 1;
+}
+
 inputLeft.addEventListener("input", setLeftValue);
 inputRight.addEventListener("input", setRightValue);
+outputLeft.addEventListener("input", getLeftValue);
+outputRight.addEventListener("input", getRightValue);
 },{}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -180,7 +204,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41875" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34099" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

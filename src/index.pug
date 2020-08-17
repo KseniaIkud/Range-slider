@@ -8,8 +8,8 @@ html(lang="en")
         
     body
         .text
-            input(type="number", id="output-left")
-            input(type="number", id="output-right")
+            input(type="number", id="output-left", min = "0", max = "100")
+            input(type="number", id="output-right", min = "0", max = "100")
         .middle
             .multi-range-slider
                 input(type="range", id="input-left", min="0", max="100", value="25")

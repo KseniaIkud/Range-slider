@@ -11,13 +11,14 @@ body {
   position: relative;
   width: 50%;
   max-width: 266px;
-  height: 100px;
+  height: 11px;
 }
 
 .slider {
   position: relative;
   z-index: 1;
   height: 6px;
+  top: 2px;
 }
 .slider .track {
   position: absolute;
@@ -29,6 +30,7 @@ body {
   border-radius: 3px;
   border: 1px solid rgba(31, 32, 65, 0.25);
   background-color: #fff;
+  width: 266px;
 }
 .slider .range {
   position: absolute;
@@ -51,11 +53,11 @@ body {
 }
 .slider .thumb.left {
   left: 25%;
-  transform: translate(0, -4.5px);
+  transform: translate(-10px, -4.5px);
 }
 .slider .thumb.right {
   right: 25%;
-  transform: translate(0, -4.5px);
+  transform: translate(10px, -4.5px);
 }
 
 input[type=range] {
