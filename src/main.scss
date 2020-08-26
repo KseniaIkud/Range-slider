@@ -1,27 +1,25 @@
 body {
-   margin: 0;
-   padding: 0;
-   height: 100vh;
+   padding-top: 50px;
+   height: 100px;
    display: flex;
-   justify-content: center;
+   flex-direction: column;
+   justify-content: space-between;
    align-items: center;
 }
 
-.middle {
+
+.range-slider {
    position: relative;
    width: 50%;
    max-width: 266px;
    height: 11px;
-   
-
-}
-
-.slider {
-   position: relative;
-   z-index: 1;
-   height: 6px;
-   top: 2px;
-   .track {
+   &__style {
+      position: relative;
+      z-index: 1;
+      height: 6px;
+      top: 2px;
+   }   
+   &__track {
       position: absolute;
       z-index: 1;
       left: 0; right: 0; top: 0; bottom: 0;
@@ -30,7 +28,7 @@ body {
       background-color: #fff;
       width: 266px;
    }
-   .range {
+   &__progress-bar {
       position: absolute;
       z-index: 2;
       //лучше их рассчитать
@@ -40,7 +38,7 @@ body {
       background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
       border-radius: 3px;
    }
-   .thumb {
+   &__thumb {
       position: absolute;
       z-index: 3;
       width: 12px;
@@ -48,16 +46,17 @@ body {
       background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
       border-radius: 50%;
       border: 2px solid #fff;
-      &.left {
+      &_left {
          left: 25%;
          transform: translate(-10px, -4.5px);
       }
-      &.right {
+      &_right {
          right: 25%;
          transform: translate(10px, -4.5px);
       }
    }
 }
+
 
 input[type=range] {
    position: absolute;
@@ -69,13 +68,12 @@ input[type=range] {
    opacity: 0;
    &::-webkit-slider-thumb {
       pointer-events: all;
-      width: 30px;
-      height: 30px;
+      width: 12px;
+      height: 12px;
       border-radius: 0;
       border: 0 none;
       background-color: red;
       -webkit-appearance: none;
-      cursor: pointer;
    }
    &::-moz-range-thumb {
       pointer-events: all;

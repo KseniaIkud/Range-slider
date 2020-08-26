@@ -5,18 +5,18 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
         script(src="./main.js")
-        
+        script(src="https://code.jquery.com/jquery-1.12.4.js")
+        script(src="./js/double-range.js")
     body
-        .text
-            input(type="number", id="output-left", min = "0", max = "100")
-            input(type="number", id="output-right", min = "0", max = "100")
-        .middle
-            .multi-range-slider
+        .output-data
+            input(type="number", id="output-left", min = "0", max = "100").js-output-data_left
+            input(type="number", id="output-right", min = "0", max = "100").js-output-data_right
+        .range-slider
+            .range-slider__double
                 input(type="range", id="input-left", min="0", max="100", value="25")
                 input(type="range", id="input-right", min="0", max="100", value="75")
-            .slider
-                .track
-                .range
-                .thumb.left
-                .thumb.right
-    script(src="./double-range.js")
+            .range-slider__style
+                .range-slider__track
+                .range-slider__progress-bar.js-range-slider__progress-bar
+                .range-slider__thumb.range-slider__thumb_left.js-range-slider__thumb-left
+                .range-slider__thumb.range-slider__thumb_right.js-range-slider__thumb-right

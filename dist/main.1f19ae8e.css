@@ -1,26 +1,25 @@
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
+  padding-top: 50px;
+  height: 100px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 }
 
-.middle {
+.range-slider {
   position: relative;
   width: 50%;
   max-width: 266px;
   height: 11px;
 }
-
-.slider {
+.range-slider__style {
   position: relative;
   z-index: 1;
   height: 6px;
   top: 2px;
 }
-.slider .track {
+.range-slider__track {
   position: absolute;
   z-index: 1;
   left: 0;
@@ -32,7 +31,7 @@ body {
   background-color: #fff;
   width: 266px;
 }
-.slider .range {
+.range-slider__progress-bar {
   position: absolute;
   z-index: 2;
   left: 25%;
@@ -42,7 +41,7 @@ body {
   background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
   border-radius: 3px;
 }
-.slider .thumb {
+.range-slider__thumb {
   position: absolute;
   z-index: 3;
   width: 12px;
@@ -51,11 +50,11 @@ body {
   border-radius: 50%;
   border: 2px solid #fff;
 }
-.slider .thumb.left {
+.range-slider__thumb_left {
   left: 25%;
   transform: translate(-10px, -4.5px);
 }
-.slider .thumb.right {
+.range-slider__thumb_right {
   right: 25%;
   transform: translate(10px, -4.5px);
 }
@@ -71,13 +70,12 @@ input[type=range] {
 }
 input[type=range]::-webkit-slider-thumb {
   pointer-events: all;
-  width: 30px;
-  height: 30px;
+  width: 12px;
+  height: 12px;
   border-radius: 0;
   border: 0 none;
   background-color: red;
   -webkit-appearance: none;
-  cursor: pointer;
 }
 input[type=range]::-moz-range-thumb {
   pointer-events: all;
