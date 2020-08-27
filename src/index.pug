@@ -11,10 +11,11 @@ html(lang="en")
         .output-data
             input(type="number", id="output-left", min = "0", max = "100").js-output-data_left
             input(type="number", id="output-right", min = "0", max = "100").js-output-data_right
+
         .range-slider
-            .range-slider__double
-                input(type="range", id="input-left", min="0", max="100", value="25")
-                input(type="range", id="input-right", min="0", max="100", value="75")
+            .range-slider__form
+                input(type="range", id="input-left", min="0", max="100", value="25").range-slider__input.range-slider__input_left.js-range-slider__input_left
+                input(type="range", id="input-right", min="0", max="100", value="75").range-slider__input.range-slider__input_right.js-range-slider__input_right
             .range-slider__style
                 .range-slider__track
                 .range-slider__progress-bar.js-range-slider__progress-bar

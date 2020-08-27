@@ -145,6 +145,8 @@ jQuery(function () {
     range.style.left = percent + "%";
   }
 
+  setLeftValue();
+
   function calcRightValue(left, right) {
     var result = Math.max(parseInt(right), parseInt(left) + 1);
     return result;
@@ -159,6 +161,7 @@ jQuery(function () {
     range.style.right = 100 - percent + "%";
   }
 
+  setRightValue();
   inputLeft.addEventListener("input", setLeftValue);
   inputRight.addEventListener("input", setRightValue); //isOutput = true
 
@@ -231,7 +234,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45991" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43629" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

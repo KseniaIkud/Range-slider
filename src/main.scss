@@ -13,6 +13,46 @@ body {
    width: 50%;
    max-width: 266px;
    height: 11px;
+   &__double {
+      input[type=range] {
+         position: absolute;
+         z-index: 2;
+         height: 10px;
+         width: 100%;
+         -webkit-appearance: none;
+         pointer-events: none;
+         opacity: 0;
+         &::-webkit-slider-thumb {
+            pointer-events: all;
+            width: 12px;
+            height: 12px;
+            border-radius: 0;
+            border: 0 none;
+            background-color: red;
+            -webkit-appearance: none;
+         }
+         &::-moz-range-thumb {
+            pointer-events: all;
+            width: 30px;
+            height: 30px;
+            border-radius: 0;
+            border: 0 none;
+            background-color: red;
+            -webkit-appearance: none;
+            cursor: pointer;
+         }
+         &::-ms-thumb {
+            pointer-events: all;
+            width: 30px;
+            height: 30px;
+            border-radius: 0;
+            border: 0 none;
+            background-color: red;
+            -webkit-appearance: none;
+            cursor: pointer;
+         }
+      }
+   }
    &__style {
       position: relative;
       z-index: 1;
@@ -30,10 +70,7 @@ body {
    }
    &__progress-bar {
       position: absolute;
-      z-index: 2;
-      //лучше их рассчитать
-      left: 25%;
-      right: 25%;
+      z-index: 2;   
       top: 0; bottom: 0;
       background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
       border-radius: 3px;
@@ -46,6 +83,7 @@ body {
       background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
       border-radius: 50%;
       border: 2px solid #fff;
+      transform: translate(-10px, -4.5px);
       &_left {
          left: 25%;
          transform: translate(-10px, -4.5px);
@@ -58,41 +96,3 @@ body {
 }
 
 
-input[type=range] {
-   position: absolute;
-   z-index: 2;
-   height: 10px;
-   width: 100%;
-   -webkit-appearance: none;
-   pointer-events: none;
-   opacity: 0;
-   &::-webkit-slider-thumb {
-      pointer-events: all;
-      width: 12px;
-      height: 12px;
-      border-radius: 0;
-      border: 0 none;
-      background-color: red;
-      -webkit-appearance: none;
-   }
-   &::-moz-range-thumb {
-      pointer-events: all;
-      width: 30px;
-      height: 30px;
-      border-radius: 0;
-      border: 0 none;
-      background-color: red;
-      -webkit-appearance: none;
-      cursor: pointer;
-   }
-   &::-ms-thumb {
-      pointer-events: all;
-      width: 30px;
-      height: 30px;
-      border-radius: 0;
-      border: 0 none;
-      background-color: red;
-      -webkit-appearance: none;
-      cursor: pointer;
-   }
-}

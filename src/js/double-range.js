@@ -32,6 +32,8 @@ jQuery(function() {
       range.style.left = percent + "%";
    }
 
+   setLeftValue();
+
    function calcRightValue(left, right) {
       let result = Math.max(parseInt(right), parseInt(left) + 1);
       return result;
@@ -49,6 +51,8 @@ jQuery(function() {
       thumbRight.style.right = (100-percent) + "%";
       range.style.right = (100-percent) + "%";
    }
+
+   setRightValue();
 
    inputLeft.addEventListener("input", setLeftValue);
    inputRight.addEventListener("input", setRightValue);
