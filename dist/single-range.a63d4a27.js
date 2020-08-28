@@ -117,83 +117,218 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"js/single-range.js":[function(require,module,exports) {
+jQuery(function () {
+  var rangeSlider = document.querySelector(".range-slider");
+  var defaultRange = {
+    isRange: true,
+    isOutData: true,
+    isProgressBarRight: true,
+    // only for single slider
+    min: 0,
+    max: 300,
+    value: 50,
+    valueLeft: 30,
+    // only for double slider
+    valueRight: 50,
+    // only for double slider
+    step: 1
+  }; // common html structure
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
+  var rangeSliderForm = document.createElement("div");
+  rangeSliderForm.className = "range-slider__form";
+  rangeSlider.append(rangeSliderForm);
+  var rangeSliderStyle = document.createElement("div");
+  rangeSliderStyle.className = "range-slider__style";
+  rangeSlider.append(rangeSliderStyle);
+  var rangeSliderTrack = document.createElement("div");
+  rangeSliderTrack.className = "range-slider__track";
+  rangeSliderStyle.append(rangeSliderTrack);
+  var rangeSliderProgressBar = document.createElement("div");
+  rangeSliderProgressBar.className = "range-slider__progress-bar js-range-slider__progress-bar";
+  rangeSliderStyle.append(rangeSliderProgressBar); // common variables
 
-  return bundleURL;
-}
+  var range = document.querySelector(".js-range-slider__progress-bar");
+  var inputSingle;
+  var inputLeft;
+  var inputRight;
+  var thumbSingle;
+  var thumbLeft;
+  var thumbRight;
+  var min = defaultRange.min;
+  var max = defaultRange.max; // common functions
 
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+  function calcPercentBar(value, min, max) {
+    var percent = (value - min) / (max - min) * 100;
+    return percent;
+  } // Single range slider
 
-    if (matches) {
-      return getBaseURL(matches[0]);
+
+  if (!defaultRange.isRange) {
+    //html structure - one input and one thumb
+    var rangeSliderInput = document.createElement("input");
+    rangeSliderInput.type = "range";
+    rangeSliderInput.classList = "range-slider__input js-range-slider__input";
+    rangeSliderForm.append(rangeSliderInput);
+    inputSingle = document.querySelector(".js-range-slider__input");
+    var rangeSliderThumb = document.createElement("div");
+    rangeSliderThumb.className = "range-slider__thumb js-range-slider__thumb";
+    rangeSliderStyle.append(rangeSliderThumb);
+    thumbSingle = document.querySelector(".js-range-slider__thumb"); // value, min, max settings
+
+    inputSingle.value = defaultRange.value;
+    inputSingle.min = min;
+    inputSingle.max = max; //set value
+
+    function setValue() {
+      var percent = calcPercentBar(inputSingle.value, min, max);
+      thumbSingle.style.left = percent + "%";
     }
-  }
 
-  return '/';
-}
+    setValue();
+    inputSingle.addEventListener("input", setValue); // progress bar position
 
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
+    function setLeftProgressBar() {
+      var percent = calcPercentBar(inputSingle.value, min, max);
+      range.style.right = 100 - percent + "%";
+      range.style.left = 0;
+    }
 
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
+    function setRightProgressBar() {
+      var percent = calcPercentBar(inputSingle.value, min, max);
+      range.style.left = percent + "%";
+      range.style.right = 0;
+    } // Progress Bar - Right position (only for single slider)
 
-function updateLink(link) {
-  var newLink = link.cloneNode();
 
-  newLink.onload = function () {
-    link.remove();
-  };
+    if (defaultRange.isProgressBarRight) {
+      setRightProgressBar();
+      inputSingle.addEventListener("input", setRightProgressBar);
+    } else {
+      setLeftProgressBar();
+      inputSingle.addEventListener("input", setLeftProgressBar);
+    }
+  } else {
+    // Double range slider
+    //html strucutre - two inputs, two thumbs
+    var rangeSliderInputLeft = document.createElement("input");
+    rangeSliderInputLeft.type = "range";
+    rangeSliderInputLeft.classList = "js-range-slider__input range-slider__input_left js-range-slider__input_left";
+    rangeSliderForm.append(rangeSliderInputLeft);
+    var rangeSliderInputRight = document.createElement("input");
+    rangeSliderInputRight.type = "range";
+    rangeSliderInputRight.classList = "js-range-slider__input range-slider__input_right js-range-slider__input_right";
+    rangeSliderForm.append(rangeSliderInputRight);
+    inputLeft = document.querySelector(".js-range-slider__input_left");
+    inputRight = document.querySelector(".js-range-slider__input_right");
+    var rangeSliderThumbLeft = document.createElement("div");
+    rangeSliderThumbLeft.className = "range-slider__thumb range-slider__thumb_left js-range-slider__thumb_left";
+    rangeSliderStyle.append(rangeSliderThumbLeft);
+    var rangeSliderThumbRight = document.createElement("div");
+    rangeSliderThumbRight.className = "range-slider__thumb range-slider__thumb_right js-range-slider__thumb_right";
+    rangeSliderStyle.append(rangeSliderThumbRight);
+    thumbRight = document.querySelector(".js-range-slider__thumb_right");
+    thumbLeft = document.querySelector(".js-range-slider__thumb_left"); // min, max, value settings
 
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
+    inputLeft.value = defaultRange.valueLeft;
+    inputRight.value = defaultRange.valueRight;
+    inputLeft.min = min;
+    inputRight.min = min;
+    inputLeft.max = max;
+    inputRight.max = max; // set value      
 
-var cssTimeout = null;
+    function calcLeftValue(left, right) {
+      var result = Math.min(parseInt(left), parseInt(right) - 1);
+      return result;
+    }
 
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
+    function setLeftValue() {
+      inputLeft.value = calcLeftValue(inputLeft.value, inputRight.value);
+      var percent = calcPercentBar(inputLeft.value, min, max);
+      thumbLeft.style.left = percent + "%";
+      range.style.left = percent + "%";
+    }
 
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    setLeftValue();
 
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
+    function calcRightValue(left, right) {
+      var result = Math.max(parseInt(right), parseInt(left) + 1);
+      return result;
+    }
+
+    function setRightValue() {
+      inputRight.value = calcRightValue(inputLeft.value, inputRight.value);
+      var percent = calcPercentBar(inputRight.value, min, max);
+      thumbRight.style.right = 100 - percent + "%";
+      range.style.right = 100 - percent + "%";
+    }
+
+    setRightValue();
+    inputLeft.addEventListener("input", setLeftValue);
+    inputRight.addEventListener("input", setRightValue); // show out data in double slider
+
+    if (defaultRange.isOutData) {
+      rangeSliderOutput = document.createElement("div");
+      rangeSliderOutput.className = "output-data";
+      rangeSlider.append(rangeSliderOutput);
+      rangeSliderOutputLeft = document.createElement("input");
+      rangeSliderOutputLeft.type = "number";
+      rangeSliderOutputLeft.classList = "output-data_left js-output-data_left";
+      rangeSliderOutputRight = document.createElement("input");
+      rangeSliderOutputRight.type = "number";
+      rangeSliderOutputRight.classList = "output-data_right js-output-data_right";
+      rangeSliderOutput.append(rangeSliderOutputLeft);
+      rangeSliderOutput.append(rangeSliderOutputRight);
+      var outputLeft = document.querySelector(".js-output-data_left");
+      var outputRight = document.querySelector(".js-output-data_right");
+
+      function getLeftValue() {
+        outputLeft.value = inputLeft.value;
       }
+
+      function getRightValue() {
+        outputRight.value = inputRight.value;
+      }
+
+      getLeftValue();
+      getRightValue();
+      outputLeft.min = defaultRange.min;
+      outputRight.min = defaultRange.min;
+      outputLeft.max = defaultRange.max;
+      outputRight.max = defaultRange.max;
+
+      function showLeftValue() {
+        var percent = (outputLeft.value - min) / (max - min) * 100;
+        thumbLeft.style.left = percent + "%";
+        range.style.left = percent + "%";
+        inputLeft.value = outputLeft.value;
+        outputLeft.max = parseInt(inputRight.value) - 1;
+      }
+
+      function showRightValue() {
+        var percent = (outputRight.value - min) / (max - min) * 100;
+        thumbRight.style.right = 100 - percent + "%";
+        range.style.right = 100 - percent + "%";
+        inputRight.value = outputRight.value;
+        outputRight.min = parseInt(inputLeft.value) + 1;
+      }
+
+      inputLeft.addEventListener("input", getLeftValue);
+      inputRight.addEventListener("input", getRightValue);
+      outputLeft.addEventListener("input", function () {
+        if (+outputLeft.value >= min && +outputLeft.value < +inputRight.value) {
+          showLeftValue();
+        }
+      });
+      outputRight.addEventListener("input", function () {
+        if (+outputRight.value > +inputLeft.value && +outputRight.value <= max) {
+          showRightValue();
+        }
+      });
     }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"main.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"main.js":[function(require,module,exports) {
-"use strict";
-
-require("./main.scss");
-},{"./main.scss":"main.scss"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  }
+});
+},{}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -397,5 +532,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
-//# sourceMappingURL=/main.1f19ae8e.js.map
+},{}]},{},["../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/single-range.js"], null)
+//# sourceMappingURL=/single-range.a63d4a27.js.map

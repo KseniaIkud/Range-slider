@@ -6,18 +6,6 @@ html(lang="en")
         title Document
         script(src="./main.js")
         script(src="https://code.jquery.com/jquery-1.12.4.js")
-        script(src="./js/double-range.js")
+        script(src="./js/single-range.js")
     body
-        .output-data
-            input(type="number", id="output-left", min = "0", max = "100").js-output-data_left
-            input(type="number", id="output-right", min = "0", max = "100").js-output-data_right
-
         .range-slider
-            .range-slider__form
-                input(type="range", id="input-left", min="0", max="100", value="25").range-slider__input.range-slider__input_left.js-range-slider__input_left
-                input(type="range", id="input-right", min="0", max="100", value="75").range-slider__input.range-slider__input_right.js-range-slider__input_right
-            .range-slider__style
-                .range-slider__track
-                .range-slider__progress-bar.js-range-slider__progress-bar
-                .range-slider__thumb.range-slider__thumb_left.js-range-slider__thumb-left
-                .range-slider__thumb.range-slider__thumb_right.js-range-slider__thumb-right
