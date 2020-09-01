@@ -1,3 +1,4 @@
+
 jQuery(function() {
 
     let rangeSlider = document.querySelector(".range-slider");
