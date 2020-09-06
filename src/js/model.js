@@ -1,25 +1,21 @@
 class DefaultRange {
     constructor(options) {
-        this.isOutData = options.isOutData,
-        this.min = options.min,
+        this.isRange = options.isRange
+        this.rightProgressBar = options.rightProgressBar
+        this.defaultValue = options.defaultValue
+        this.rightValue = options.rightValue
+        this.isOutData = options.isOutData
+        this.min = options.min
         this.max = options.max
     }
 }
-
-class SingleRange extends DefaultRange {
-    constructor(options) {
-        super(options)
-        this.isProgressBarRight = options.isProgressBarRight,
-        this.value = options.value
-    }
-}
-
-class DoubleRange extends DefaultRange {
-    constructor(options) {
-        super(options)
-        this.valueLeft = options.valueLeft,
-        this.valueRight = options.valueRight
-    }
-}
-
+let model
+export default model = new DefaultRange( {
+    isRange: true,
+    rightProgressBar: true,
+    defaultValue: 20,
+    rightValue: 45,
+    min: 10,
+    max: 50
+})
 

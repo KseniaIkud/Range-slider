@@ -167,11 +167,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.scss */ "./main.scss");
 /* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_main_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _js_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/model */ "./js/model.js");
-/* harmony import */ var _js_model__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_js_model__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _js_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/view */ "./js/view.js");
-/* harmony import */ var _js_view__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_js_view__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _js_contoller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/contoller */ "./js/contoller.js");
-/* harmony import */ var _js_contoller__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_js_contoller__WEBPACK_IMPORTED_MODULE_3__);
  // import './js/single-range'
 
 
@@ -186,10 +183,61 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************!*\
   !*** ./js/contoller.js ***!
   \*************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model */ "./js/model.js");
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./view */ "./js/view.js");
 
 
+var form = new _view__WEBPACK_IMPORTED_MODULE_1__["Form"]({
+  isDouble: _model__WEBPACK_IMPORTED_MODULE_0__["default"].isRange
+});
+form.createForm();
+form.createInput();
+form.setMin(_model__WEBPACK_IMPORTED_MODULE_0__["default"].min);
+form.setMax(_model__WEBPACK_IMPORTED_MODULE_0__["default"].max);
+var styles = new _view__WEBPACK_IMPORTED_MODULE_1__["Styles"]({
+  isDouble: _model__WEBPACK_IMPORTED_MODULE_0__["default"].isRange
+});
+styles.createStyles();
+styles.createTrack();
+var progressBar = new _view__WEBPACK_IMPORTED_MODULE_1__["ProgressBar"]({
+  isDouble: _model__WEBPACK_IMPORTED_MODULE_0__["default"].isRange
+});
+progressBar.createProgressBar();
+var thumb = new _view__WEBPACK_IMPORTED_MODULE_1__["Thumb"]({
+  isDouble: _model__WEBPACK_IMPORTED_MODULE_0__["default"].isRange
+});
+thumb.createThumb(); // events
+
+var eventInput = function eventInput() {
+  form.setInputValue(_model__WEBPACK_IMPORTED_MODULE_0__["default"].defaultValue, _model__WEBPACK_IMPORTED_MODULE_0__["default"].rightValue);
+  var placeDefault = progressBar.calcPercent(form.defaultInput.value, form.defaultInput.min, form.defaultInput.max);
+  var placeRight = form.rightInput ? progressBar.calcPercent(form.rightInput.value, form.rightInput.min, form.rightInput.max) : NaN;
+  progressBar.setDefault(placeDefault, placeRight);
+
+  if (_model__WEBPACK_IMPORTED_MODULE_0__["default"].rightProgressBar) {
+    progressBar.setRight(placeDefault, placeRight);
+  }
+
+  thumb.placeThumb(placeDefault, placeRight);
+};
+
+eventInput();
+form.defaultInput.addEventListener('input', function () {
+  _model__WEBPACK_IMPORTED_MODULE_0__["default"].defaultValue = form.defaultInput.value;
+  eventInput();
+});
+
+if (_model__WEBPACK_IMPORTED_MODULE_0__["default"].isRange) {
+  form.rightInput.addEventListener('input', function () {
+    _model__WEBPACK_IMPORTED_MODULE_0__["default"].rightValue = form.rightInput.value;
+    eventInput();
+  });
+}
 
 /***/ }),
 
@@ -197,68 +245,34 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************!*\
   !*** ./js/model.js ***!
   \*********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var DefaultRange = function DefaultRange(options) {
   _classCallCheck(this, DefaultRange);
 
-  this.isOutData = options.isOutData, this.min = options.min, this.max = options.max;
+  this.isRange = options.isRange;
+  this.rightProgressBar = options.rightProgressBar;
+  this.defaultValue = options.defaultValue;
+  this.rightValue = options.rightValue;
+  this.isOutData = options.isOutData;
+  this.min = options.min;
+  this.max = options.max;
 };
 
-var SingleRange = /*#__PURE__*/function (_DefaultRange) {
-  _inherits(SingleRange, _DefaultRange);
-
-  var _super = _createSuper(SingleRange);
-
-  function SingleRange(options) {
-    var _this;
-
-    _classCallCheck(this, SingleRange);
-
-    _this = _super.call(this, options);
-    _this.isProgressBarRight = options.isProgressBarRight, _this.value = options.value;
-    return _this;
-  }
-
-  return SingleRange;
-}(DefaultRange);
-
-var DoubleRange = /*#__PURE__*/function (_DefaultRange2) {
-  _inherits(DoubleRange, _DefaultRange2);
-
-  var _super2 = _createSuper(DoubleRange);
-
-  function DoubleRange(options) {
-    var _this2;
-
-    _classCallCheck(this, DoubleRange);
-
-    _this2 = _super2.call(this, options);
-    _this2.valueLeft = options.valueLeft, _this2.valueRight = options.valueRight;
-    return _this2;
-  }
-
-  return DoubleRange;
-}(DefaultRange);
+var model;
+/* harmony default export */ __webpack_exports__["default"] = (model = new DefaultRange({
+  isRange: true,
+  rightProgressBar: true,
+  defaultValue: 20,
+  rightValue: 45,
+  min: 10,
+  max: 50
+}));
 
 /***/ }),
 
@@ -266,9 +280,15 @@ var DoubleRange = /*#__PURE__*/function (_DefaultRange2) {
 /*!********************!*\
   !*** ./js/view.js ***!
   \********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: Form, Styles, ProgressBar, Thumb */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Form", function() { return Form; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Styles", function() { return Styles; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProgressBar", function() { return ProgressBar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Thumb", function() { return Thumb; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -300,51 +320,47 @@ var Form = /*#__PURE__*/function () {
     key: "createInput",
     value: function createInput() {
       if (this.isDouble.isDouble) {
-        this.leftInput = document.createElement('input');
-        this.leftInput.type = 'range';
-        this.leftInput.classList = 'range-slider__input range-slider__input_left';
-        this.form.append(this.leftInput);
+        this.defaultInput = document.createElement('input');
+        this.defaultInput.type = 'range';
+        this.defaultInput.classList = 'range-slider__input range-slider__input_left';
+        this.form.append(this.defaultInput);
         this.rightInput = document.createElement('input');
         this.rightInput.type = 'range';
         this.rightInput.classList = 'range-slider__input range-slider__input_right';
         this.form.append(this.rightInput);
       } else {
-        this.singleInput = document.createElement('input');
-        this.singleInput.type = 'range';
-        this.singleInput.classList = 'range-slider__input';
-        this.form.append(this.singleInput);
+        this.defaultInput = document.createElement('input');
+        this.defaultInput.type = 'range';
+        this.defaultInput.classList = 'range-slider__input';
+        this.form.append(this.defaultInput);
       }
     }
   }, {
     key: "setInputValue",
     value: function setInputValue(value) {
       var rightValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NaN;
+      this.defaultInput.value = +value;
 
       if (this.isDouble.isDouble) {
-        this.leftInput.value = +value;
         this.rightInput.value = +rightValue;
-      } else {
-        this.singleInput.value = +value;
       }
     }
   }, {
     key: "setMin",
     value: function setMin(min) {
+      this.defaultInput.min = +min;
+
       if (this.isDouble.isDouble) {
-        this.leftInput.min = +min;
         this.rightInput.min = +min;
-      } else {
-        this.singleInput.min = +min;
       }
     }
   }, {
     key: "setMax",
     value: function setMax(max) {
+      this.defaultInput.max = +max;
+
       if (this.isDouble.isDouble) {
-        this.leftInput.max = +max;
         this.rightInput.max = +max;
-      } else {
-        this.singleInput.max = +max;
       }
     }
   }]);
@@ -406,11 +422,16 @@ var ProgressBar = /*#__PURE__*/function () {
       return (value - min) / (max - min) * 100;
     }
   }, {
-    key: "setLeft",
-    value: function setLeft(percent) {
+    key: "setDefault",
+    value: function setDefault(percent) {
+      var percentRight = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NaN;
+
       if (!this.isDouble.isDouble) {
         this.bar.style.right = 100 - +percent + '%';
         this.bar.style.left = 0;
+      } else {
+        this.bar.style.left = +percent + '%';
+        this.bar.style.right = 100 - +percentRight + '%';
       }
     }
   }, {
@@ -419,14 +440,6 @@ var ProgressBar = /*#__PURE__*/function () {
       if (!this.isDouble.isDouble) {
         this.bar.style.left = +percent + '%';
         this.bar.style.right = 0;
-      }
-    }
-  }, {
-    key: "setRange",
-    value: function setRange(percentLeft, percentRight) {
-      if (this.isDouble.isDouble) {
-        this.bar.style.left = +percentLeft + '%';
-        this.bar.style.right = 100 - +percentRight + '%';
       }
     }
   }]);
@@ -448,68 +461,35 @@ var Thumb = /*#__PURE__*/function () {
   _createClass(Thumb, [{
     key: "createThumb",
     value: function createThumb() {
-      console.log('test');
-
       if (this.isDouble.isDouble) {
-        this.thumbLeft = document.createElement('div');
-        this.thumbLeft.classList = 'range-slider__thumb range-slider__thumb_left';
-        this.parent.append(this.thumbLeft);
+        this.thumbDefault = document.createElement('div');
+        this.thumbDefault.classList = 'range-slider__thumb range-slider__thumb_left';
+        this.parent.append(this.thumbDefault);
         this.thumbRight = document.createElement('div');
         this.thumbRight.classList = 'range-slider__thumb range-slider__thumb_right';
         this.parent.append(this.thumbRight);
       } else {
-        this.thumbSingle = document.createElement('div');
-        this.thumbSingle.className = 'range-slider__thumb';
-        this.parent.append(this.thumbSingle);
+        this.thumbDefault = document.createElement('div');
+        this.thumbDefault.className = 'range-slider__thumb';
+        this.parent.append(this.thumbDefault);
       }
     }
   }, {
     key: "placeThumb",
     value: function placeThumb(percent) {
       var percentRight = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NaN;
+      this.thumbDefault.style.left = percent + '%';
 
       if (this.isDouble.isDouble) {
-        this.thumbLeft.style.left = percent + '%';
         this.thumbRight.style.right = 100 - percentRight + '%';
-      } else {
-        this.thumbSingle.style.left = percent + '%';
       }
     }
   }]);
 
   return Thumb;
-}(); // values from model
+}();
 
 
-var isRange = false;
-var currentValue = 30;
-var rightValue = 40;
-var min = 10;
-var max = 50; // controller?... extends blah blah blah
-
-var form = new Form({
-  isDouble: isRange
-});
-form.createForm();
-form.createInput();
-form.setInputValue(currentValue, rightValue);
-form.setMin(min);
-form.setMax(max);
-var styles = new Styles({
-  isDouble: isRange
-});
-styles.createStyles();
-styles.createTrack();
-var progressBar = new ProgressBar({
-  isDouble: isRange
-});
-progressBar.createProgressBar();
-progressBar.setLeft(progressBar.calcPercent(form.singleInput.value, form.singleInput.min, form.singleInput.max));
-var thumb = new Thumb({
-  isDouble: isRange
-});
-thumb.createThumb();
-thumb.placeThumb(progressBar.calcPercent(form.singleInput.value, form.singleInput.min, form.singleInput.max));
 
 /***/ }),
 

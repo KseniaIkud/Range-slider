@@ -1,5 +1,6 @@
 const rangeSlider = document.querySelector('.range-slider');
 
+
 class Form {
     constructor(isDouble = false, parent = rangeSlider) {
         this.isDouble = isDouble // boolean
@@ -12,10 +13,10 @@ class Form {
     }
     createInput() {
         if (this.isDouble.isDouble) {
-            this.leftInput = document.createElement('input')
-            this.leftInput.type = 'range'
-            this.leftInput.classList = 'range-slider__input range-slider__input_left'
-            this.form.append(this.leftInput)
+            this.defaultInput = document.createElement('input')
+            this.defaultInput.type = 'range'
+            this.defaultInput.classList = 'range-slider__input range-slider__input_left'
+            this.form.append(this.defaultInput)
             
             this.rightInput = document.createElement('input')
             this.rightInput.type = 'range'
@@ -23,34 +24,28 @@ class Form {
             this.form.append(this.rightInput)
 
         } else {
-            this.singleInput = document.createElement('input')
-            this.singleInput.type = 'range'
-            this.singleInput.classList = 'range-slider__input'
-            this.form.append(this.singleInput)
+            this.defaultInput = document.createElement('input')
+            this.defaultInput.type = 'range'
+            this.defaultInput.classList = 'range-slider__input'
+            this.form.append(this.defaultInput)
         }
     }
     setInputValue(value, rightValue = NaN) {
-        if (this.isDouble.isDouble) {
-            this.leftInput.value = +value
+        this.defaultInput.value = +value
+        if (this.isDouble.isDouble) {   
             this.rightInput.value = +rightValue
-        } else {
-            this.singleInput.value = +value
         }
     }
     setMin(min) {
+        this.defaultInput.min = +min
         if (this.isDouble.isDouble) {
-            this.leftInput.min = +min
             this.rightInput.min = +min
-        } else {
-            this.singleInput.min = +min
         }
     }
     setMax(max) {
+        this.defaultInput.max = +max
         if (this.isDouble.isDouble) {
-            this.leftInput.max = +max
             this.rightInput.max = +max
-        } else {
-            this.singleInput.max = +max
         }
     }
 }
@@ -85,22 +80,19 @@ class ProgressBar {
     calcPercent(value, min, max) {
         return ((value - min) / (max - min)) * 100
     }
-    setLeft(percent) {
+    setDefault(percent, percentRight = NaN) {
         if (!this.isDouble.isDouble) {
             this.bar.style.right = (100 - +percent) + '%'
             this.bar.style.left = 0
+        } else {
+            this.bar.style.left = +percent + '%'
+            this.bar.style.right = (100 - +percentRight) + '%'
         }
     }
     setRight(percent) {
         if (!this.isDouble.isDouble) {
             this.bar.style.left = +percent + '%'
             this.bar.style.right = 0
-        }
-    }
-    setRange(percentLeft, percentRight) {
-        if (this.isDouble.isDouble) {
-            this.bar.style.left = +percentLeft + '%'
-            this.bar.style.right = (100 - +percentRight) + '%'
         }
     }
 }
@@ -112,73 +104,25 @@ class Thumb {
     }
     createThumb() {
         if(this.isDouble.isDouble) {
-            this.thumbLeft = document.createElement('div')
-            this.thumbLeft.classList = 'range-slider__thumb range-slider__thumb_left'
-            this.parent.append(this.thumbLeft)
+            this.thumbDefault = document.createElement('div')
+            this.thumbDefault.classList = 'range-slider__thumb range-slider__thumb_left'
+            this.parent.append(this.thumbDefault)
 
             this.thumbRight = document.createElement('div')
             this.thumbRight.classList = 'range-slider__thumb range-slider__thumb_right'
             this.parent.append(this.thumbRight)
         } else {
-            this.thumbSingle = document.createElement('div')
-            this.thumbSingle.className = 'range-slider__thumb'
-            this.parent.append(this.thumbSingle)
+            this.thumbDefault = document.createElement('div')
+            this.thumbDefault.className = 'range-slider__thumb'
+            this.parent.append(this.thumbDefault)
         }
     }
     placeThumb(percent, percentRight = NaN) {
+        this.thumbDefault.style.left = percent + '%'
         if (this.isDouble.isDouble) {
-            this.thumbLeft.style.left = percent + '%'
             this.thumbRight.style.right = (100 - percentRight) + '%'
-        } else {
-            this.thumbSingle.style.left = percent + '%'
         }
-        
     }
-    
 }
 
-// values from model
-
-let isRange = false
-let currentValue = 30
-let rightValue = 40
-let min = 10
-let max = 50
-
-// controller?... extends blah blah blah
-
-const form = new Form({
-    isDouble: isRange
-}) 
-form.createForm()
-form.createInput()
-form.setInputValue(currentValue, rightValue)
-form.setMin(min)
-form.setMax(max)
-
-const styles = new Styles({
-    isDouble: isRange
-})
-styles.createStyles()
-styles.createTrack()
-
-const progressBar = new ProgressBar({
-    isDouble: isRange
-})
-progressBar.createProgressBar()
-progressBar.setLeft(
-    progressBar.calcPercent(
-        form.singleInput.value, 
-        form.singleInput.min, 
-        form.singleInput.max))
-
-
-const thumb = new Thumb({
-    isDouble: isRange
-})
-thumb.createThumb()
-thumb.placeThumb(
-    progressBar.calcPercent(
-        form.singleInput.value, 
-        form.singleInput.min, 
-        form.singleInput.max))
+export {Form, Styles, ProgressBar, Thumb}
