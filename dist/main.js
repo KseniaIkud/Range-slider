@@ -187,11 +187,9 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./js/contoller.js ***!
   \*************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var Model = __webpack_require__(/*! ./model */ "./js/model.js");
 
-var View = __webpack_require__(/*! ./view */ "./js/view.js");
 
 /***/ }),
 
@@ -262,9 +260,6 @@ var DoubleRange = /*#__PURE__*/function (_DefaultRange2) {
   return DoubleRange;
 }(DefaultRange);
 
-module.exports.SingleRange = SingleRange;
-module.exports.DoubleRange = DoubleRange;
-
 /***/ }),
 
 /***/ "./js/view.js":
@@ -280,62 +275,241 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var CreateElement = /*#__PURE__*/function () {
-  function CreateElement(options) {
-    _classCallCheck(this, CreateElement);
+var rangeSlider = document.querySelector('.range-slider');
 
-    this.className = options.className, this.parent = options.parent;
+var Form = /*#__PURE__*/function () {
+  function Form() {
+    var isDouble = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : rangeSlider;
+
+    _classCallCheck(this, Form);
+
+    this.isDouble = isDouble; // boolean
+
+    this.parent = parent; // DOM
   }
 
-  _createClass(CreateElement, [{
-    key: "createDiv",
-    value: function createDiv() {
-      var element = document.createElement('div');
-      element.className = this.className;
-      this.parent.append(element);
+  _createClass(Form, [{
+    key: "createForm",
+    value: function createForm() {
+      this.form = document.createElement('div');
+      this.form.classList = 'range-slider__form';
+      this.parent.append(this.form);
     }
   }, {
     key: "createInput",
     value: function createInput() {
-      var element = document.createElement('input');
-      element.className = this.className;
-      this.parent.append(element);
+      if (this.isDouble.isDouble) {
+        this.leftInput = document.createElement('input');
+        this.leftInput.type = 'range';
+        this.leftInput.classList = 'range-slider__input range-slider__input_left';
+        this.form.append(this.leftInput);
+        this.rightInput = document.createElement('input');
+        this.rightInput.type = 'range';
+        this.rightInput.classList = 'range-slider__input range-slider__input_right';
+        this.form.append(this.rightInput);
+      } else {
+        this.singleInput = document.createElement('input');
+        this.singleInput.type = 'range';
+        this.singleInput.classList = 'range-slider__input';
+        this.form.append(this.singleInput);
+      }
+    }
+  }, {
+    key: "setInputValue",
+    value: function setInputValue(value) {
+      var rightValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NaN;
+
+      if (this.isDouble.isDouble) {
+        this.leftInput.value = +value;
+        this.rightInput.value = +rightValue;
+      } else {
+        this.singleInput.value = +value;
+      }
+    }
+  }, {
+    key: "setMin",
+    value: function setMin(min) {
+      if (this.isDouble.isDouble) {
+        this.leftInput.min = +min;
+        this.rightInput.min = +min;
+      } else {
+        this.singleInput.min = +min;
+      }
+    }
+  }, {
+    key: "setMax",
+    value: function setMax(max) {
+      if (this.isDouble.isDouble) {
+        this.leftInput.max = +max;
+        this.rightInput.max = +max;
+      } else {
+        this.singleInput.max = +max;
+      }
     }
   }]);
 
-  return CreateElement;
-}(); // DOM structure
+  return Form;
+}();
+
+var Styles = /*#__PURE__*/function () {
+  function Styles() {
+    var isDouble = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : rangeSlider;
+
+    _classCallCheck(this, Styles);
+
+    this.isDouble = isDouble;
+    this.parent = parent;
+  }
+
+  _createClass(Styles, [{
+    key: "createStyles",
+    value: function createStyles() {
+      this.style = document.createElement('div');
+      this.style.classList = 'range-slider__style';
+      this.parent.append(this.style);
+    }
+  }, {
+    key: "createTrack",
+    value: function createTrack() {
+      this.track = document.createElement('div');
+      this.track.classList = 'range-slider__track';
+      this.style.append(this.track);
+    }
+  }]);
+
+  return Styles;
+}();
+
+var ProgressBar = /*#__PURE__*/function () {
+  function ProgressBar() {
+    var isDouble = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.querySelector('.range-slider__style');
+
+    _classCallCheck(this, ProgressBar);
+
+    this.isDouble = isDouble;
+    this.parent = parent;
+  }
+
+  _createClass(ProgressBar, [{
+    key: "createProgressBar",
+    value: function createProgressBar() {
+      this.bar = document.createElement('div');
+      this.bar.classList = 'range-slider__progress-bar';
+      this.parent.append(this.bar);
+    }
+  }, {
+    key: "calcPercent",
+    value: function calcPercent(value, min, max) {
+      return (value - min) / (max - min) * 100;
+    }
+  }, {
+    key: "setLeft",
+    value: function setLeft(percent) {
+      if (!this.isDouble.isDouble) {
+        this.bar.style.right = 100 - +percent + '%';
+        this.bar.style.left = 0;
+      }
+    }
+  }, {
+    key: "setRight",
+    value: function setRight(percent) {
+      if (!this.isDouble.isDouble) {
+        this.bar.style.left = +percent + '%';
+        this.bar.style.right = 0;
+      }
+    }
+  }, {
+    key: "setRange",
+    value: function setRange(percentLeft, percentRight) {
+      if (this.isDouble.isDouble) {
+        this.bar.style.left = +percentLeft + '%';
+        this.bar.style.right = 100 - +percentRight + '%';
+      }
+    }
+  }]);
+
+  return ProgressBar;
+}();
+
+var Thumb = /*#__PURE__*/function () {
+  function Thumb() {
+    var isDouble = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.querySelector('.range-slider__style');
+
+    _classCallCheck(this, Thumb);
+
+    this.isDouble = isDouble;
+    this.parent = parent;
+  }
+
+  _createClass(Thumb, [{
+    key: "createThumb",
+    value: function createThumb() {
+      console.log('test');
+
+      if (this.isDouble.isDouble) {
+        this.thumbLeft = document.createElement('div');
+        this.thumbLeft.classList = 'range-slider__thumb range-slider__thumb_left';
+        this.parent.append(this.thumbLeft);
+        this.thumbRight = document.createElement('div');
+        this.thumbRight.classList = 'range-slider__thumb range-slider__thumb_right';
+        this.parent.append(this.thumbRight);
+      } else {
+        this.thumbSingle = document.createElement('div');
+        this.thumbSingle.className = 'range-slider__thumb';
+        this.parent.append(this.thumbSingle);
+      }
+    }
+  }, {
+    key: "placeThumb",
+    value: function placeThumb(percent) {
+      var percentRight = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NaN;
+
+      if (this.isDouble.isDouble) {
+        this.thumbLeft.style.left = percent + '%';
+        this.thumbRight.style.right = 100 - percentRight + '%';
+      } else {
+        this.thumbSingle.style.left = percent + '%';
+      }
+    }
+  }]);
+
+  return Thumb;
+}(); // values from model
 
 
-var rangeSlider = document.querySelector('.range-slider');
-var rangeSliderForm = new CreateElement({
-  className: 'range-slider__form',
-  parent: rangeSlider
+var isRange = false;
+var currentValue = 30;
+var rightValue = 40;
+var min = 10;
+var max = 50; // controller?... extends blah blah blah
+
+var form = new Form({
+  isDouble: isRange
 });
-rangeSliderForm.createDiv();
-var rangeSliderStyle = new CreateElement({
-  className: 'range-slider__style',
-  parent: rangeSlider
+form.createForm();
+form.createInput();
+form.setInputValue(currentValue, rightValue);
+form.setMin(min);
+form.setMax(max);
+var styles = new Styles({
+  isDouble: isRange
 });
-rangeSliderStyle.createDiv();
-var rangeSliderTrack = new CreateElement({
-  className: 'range-slider__track',
-  parent: document.querySelector('.range-slider__style')
+styles.createStyles();
+styles.createTrack();
+var progressBar = new ProgressBar({
+  isDouble: isRange
 });
-rangeSliderTrack.createDiv();
-var rangeSliderProgressBar = new CreateElement({
-  className: 'range-slider__progress-bar',
-  parent: document.querySelector('.range-slider__style')
+progressBar.createProgressBar();
+progressBar.setLeft(progressBar.calcPercent(form.singleInput.value, form.singleInput.min, form.singleInput.max));
+var thumb = new Thumb({
+  isDouble: isRange
 });
-rangeSliderProgressBar.createDiv(); // class SingleThumb {
-//     constructor(options) {
-//         this.value = options.value
-//     }
-// }
-// const single = new SingleThumb({
-//     value: 10
-// })
-// single.test()
+thumb.createThumb();
+thumb.placeThumb(progressBar.calcPercent(form.singleInput.value, form.singleInput.min, form.singleInput.max));
 
 /***/ }),
 

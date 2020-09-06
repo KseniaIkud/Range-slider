@@ -22,6 +22,4 @@ class DoubleRange extends DefaultRange {
     }
 }
 
-module.exports.SingleRange = SingleRange
-module.exports.DoubleRange = DoubleRange
 
