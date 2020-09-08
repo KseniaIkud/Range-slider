@@ -1,15 +1,23 @@
-const rangeSlider = document.querySelector('.range-slider');
+const rangeSlider: Element = document.querySelector('.range-slider')
+//querySelectorAll and forEach are needed for independence
+
+
+interface IOptions {
+    isDouble: boolean
+    parent?: Element
+}
 
 
 class Form {
+    
     isDouble: boolean
-    parent: any
+    parent: Element
     form: any
     defaultInput: any
     rightInput: any
 
-    constructor(options: any) {
-        this.isDouble = options.isDouble ? options.isDouble : false
+    constructor(options: IOptions) {
+        this.isDouble = options.isDouble
         this.parent = options.parent ? options.parent : rangeSlider
     }
     
@@ -60,12 +68,12 @@ class Form {
 
 class Styles {
     isDouble: boolean
-    parent: any
+    parent: Element
     style: any
     track: any
 
-    constructor(options: any) {
-        this.isDouble = options.isDouble ? options.isDouble : false
+    constructor(options: IOptions) {
+        this.isDouble = options.isDouble
         this.parent = options.parent ? options.parent : rangeSlider
     }
     
@@ -84,10 +92,10 @@ class Styles {
 
 class ProgressBar {
     isDouble: boolean
-    parent: any
+    parent: Element
     bar: any
-    constructor(options: any) {
-        this.isDouble = options.isDouble ? options.isDouble : false
+    constructor(options: IOptions) {
+        this.isDouble = options.isDouble
         this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style')
     }
     createProgressBar(): void {
@@ -95,7 +103,7 @@ class ProgressBar {
         this.bar.classList = 'range-slider__progress-bar'
         this.parent.append(this.bar)
     }
-    calcPercent(value: number, min: number, max: number) {
+    calcPercent(value: number, min: number, max: number): number {
         return ((value - min) / (max - min)) * 100
     }
     setDefault(percent: number, percentRight: number = NaN): void {
@@ -117,12 +125,12 @@ class ProgressBar {
 
 class Thumb {
     isDouble: boolean
-    parent: any
+    parent: Element
     thumbDefault: any
     thumbRight: any
 
-    constructor(options: any) {
-        this.isDouble = options.isDouble ? options.isDouble : false
+    constructor(options: IOptions) {
+        this.isDouble = options.isDouble
         this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style')
     }
     createThumb() {

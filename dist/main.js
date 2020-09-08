@@ -313,7 +313,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 var rangeSlider = document.querySelector('.range-slider');
+console.log(_typeof(rangeSlider)); //querySelectorAll and forEach are needed for independence
 
 var Form = /*#__PURE__*/function () {
   function Form(options) {
@@ -329,7 +332,7 @@ var Form = /*#__PURE__*/function () {
 
     _defineProperty(this, "rightInput", void 0);
 
-    this.isDouble = options.isDouble ? options.isDouble : false;
+    this.isDouble = options.isDouble;
     this.parent = options.parent ? options.parent : rangeSlider;
   }
 
@@ -406,7 +409,7 @@ var Styles = /*#__PURE__*/function () {
 
     _defineProperty(this, "track", void 0);
 
-    this.isDouble = options.isDouble ? options.isDouble : false;
+    this.isDouble = options.isDouble;
     this.parent = options.parent ? options.parent : rangeSlider;
   }
 
@@ -439,7 +442,7 @@ var ProgressBar = /*#__PURE__*/function () {
 
     _defineProperty(this, "bar", void 0);
 
-    this.isDouble = options.isDouble ? options.isDouble : false;
+    this.isDouble = options.isDouble;
     this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style');
   }
 
@@ -493,7 +496,7 @@ var Thumb = /*#__PURE__*/function () {
 
     _defineProperty(this, "thumbRight", void 0);
 
-    this.isDouble = options.isDouble ? options.isDouble : false;
+    this.isDouble = options.isDouble;
     this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style');
   }
 
