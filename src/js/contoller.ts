@@ -36,17 +36,18 @@ const eventInput = function () {
         form.defaultInput.min, 
         form.defaultInput.max)
 
-    const placeRight = form.rightInput ? 
+    const placeRight: number = form.rightInput ? 
         progressBar.calcPercent(
             form.rightInput.value, 
             form.rightInput.min, 
             form.rightInput.max) 
-        : NaN
+            : NaN 
+        
     
     progressBar.setDefault(placeDefault, placeRight)
     
     if (model.rightProgressBar) { 
-    progressBar.setRight(placeDefault, placeRight) 
+    progressBar.setRight(placeDefault) 
     }
 
     thumb.placeThumb(placeDefault, placeRight)

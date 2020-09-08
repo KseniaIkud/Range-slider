@@ -1,4 +1,11 @@
 class DefaultRange {
+    isRange: boolean
+    rightProgressBar: boolean
+    defaultValue: number
+    rightValue: number
+    isOutData: boolean
+    min: number
+    max: number
     constructor(options) {
         this.isRange = options.isRange
         this.rightProgressBar = options.rightProgressBar
@@ -9,13 +16,13 @@ class DefaultRange {
         this.max = options.max
     }
 }
-let model
+let model: any
 export default model = new DefaultRange( {
     isRange: true,
     rightProgressBar: true,
     defaultValue: 20,
     rightValue: 45,
     min: 10,
-    max: 50
+    max: 100
 })
 

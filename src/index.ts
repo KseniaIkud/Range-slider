@@ -4,9 +4,11 @@ import './main.scss'
 
 // import './js/single-range'
 
-import './js/model'
-import './js/view'
-import './js/contoller'
+import './js/model.ts'
+import './js/view.ts'
+import './js/contoller.ts'
+
+
 
 
 // let test = require('./js/contoller')

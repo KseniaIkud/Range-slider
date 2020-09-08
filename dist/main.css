@@ -13,19 +13,18 @@
     opacity: 0; }
     .range-slider__form input[type=range]::-webkit-slider-thumb {
       pointer-events: all;
-      width: 12px;
-      height: 12px;
+      width: 30px;
+      height: 30px;
       border-radius: 0;
       border: 0 none;
-      background-color: red;
-      -webkit-appearance: none; }
+      -webkit-appearance: none;
+      cursor: pointer; }
     .range-slider__form input[type=range]::-moz-range-thumb {
       pointer-events: all;
       width: 30px;
       height: 30px;
       border-radius: 0;
       border: 0 none;
-      background-color: red;
       -webkit-appearance: none;
       cursor: pointer; }
     .range-slider__form input[type=range]::-ms-thumb {
@@ -34,7 +33,6 @@
       height: 30px;
       border-radius: 0;
       border: 0 none;
-      background-color: red;
       -webkit-appearance: none;
       cursor: pointer; }
   .range-slider__style {

@@ -2,17 +2,25 @@ const rangeSlider = document.querySelector('.range-slider');
 
 
 class Form {
-    constructor(isDouble = false, parent = rangeSlider) {
-        this.isDouble = isDouble // boolean
-        this.parent = parent // DOM
+    isDouble: boolean
+    parent: any
+    form: any
+    defaultInput: any
+    rightInput: any
+
+    constructor(options: any) {
+        this.isDouble = options.isDouble ? options.isDouble : false
+        this.parent = options.parent ? options.parent : rangeSlider
     }
-    createForm() {
+    
+    createForm(): void {
         this.form = document.createElement('div')
         this.form.classList = 'range-slider__form'
         this.parent.append(this.form)
     }
-    createInput() {
-        if (this.isDouble.isDouble) {
+    
+    createInput(): void {
+        if (this.isDouble) {
             this.defaultInput = document.createElement('input')
             this.defaultInput.type = 'range'
             this.defaultInput.classList = 'range-slider__input range-slider__input_left'
@@ -30,37 +38,44 @@ class Form {
             this.form.append(this.defaultInput)
         }
     }
-    setInputValue(value, rightValue = NaN) {
-        this.defaultInput.value = +value
-        if (this.isDouble.isDouble) {   
-            this.rightInput.value = +rightValue
+    setInputValue(value: number, rightValue: number = NaN): void {
+        this.defaultInput.value = value
+        if (this.isDouble) {   
+            this.rightInput.value = rightValue
         }
     }
-    setMin(min) {
-        this.defaultInput.min = +min
-        if (this.isDouble.isDouble) {
-            this.rightInput.min = +min
+    setMin(min: number = 0): void {
+        this.defaultInput.min = min
+        if (this.isDouble) {
+            this.rightInput.min = min
         }
     }
-    setMax(max) {
-        this.defaultInput.max = +max
-        if (this.isDouble.isDouble) {
-            this.rightInput.max = +max
+    setMax(max: number = 100): void {
+        this.defaultInput.max = max
+        if (this.isDouble) {
+            this.rightInput.max = max
         }
     }
 }
 
 class Styles {
-    constructor(isDouble = false, parent = rangeSlider) {
-        this.isDouble = isDouble
-        this.parent = parent
+    isDouble: boolean
+    parent: any
+    style: any
+    track: any
+
+    constructor(options: any) {
+        this.isDouble = options.isDouble ? options.isDouble : false
+        this.parent = options.parent ? options.parent : rangeSlider
     }
-    createStyles() {
+    
+    createStyles(): void {
         this.style = document.createElement('div')
         this.style.classList = 'range-slider__style'
         this.parent.append(this.style)
     }
-    createTrack() {
+    
+    createTrack(): void {
         this.track = document.createElement('div')
         this.track.classList = 'range-slider__track'
         this.style.append(this.track)
@@ -68,42 +83,50 @@ class Styles {
 }
 
 class ProgressBar {
-    constructor(isDouble = false, parent = document.querySelector('.range-slider__style')) {
-        this.isDouble = isDouble
-        this.parent = parent
+    isDouble: boolean
+    parent: any
+    bar: any
+    constructor(options: any) {
+        this.isDouble = options.isDouble ? options.isDouble : false
+        this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style')
     }
-    createProgressBar () {
+    createProgressBar(): void {
         this.bar = document.createElement('div')
         this.bar.classList = 'range-slider__progress-bar'
         this.parent.append(this.bar)
     }
-    calcPercent(value, min, max) {
+    calcPercent(value: number, min: number, max: number) {
         return ((value - min) / (max - min)) * 100
     }
-    setDefault(percent, percentRight = NaN) {
-        if (!this.isDouble.isDouble) {
-            this.bar.style.right = (100 - +percent) + '%'
+    setDefault(percent: number, percentRight: number = NaN): void {
+        if (!this.isDouble) {
+            this.bar.style.right = (100 - percent) + '%'
             this.bar.style.left = 0
         } else {
-            this.bar.style.left = +percent + '%'
-            this.bar.style.right = (100 - +percentRight) + '%'
+            this.bar.style.left = percent + '%'
+            this.bar.style.right = (100 - percentRight) + '%'
         }
     }
-    setRight(percent) {
-        if (!this.isDouble.isDouble) {
-            this.bar.style.left = +percent + '%'
+    setRight(percent: number): void {
+        if (!this.isDouble) {
+            this.bar.style.left = percent + '%'
             this.bar.style.right = 0
         }
     }
 }
 
 class Thumb {
-    constructor(isDouble = false, parent = document.querySelector('.range-slider__style')) {
-        this.isDouble = isDouble
-        this.parent = parent
+    isDouble: boolean
+    parent: any
+    thumbDefault: any
+    thumbRight: any
+
+    constructor(options: any) {
+        this.isDouble = options.isDouble ? options.isDouble : false
+        this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style')
     }
     createThumb() {
-        if(this.isDouble.isDouble) {
+        if(this.isDouble) {
             this.thumbDefault = document.createElement('div')
             this.thumbDefault.classList = 'range-slider__thumb range-slider__thumb_left'
             this.parent.append(this.thumbDefault)
@@ -117,12 +140,14 @@ class Thumb {
             this.parent.append(this.thumbDefault)
         }
     }
-    placeThumb(percent, percentRight = NaN) {
+    placeThumb(percent: number, percentRight: number = NaN) {
         this.thumbDefault.style.left = percent + '%'
-        if (this.isDouble.isDouble) {
+        if (this.isDouble) {
             this.thumbRight.style.right = (100 - percentRight) + '%'
         }
     }
 }
 
 export {Form, Styles, ProgressBar, Thumb}
+
+

@@ -155,9 +155,9 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./index.js":
+/***/ "./index.ts":
 /*!******************!*\
-  !*** ./index.js ***!
+  !*** ./index.ts ***!
   \******************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -166,9 +166,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.scss */ "./main.scss");
 /* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_main_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _js_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/model */ "./js/model.js");
-/* harmony import */ var _js_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/view */ "./js/view.js");
-/* harmony import */ var _js_contoller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/contoller */ "./js/contoller.js");
+/* harmony import */ var _js_model_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/model.ts */ "./js/model.ts");
+/* harmony import */ var _js_view_ts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/view.ts */ "./js/view.ts");
+/* harmony import */ var _js_contoller_ts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/contoller.ts */ "./js/contoller.ts");
  // import './js/single-range'
 
 
@@ -179,17 +179,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./js/contoller.js":
+/***/ "./js/contoller.ts":
 /*!*************************!*\
-  !*** ./js/contoller.js ***!
+  !*** ./js/contoller.ts ***!
   \*************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model */ "./js/model.js");
-/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./view */ "./js/view.js");
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model */ "./js/model.ts");
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./view */ "./js/view.ts");
 
 
 var form = new _view__WEBPACK_IMPORTED_MODULE_1__["Form"]({
@@ -220,7 +220,7 @@ var eventInput = function eventInput() {
   progressBar.setDefault(placeDefault, placeRight);
 
   if (_model__WEBPACK_IMPORTED_MODULE_0__["default"].rightProgressBar) {
-    progressBar.setRight(placeDefault, placeRight);
+    progressBar.setRight(placeDefault);
   }
 
   thumb.placeThumb(placeDefault, placeRight);
@@ -241,9 +241,9 @@ if (_model__WEBPACK_IMPORTED_MODULE_0__["default"].isRange) {
 
 /***/ }),
 
-/***/ "./js/model.js":
+/***/ "./js/model.ts":
 /*!*********************!*\
-  !*** ./js/model.js ***!
+  !*** ./js/model.ts ***!
   \*********************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -252,8 +252,24 @@ if (_model__WEBPACK_IMPORTED_MODULE_0__["default"].isRange) {
 __webpack_require__.r(__webpack_exports__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var DefaultRange = function DefaultRange(options) {
   _classCallCheck(this, DefaultRange);
+
+  _defineProperty(this, "isRange", void 0);
+
+  _defineProperty(this, "rightProgressBar", void 0);
+
+  _defineProperty(this, "defaultValue", void 0);
+
+  _defineProperty(this, "rightValue", void 0);
+
+  _defineProperty(this, "isOutData", void 0);
+
+  _defineProperty(this, "min", void 0);
+
+  _defineProperty(this, "max", void 0);
 
   this.isRange = options.isRange;
   this.rightProgressBar = options.rightProgressBar;
@@ -271,14 +287,14 @@ var model;
   defaultValue: 20,
   rightValue: 45,
   min: 10,
-  max: 50
+  max: 100
 }));
 
 /***/ }),
 
-/***/ "./js/view.js":
+/***/ "./js/view.ts":
 /*!********************!*\
-  !*** ./js/view.js ***!
+  !*** ./js/view.ts ***!
   \********************/
 /*! exports provided: Form, Styles, ProgressBar, Thumb */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -295,18 +311,26 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var rangeSlider = document.querySelector('.range-slider');
 
 var Form = /*#__PURE__*/function () {
-  function Form() {
-    var isDouble = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : rangeSlider;
-
+  function Form(options) {
     _classCallCheck(this, Form);
 
-    this.isDouble = isDouble; // boolean
+    _defineProperty(this, "isDouble", void 0);
 
-    this.parent = parent; // DOM
+    _defineProperty(this, "parent", void 0);
+
+    _defineProperty(this, "form", void 0);
+
+    _defineProperty(this, "defaultInput", void 0);
+
+    _defineProperty(this, "rightInput", void 0);
+
+    this.isDouble = options.isDouble ? options.isDouble : false;
+    this.parent = options.parent ? options.parent : rangeSlider;
   }
 
   _createClass(Form, [{
@@ -319,7 +343,7 @@ var Form = /*#__PURE__*/function () {
   }, {
     key: "createInput",
     value: function createInput() {
-      if (this.isDouble.isDouble) {
+      if (this.isDouble) {
         this.defaultInput = document.createElement('input');
         this.defaultInput.type = 'range';
         this.defaultInput.classList = 'range-slider__input range-slider__input_left';
@@ -339,28 +363,30 @@ var Form = /*#__PURE__*/function () {
     key: "setInputValue",
     value: function setInputValue(value) {
       var rightValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NaN;
-      this.defaultInput.value = +value;
+      this.defaultInput.value = value;
 
-      if (this.isDouble.isDouble) {
-        this.rightInput.value = +rightValue;
+      if (this.isDouble) {
+        this.rightInput.value = rightValue;
       }
     }
   }, {
     key: "setMin",
-    value: function setMin(min) {
-      this.defaultInput.min = +min;
+    value: function setMin() {
+      var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      this.defaultInput.min = min;
 
-      if (this.isDouble.isDouble) {
-        this.rightInput.min = +min;
+      if (this.isDouble) {
+        this.rightInput.min = min;
       }
     }
   }, {
     key: "setMax",
-    value: function setMax(max) {
-      this.defaultInput.max = +max;
+    value: function setMax() {
+      var max = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 100;
+      this.defaultInput.max = max;
 
-      if (this.isDouble.isDouble) {
-        this.rightInput.max = +max;
+      if (this.isDouble) {
+        this.rightInput.max = max;
       }
     }
   }]);
@@ -369,14 +395,19 @@ var Form = /*#__PURE__*/function () {
 }();
 
 var Styles = /*#__PURE__*/function () {
-  function Styles() {
-    var isDouble = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : rangeSlider;
-
+  function Styles(options) {
     _classCallCheck(this, Styles);
 
-    this.isDouble = isDouble;
-    this.parent = parent;
+    _defineProperty(this, "isDouble", void 0);
+
+    _defineProperty(this, "parent", void 0);
+
+    _defineProperty(this, "style", void 0);
+
+    _defineProperty(this, "track", void 0);
+
+    this.isDouble = options.isDouble ? options.isDouble : false;
+    this.parent = options.parent ? options.parent : rangeSlider;
   }
 
   _createClass(Styles, [{
@@ -399,14 +430,17 @@ var Styles = /*#__PURE__*/function () {
 }();
 
 var ProgressBar = /*#__PURE__*/function () {
-  function ProgressBar() {
-    var isDouble = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.querySelector('.range-slider__style');
-
+  function ProgressBar(options) {
     _classCallCheck(this, ProgressBar);
 
-    this.isDouble = isDouble;
-    this.parent = parent;
+    _defineProperty(this, "isDouble", void 0);
+
+    _defineProperty(this, "parent", void 0);
+
+    _defineProperty(this, "bar", void 0);
+
+    this.isDouble = options.isDouble ? options.isDouble : false;
+    this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style');
   }
 
   _createClass(ProgressBar, [{
@@ -426,19 +460,19 @@ var ProgressBar = /*#__PURE__*/function () {
     value: function setDefault(percent) {
       var percentRight = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NaN;
 
-      if (!this.isDouble.isDouble) {
-        this.bar.style.right = 100 - +percent + '%';
+      if (!this.isDouble) {
+        this.bar.style.right = 100 - percent + '%';
         this.bar.style.left = 0;
       } else {
-        this.bar.style.left = +percent + '%';
-        this.bar.style.right = 100 - +percentRight + '%';
+        this.bar.style.left = percent + '%';
+        this.bar.style.right = 100 - percentRight + '%';
       }
     }
   }, {
     key: "setRight",
     value: function setRight(percent) {
-      if (!this.isDouble.isDouble) {
-        this.bar.style.left = +percent + '%';
+      if (!this.isDouble) {
+        this.bar.style.left = percent + '%';
         this.bar.style.right = 0;
       }
     }
@@ -448,20 +482,25 @@ var ProgressBar = /*#__PURE__*/function () {
 }();
 
 var Thumb = /*#__PURE__*/function () {
-  function Thumb() {
-    var isDouble = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.querySelector('.range-slider__style');
-
+  function Thumb(options) {
     _classCallCheck(this, Thumb);
 
-    this.isDouble = isDouble;
-    this.parent = parent;
+    _defineProperty(this, "isDouble", void 0);
+
+    _defineProperty(this, "parent", void 0);
+
+    _defineProperty(this, "thumbDefault", void 0);
+
+    _defineProperty(this, "thumbRight", void 0);
+
+    this.isDouble = options.isDouble ? options.isDouble : false;
+    this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style');
   }
 
   _createClass(Thumb, [{
     key: "createThumb",
     value: function createThumb() {
-      if (this.isDouble.isDouble) {
+      if (this.isDouble) {
         this.thumbDefault = document.createElement('div');
         this.thumbDefault.classList = 'range-slider__thumb range-slider__thumb_left';
         this.parent.append(this.thumbDefault);
@@ -480,7 +519,7 @@ var Thumb = /*#__PURE__*/function () {
       var percentRight = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NaN;
       this.thumbDefault.style.left = percent + '%';
 
-      if (this.isDouble.isDouble) {
+      if (this.isDouble) {
         this.thumbRight.style.right = 100 - percentRight + '%';
       }
     }
@@ -508,13 +547,13 @@ var Thumb = /*#__PURE__*/function () {
 
 /***/ 0:
 /*!****************************************!*\
-  !*** multi @babel/polyfill ./index.js ***!
+  !*** multi @babel/polyfill ./index.ts ***!
   \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! @babel/polyfill */"../node_modules/@babel/polyfill/lib/index.js");
-module.exports = __webpack_require__(/*! ./index.js */"./index.js");
+module.exports = __webpack_require__(/*! ./index.ts */"./index.ts");
 
 
 /***/ })
