@@ -12,9 +12,9 @@ class Form {
     
     isDouble: boolean
     parent: HTMLDivElement
-    form: HTMLDivElement
-    defaultInput: HTMLInputElement
-    rightInput: HTMLInputElement
+    form!: HTMLDivElement
+    defaultInput!: HTMLInputElement
+    rightInput!: HTMLInputElement
 
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
@@ -71,8 +71,8 @@ class Form {
 class Styles {
     isDouble: boolean
     parent: HTMLDivElement
-    style: HTMLDivElement
-    track: HTMLDivElement
+    style!: HTMLDivElement
+    track!: HTMLDivElement
 
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
@@ -95,7 +95,7 @@ class Styles {
 class ProgressBar {
     isDouble: boolean
     parent: HTMLDivElement
-    bar: HTMLDivElement
+    bar!: HTMLDivElement
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
         this.parent = document.querySelector('.range-slider__style') as HTMLDivElement
@@ -128,8 +128,8 @@ class ProgressBar {
 class Thumb {
     isDouble: boolean
     parent: HTMLDivElement
-    thumbDefault: HTMLDivElement
-    thumbRight: HTMLDivElement
+    thumbDefault!: HTMLDivElement
+    thumbRight!: HTMLDivElement
 
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
@@ -152,7 +152,7 @@ class Thumb {
             this.parent.append(this.thumbDefault)
         }
     }
-    placeThumb(percent: number, percentRight: number = NaN) {
+    placeThumb(percent: number, percentRight: number = NaN): void {
         this.thumbDefault.style.left = percent + '%'
         if (this.isDouble) {
             this.thumbRight.style.right = (100 - percentRight) + '%'
@@ -161,4 +161,3 @@ class Thumb {
 }
 
 export {Form, Styles, ProgressBar, Thumb}
-

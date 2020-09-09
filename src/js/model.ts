@@ -27,13 +27,14 @@ class DefaultRange {
     }
 }
 
-let model: any
-export default model = new DefaultRange({
+
+let model = new DefaultRange({
     min: 10,
-    max: 100,
-    defaultValue: 20,
+    max: 120,
+    defaultValue: 90,
     rightValue: 45,
     isRange: false,
     rightProgressBar: false,
     isOutData: false   
 })
+export default model
