@@ -155,27 +155,27 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./index.ts":
+/***/ "./index.js":
 /*!******************!*\
-  !*** ./index.ts ***!
+  !*** ./index.js ***!
   \******************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.scss */ "./main.scss");
-/* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_main_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _js_model_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/model.ts */ "./js/model.ts");
-/* harmony import */ var _js_view_ts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/view.ts */ "./js/view.ts");
-/* harmony import */ var _js_contoller_ts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/contoller.ts */ "./js/contoller.ts");
- // import './js/single-range'
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
- // let test = require('./js/contoller')
-// console.log(test.test)
-// console.log(test.test2)
+__webpack_require__(/*! ./main.scss */ "./main.scss");
+
+__webpack_require__(/*! ./js/model */ "./js/model.ts");
+
+__webpack_require__(/*! ./js/view */ "./js/view.ts");
+
+__webpack_require__(/*! ./js/contoller */ "./js/contoller.ts");
 
 /***/ }),
 
@@ -443,7 +443,7 @@ var ProgressBar = /*#__PURE__*/function () {
     _defineProperty(this, "bar", void 0);
 
     this.isDouble = options.isDouble;
-    this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style');
+    this.parent = document.querySelector('.range-slider__style');
   }
 
   _createClass(ProgressBar, [{
@@ -497,7 +497,7 @@ var Thumb = /*#__PURE__*/function () {
     _defineProperty(this, "thumbRight", void 0);
 
     this.isDouble = options.isDouble;
-    this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style');
+    this.parent = document.querySelector('.range-slider__style');
   }
 
   _createClass(Thumb, [{
@@ -552,13 +552,13 @@ var Thumb = /*#__PURE__*/function () {
 
 /***/ 0:
 /*!****************************************!*\
-  !*** multi @babel/polyfill ./index.ts ***!
+  !*** multi @babel/polyfill ./index.js ***!
   \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! @babel/polyfill */"../node_modules/@babel/polyfill/lib/index.js");
-module.exports = __webpack_require__(/*! ./index.ts */"./index.ts");
+module.exports = __webpack_require__(/*! ./index.js */"./index.js");
 
 
 /***/ })

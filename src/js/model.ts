@@ -2,10 +2,10 @@ interface IModel {
     min: number
     max: number
     defaultValue: number
-    rightValue?: number
-    isRange?: boolean
-    rightProgressBar?: boolean
-    isOutData?: boolean
+    rightValue: number
+    isRange: boolean
+    rightProgressBar: boolean
+    isOutData: boolean
 }
 
 class DefaultRange {

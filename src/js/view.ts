@@ -1,17 +1,17 @@
-const rangeSlider: Element = document.querySelector('.range-slider')
+const rangeSlider: HTMLDivElement = document.querySelector('.range-slider') as HTMLDivElement
 //querySelectorAll and forEach are needed for independence
 
 
 interface IOptions {
     isDouble: boolean
-    parent?: Element
+    parent?: HTMLDivElement
 }
 
 
 class Form {
     
     isDouble: boolean
-    parent: Element
+    parent: HTMLDivElement
     form: HTMLDivElement
     defaultInput: HTMLInputElement
     rightInput: HTMLInputElement
@@ -22,7 +22,7 @@ class Form {
     }
     
     createForm(): void {
-        this.form = document.createElement('div')
+        this.form = <HTMLDivElement>(document.createElement('div'))
         this.form.classList.add('range-slider__form')
         this.parent.append(this.form)
     }
@@ -70,7 +70,7 @@ class Form {
 
 class Styles {
     isDouble: boolean
-    parent: Element
+    parent: HTMLDivElement
     style: HTMLDivElement
     track: HTMLDivElement
 
@@ -94,11 +94,11 @@ class Styles {
 
 class ProgressBar {
     isDouble: boolean
-    parent: Element
+    parent: HTMLDivElement
     bar: HTMLDivElement
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
-        this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style')
+        this.parent = document.querySelector('.range-slider__style') as HTMLDivElement
     }
     createProgressBar(): void {
         this.bar = document.createElement('div')
@@ -127,13 +127,13 @@ class ProgressBar {
 
 class Thumb {
     isDouble: boolean
-    parent: Element
+    parent: HTMLDivElement
     thumbDefault: HTMLDivElement
     thumbRight: HTMLDivElement
 
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
-        this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style')
+        this.parent = document.querySelector('.range-slider__style') as HTMLDivElement
     }
     createThumb() {
         if(this.isDouble) {
@@ -161,5 +161,4 @@ class Thumb {
 }
 
 export {Form, Styles, ProgressBar, Thumb}
-
 
