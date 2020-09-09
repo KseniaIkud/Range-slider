@@ -215,8 +215,8 @@ thumb.createThumb(); // events
 
 var eventInput = function eventInput() {
   form.setInputValue(_model__WEBPACK_IMPORTED_MODULE_0__["default"].defaultValue, _model__WEBPACK_IMPORTED_MODULE_0__["default"].rightValue);
-  var placeDefault = progressBar.calcPercent(form.defaultInput.value, form.defaultInput.min, form.defaultInput.max);
-  var placeRight = form.rightInput ? progressBar.calcPercent(form.rightInput.value, form.rightInput.min, form.rightInput.max) : NaN;
+  var placeDefault = progressBar.calcPercent(Number(form.defaultInput.value), Number(form.defaultInput.min), Number(form.defaultInput.max));
+  var placeRight = form.rightInput ? progressBar.calcPercent(Number(form.rightInput.value), Number(form.rightInput.min), Number(form.rightInput.max)) : NaN;
   progressBar.setDefault(placeDefault, placeRight);
 
   if (_model__WEBPACK_IMPORTED_MODULE_0__["default"].rightProgressBar) {
@@ -228,13 +228,13 @@ var eventInput = function eventInput() {
 
 eventInput();
 form.defaultInput.addEventListener('input', function () {
-  _model__WEBPACK_IMPORTED_MODULE_0__["default"].defaultValue = form.defaultInput.value;
+  _model__WEBPACK_IMPORTED_MODULE_0__["default"].defaultValue = Number(form.defaultInput.value);
   eventInput();
 });
 
 if (_model__WEBPACK_IMPORTED_MODULE_0__["default"].isRange) {
   form.rightInput.addEventListener('input', function () {
-    _model__WEBPACK_IMPORTED_MODULE_0__["default"].rightValue = form.rightInput.value;
+    _model__WEBPACK_IMPORTED_MODULE_0__["default"].rightValue = Number(form.rightInput.value);
     eventInput();
   });
 }
@@ -257,37 +257,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var DefaultRange = function DefaultRange(options) {
   _classCallCheck(this, DefaultRange);
 
-  _defineProperty(this, "isRange", void 0);
+  _defineProperty(this, "min", void 0);
 
-  _defineProperty(this, "rightProgressBar", void 0);
+  _defineProperty(this, "max", void 0);
 
   _defineProperty(this, "defaultValue", void 0);
 
   _defineProperty(this, "rightValue", void 0);
 
+  _defineProperty(this, "isRange", void 0);
+
+  _defineProperty(this, "rightProgressBar", void 0);
+
   _defineProperty(this, "isOutData", void 0);
 
-  _defineProperty(this, "min", void 0);
-
-  _defineProperty(this, "max", void 0);
-
-  this.isRange = options.isRange;
-  this.rightProgressBar = options.rightProgressBar;
-  this.defaultValue = options.defaultValue;
-  this.rightValue = options.rightValue;
-  this.isOutData = options.isOutData;
   this.min = options.min;
   this.max = options.max;
+  this.defaultValue = options.defaultValue;
+  this.rightValue = options.rightValue;
+  this.isRange = options.isRange;
+  this.rightProgressBar = options.rightProgressBar;
+  this.isOutData = options.isOutData;
 };
 
 var model;
 /* harmony default export */ __webpack_exports__["default"] = (model = new DefaultRange({
-  isRange: true,
-  rightProgressBar: true,
+  min: 10,
+  max: 100,
   defaultValue: 20,
   rightValue: 45,
-  min: 10,
-  max: 100
+  isRange: false,
+  rightProgressBar: false,
+  isOutData: false
 }));
 
 /***/ }),
@@ -313,10 +314,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var rangeSlider = document.querySelector('.range-slider');
-console.log(_typeof(rangeSlider)); //querySelectorAll and forEach are needed for independence
+var rangeSlider = document.querySelector('.range-slider'); //querySelectorAll and forEach are needed for independence
 
 var Form = /*#__PURE__*/function () {
   function Form(options) {
@@ -340,7 +338,7 @@ var Form = /*#__PURE__*/function () {
     key: "createForm",
     value: function createForm() {
       this.form = document.createElement('div');
-      this.form.classList = 'range-slider__form';
+      this.form.classList.add('range-slider__form');
       this.parent.append(this.form);
     }
   }, {
@@ -349,16 +347,18 @@ var Form = /*#__PURE__*/function () {
       if (this.isDouble) {
         this.defaultInput = document.createElement('input');
         this.defaultInput.type = 'range';
-        this.defaultInput.classList = 'range-slider__input range-slider__input_left';
+        this.defaultInput.classList.add('range-slider__input');
+        this.defaultInput.classList.add('range-slider__input_left');
         this.form.append(this.defaultInput);
         this.rightInput = document.createElement('input');
         this.rightInput.type = 'range';
-        this.rightInput.classList = 'range-slider__input range-slider__input_right';
+        this.rightInput.classList.add('range-slider__input');
+        this.rightInput.classList.add('range-slider__input_right');
         this.form.append(this.rightInput);
       } else {
         this.defaultInput = document.createElement('input');
         this.defaultInput.type = 'range';
-        this.defaultInput.classList = 'range-slider__input';
+        this.defaultInput.classList.add('range-slider__input');
         this.form.append(this.defaultInput);
       }
     }
@@ -366,30 +366,30 @@ var Form = /*#__PURE__*/function () {
     key: "setInputValue",
     value: function setInputValue(value) {
       var rightValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NaN;
-      this.defaultInput.value = value;
+      this.defaultInput.value = String(value);
 
       if (this.isDouble) {
-        this.rightInput.value = rightValue;
+        this.rightInput.value = String(rightValue);
       }
     }
   }, {
     key: "setMin",
     value: function setMin() {
       var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      this.defaultInput.min = min;
+      this.defaultInput.min = String(min);
 
       if (this.isDouble) {
-        this.rightInput.min = min;
+        this.rightInput.min = String(min);
       }
     }
   }, {
     key: "setMax",
     value: function setMax() {
       var max = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 100;
-      this.defaultInput.max = max;
+      this.defaultInput.max = String(max);
 
       if (this.isDouble) {
-        this.rightInput.max = max;
+        this.rightInput.max = String(max);
       }
     }
   }]);
@@ -417,14 +417,14 @@ var Styles = /*#__PURE__*/function () {
     key: "createStyles",
     value: function createStyles() {
       this.style = document.createElement('div');
-      this.style.classList = 'range-slider__style';
+      this.style.classList.add('range-slider__style');
       this.parent.append(this.style);
     }
   }, {
     key: "createTrack",
     value: function createTrack() {
       this.track = document.createElement('div');
-      this.track.classList = 'range-slider__track';
+      this.track.classList.add('range-slider__track');
       this.style.append(this.track);
     }
   }]);
@@ -450,7 +450,7 @@ var ProgressBar = /*#__PURE__*/function () {
     key: "createProgressBar",
     value: function createProgressBar() {
       this.bar = document.createElement('div');
-      this.bar.classList = 'range-slider__progress-bar';
+      this.bar.classList.add('range-slider__progress-bar');
       this.parent.append(this.bar);
     }
   }, {
@@ -465,7 +465,7 @@ var ProgressBar = /*#__PURE__*/function () {
 
       if (!this.isDouble) {
         this.bar.style.right = 100 - percent + '%';
-        this.bar.style.left = 0;
+        this.bar.style.left = String(0);
       } else {
         this.bar.style.left = percent + '%';
         this.bar.style.right = 100 - percentRight + '%';
@@ -476,7 +476,7 @@ var ProgressBar = /*#__PURE__*/function () {
     value: function setRight(percent) {
       if (!this.isDouble) {
         this.bar.style.left = percent + '%';
-        this.bar.style.right = 0;
+        this.bar.style.right = String(0);
       }
     }
   }]);
@@ -505,10 +505,12 @@ var Thumb = /*#__PURE__*/function () {
     value: function createThumb() {
       if (this.isDouble) {
         this.thumbDefault = document.createElement('div');
-        this.thumbDefault.classList = 'range-slider__thumb range-slider__thumb_left';
+        this.thumbDefault.classList.add('range-slider__thumb');
+        this.thumbDefault.classList.add('range-slider__thumb_left');
         this.parent.append(this.thumbDefault);
         this.thumbRight = document.createElement('div');
-        this.thumbRight.classList = 'range-slider__thumb range-slider__thumb_right';
+        this.thumbRight.classList.add('range-slider__thumb');
+        this.thumbRight.classList.add('range-slider__thumb_right');
         this.parent.append(this.thumbRight);
       } else {
         this.thumbDefault = document.createElement('div');

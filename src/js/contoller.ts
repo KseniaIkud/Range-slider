@@ -27,20 +27,20 @@ thumb.createThumb()
 
 // events
 
-const eventInput = function () {
+const eventInput = function (): void {
     
     form.setInputValue(model.defaultValue, model.rightValue)
 
-    const placeDefault = progressBar.calcPercent(
-        form.defaultInput.value, 
-        form.defaultInput.min, 
-        form.defaultInput.max)
+    const placeDefault: number = progressBar.calcPercent(
+        Number(form.defaultInput.value), 
+        Number(form.defaultInput.min), 
+        Number(form.defaultInput.max))
 
     const placeRight: number = form.rightInput ? 
         progressBar.calcPercent(
-            form.rightInput.value, 
-            form.rightInput.min, 
-            form.rightInput.max) 
+            Number(form.rightInput.value), 
+            Number(form.rightInput.min), 
+            Number(form.rightInput.max)) 
             : NaN 
         
     
@@ -55,12 +55,12 @@ const eventInput = function () {
 eventInput()
 
 form.defaultInput.addEventListener('input', function() {
-    model.defaultValue = form.defaultInput.value
+    model.defaultValue = Number(form.defaultInput.value)
     eventInput()
 })
 if (model.isRange) {
     form.rightInput.addEventListener('input', function() {
-        model.rightValue = form.rightInput.value
+        model.rightValue = Number(form.rightInput.value)
         eventInput()
     })
 }

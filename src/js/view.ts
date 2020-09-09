@@ -12,9 +12,9 @@ class Form {
     
     isDouble: boolean
     parent: Element
-    form: any
-    defaultInput: any
-    rightInput: any
+    form: HTMLDivElement
+    defaultInput: HTMLInputElement
+    rightInput: HTMLInputElement
 
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
@@ -23,7 +23,7 @@ class Form {
     
     createForm(): void {
         this.form = document.createElement('div')
-        this.form.classList = 'range-slider__form'
+        this.form.classList.add('range-slider__form')
         this.parent.append(this.form)
     }
     
@@ -31,37 +31,39 @@ class Form {
         if (this.isDouble) {
             this.defaultInput = document.createElement('input')
             this.defaultInput.type = 'range'
-            this.defaultInput.classList = 'range-slider__input range-slider__input_left'
+            this.defaultInput.classList.add('range-slider__input') 
+            this.defaultInput.classList.add('range-slider__input_left')
             this.form.append(this.defaultInput)
             
             this.rightInput = document.createElement('input')
             this.rightInput.type = 'range'
-            this.rightInput.classList = 'range-slider__input range-slider__input_right'
+            this.rightInput.classList.add('range-slider__input')
+            this.rightInput.classList.add('range-slider__input_right')
             this.form.append(this.rightInput)
 
         } else {
             this.defaultInput = document.createElement('input')
             this.defaultInput.type = 'range'
-            this.defaultInput.classList = 'range-slider__input'
+            this.defaultInput.classList.add('range-slider__input')
             this.form.append(this.defaultInput)
         }
     }
     setInputValue(value: number, rightValue: number = NaN): void {
-        this.defaultInput.value = value
+        this.defaultInput.value = String(value)
         if (this.isDouble) {   
-            this.rightInput.value = rightValue
+            this.rightInput.value = String(rightValue)
         }
     }
     setMin(min: number = 0): void {
-        this.defaultInput.min = min
+        this.defaultInput.min = String(min)
         if (this.isDouble) {
-            this.rightInput.min = min
+            this.rightInput.min = String(min)
         }
     }
     setMax(max: number = 100): void {
-        this.defaultInput.max = max
+        this.defaultInput.max = String(max)
         if (this.isDouble) {
-            this.rightInput.max = max
+            this.rightInput.max = String(max)
         }
     }
 }
@@ -69,8 +71,8 @@ class Form {
 class Styles {
     isDouble: boolean
     parent: Element
-    style: any
-    track: any
+    style: HTMLDivElement
+    track: HTMLDivElement
 
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
@@ -79,13 +81,13 @@ class Styles {
     
     createStyles(): void {
         this.style = document.createElement('div')
-        this.style.classList = 'range-slider__style'
+        this.style.classList.add('range-slider__style')
         this.parent.append(this.style)
     }
     
     createTrack(): void {
         this.track = document.createElement('div')
-        this.track.classList = 'range-slider__track'
+        this.track.classList.add('range-slider__track')
         this.style.append(this.track)
     }
 }
@@ -93,14 +95,14 @@ class Styles {
 class ProgressBar {
     isDouble: boolean
     parent: Element
-    bar: any
+    bar: HTMLDivElement
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
         this.parent = options.parent ? options.parent : document.querySelector('.range-slider__style')
     }
     createProgressBar(): void {
         this.bar = document.createElement('div')
-        this.bar.classList = 'range-slider__progress-bar'
+        this.bar.classList.add('range-slider__progress-bar')
         this.parent.append(this.bar)
     }
     calcPercent(value: number, min: number, max: number): number {
@@ -109,7 +111,7 @@ class ProgressBar {
     setDefault(percent: number, percentRight: number = NaN): void {
         if (!this.isDouble) {
             this.bar.style.right = (100 - percent) + '%'
-            this.bar.style.left = 0
+            this.bar.style.left = String(0)
         } else {
             this.bar.style.left = percent + '%'
             this.bar.style.right = (100 - percentRight) + '%'
@@ -118,7 +120,7 @@ class ProgressBar {
     setRight(percent: number): void {
         if (!this.isDouble) {
             this.bar.style.left = percent + '%'
-            this.bar.style.right = 0
+            this.bar.style.right = String(0)
         }
     }
 }
@@ -126,8 +128,8 @@ class ProgressBar {
 class Thumb {
     isDouble: boolean
     parent: Element
-    thumbDefault: any
-    thumbRight: any
+    thumbDefault: HTMLDivElement
+    thumbRight: HTMLDivElement
 
     constructor(options: IOptions) {
         this.isDouble = options.isDouble
@@ -136,11 +138,13 @@ class Thumb {
     createThumb() {
         if(this.isDouble) {
             this.thumbDefault = document.createElement('div')
-            this.thumbDefault.classList = 'range-slider__thumb range-slider__thumb_left'
+            this.thumbDefault.classList.add('range-slider__thumb')
+            this.thumbDefault.classList.add('range-slider__thumb_left')
             this.parent.append(this.thumbDefault)
 
             this.thumbRight = document.createElement('div')
-            this.thumbRight.classList = 'range-slider__thumb range-slider__thumb_right'
+            this.thumbRight.classList.add('range-slider__thumb')
+            this.thumbRight.classList.add('range-slider__thumb_right')
             this.parent.append(this.thumbRight)
         } else {
             this.thumbDefault = document.createElement('div')
