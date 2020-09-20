@@ -16,7 +16,7 @@ class Controller {
         this.view.init()
         this.model.init()  
     }
-    update(option: string) {
+    updateModel(option: string) {
         if (option === 'default') {
             this.model.defaultValue = Number(this.view.form.defaultInput.value)
         }

@@ -9,7 +9,7 @@ interface IData {
     rightProgressBar: boolean
 }
 interface IObserver {
-    update(arg0: string): void
+    updateModel(arg0: string): void
 }
 
 class View {
@@ -102,14 +102,14 @@ class View {
             this.options.defaultValue = Number(this.form.defaultInput.value)
             this.setInput()
             this.observers.forEach(observer => {
-                observer.update('default')
+                observer.updateModel('default')
             })
         })
         this.form.rightInput.addEventListener('input', () => {
             this.options.rightValue = Number(this.form.rightInput.value)
             this.setInput()
             this.observers.forEach(observer => {
-                observer.update('default')
+                observer.updateModel('right')
             })
         })
         
