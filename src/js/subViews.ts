@@ -2,11 +2,11 @@ const rangeSlider: HTMLDivElement = document.querySelector('.range-slider') as H
 //querySelectorAll and forEach are needed for independence
 
 
+
 interface IOptions {
-    isDouble: boolean
+    isDouble?: boolean
     parent?: HTMLDivElement
 }
-
 
 class Form {
     
@@ -17,7 +17,7 @@ class Form {
     rightInput!: HTMLInputElement
 
     constructor(options: IOptions) {
-        this.isDouble = options.isDouble
+        this.isDouble = options.isDouble ? options.isDouble : false
         this.parent = options.parent ? options.parent : rangeSlider
     }
     
@@ -75,7 +75,7 @@ class Styles {
     track!: HTMLDivElement
 
     constructor(options: IOptions) {
-        this.isDouble = options.isDouble
+        this.isDouble = options.isDouble ? options.isDouble : false
         this.parent = options.parent ? options.parent : rangeSlider
     }
     
@@ -97,7 +97,7 @@ class ProgressBar {
     parent: HTMLDivElement
     bar!: HTMLDivElement
     constructor(options: IOptions) {
-        this.isDouble = options.isDouble
+        this.isDouble = options.isDouble ? options.isDouble : false
         this.parent = document.querySelector('.range-slider__style') as HTMLDivElement
     }
     createProgressBar(): void {
@@ -132,7 +132,7 @@ class Thumb {
     thumbRight!: HTMLDivElement
 
     constructor(options: IOptions) {
-        this.isDouble = options.isDouble
+        this.isDouble = options.isDouble ? options.isDouble : false
         this.parent = document.querySelector('.range-slider__style') as HTMLDivElement
     }
     createThumb() {

@@ -3,6 +3,7 @@
 import './main.scss'
 
 import './js/model'
-import './js/view'
+import './js/subViews'
 import './js/contoller'
+import './js/mainView'
 
