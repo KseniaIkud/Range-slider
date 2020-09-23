@@ -42,7 +42,6 @@ class View {
         this.observers.push(observer)
     }
     init = () => {
-        
 
         this.form.isDouble = this.options.isRange
         this.styles.isDouble = this.options.isRange
@@ -65,10 +64,8 @@ class View {
 
         this.setInput()
         this.eventInput()
-
-        
-        
-    } // надо разбить по сабвьюям, а здесь только их методы вызывать
+  
+    } 
 
     setInput = () => {
         this.form.setInputValue(this.options.defaultValue, this.options.rightValue)
@@ -105,14 +102,15 @@ class View {
                 observer.updateModel('default')
             })
         })
-        this.form.rightInput.addEventListener('input', () => {
-            this.options.rightValue = Number(this.form.rightInput.value)
-            this.setInput()
-            this.observers.forEach(observer => {
-                observer.updateModel('right')
+        if (this.options.isRange) {
+            this.form.rightInput.addEventListener('input', () => {
+                this.options.rightValue = Number(this.form.rightInput.value)
+                this.setInput()
+                this.observers.forEach(observer => {
+                    observer.updateModel('right')
+                })
             })
-        })
-        
+        }
     }
     
 }

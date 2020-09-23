@@ -1,5 +1,4 @@
 import {Model} from './model'
-import {Form, Styles, ProgressBar, Thumb} from './subViews'
 import {View} from './mainView'
 
 class Controller {
@@ -26,16 +25,4 @@ class Controller {
     }
 }
 
-
-// for Each parent
-
-const plugin = new Controller(
-    new Model(), 
-    new View(
-        new Form({}), 
-        new Styles({}), 
-        new ProgressBar({}), 
-        new Thumb({})
-    )
-)
-plugin
+export {Controller}

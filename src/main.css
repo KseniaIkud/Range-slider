@@ -1,0 +1,104 @@
+.range-slider {
+  position: relative;
+  max-width: 266px;
+  height: 11px;
+  margin: 100px auto;
+}
+
+.range-slider__form input[type=range] {
+  position: absolute;
+  z-index: 2;
+  height: 10px;
+  width: 100%;
+  -webkit-appearance: none;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.range-slider__form input[type=range]::-webkit-slider-thumb {
+  pointer-events: all;
+  width: 30px;
+  height: 30px;
+  border-radius: 0;
+  border: 0 none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.range-slider__form input[type=range]::-moz-range-thumb {
+  pointer-events: all;
+  width: 30px;
+  height: 30px;
+  border-radius: 0;
+  border: 0 none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.range-slider__form input[type=range]::-ms-thumb {
+  pointer-events: all;
+  width: 30px;
+  height: 30px;
+  border-radius: 0;
+  border: 0 none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.range-slider__style {
+  position: relative;
+  z-index: 1;
+  height: 6px;
+  top: 2px;
+}
+
+.range-slider__track {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  border: 1px solid rgba(31, 32, 65, 0.25);
+  background-color: #fff;
+  width: 265px;
+}
+
+.range-slider__progress-bar {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  background: -webkit-gradient(linear, left top, left bottom, from(#6FCF97), to(#66D2EA));
+  background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
+  border-radius: 3px;
+}
+
+.range-slider__thumb {
+  position: absolute;
+  z-index: 3;
+  width: 12px;
+  height: 12px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#6FCF97), to(#66D2EA));
+  background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  -webkit-transform: translate(-10px, -4.5px);
+          transform: translate(-10px, -4.5px);
+}
+
+.range-slider__thumb_left {
+  -webkit-transform: translate(-10px, -4.5px);
+          transform: translate(-10px, -4.5px);
+}
+
+.range-slider__thumb_right {
+  -webkit-transform: translate(10px, -4.5px);
+          transform: translate(10px, -4.5px);
+}
+
+.output-data {
+  margin: 50px;
+}
+/*# sourceMappingURL=main.css.map */
