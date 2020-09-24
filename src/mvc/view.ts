@@ -1,3 +1,4 @@
+import { event } from 'jquery'
 import {Form, Styles, ProgressBar, Thumb} from './subViews'
 
 interface IData {
@@ -61,6 +62,7 @@ class View {
 
         this.setInput()
         this.eventInput()
+        this.eventClick()
   
     } 
 
@@ -113,6 +115,24 @@ class View {
                     observer.updateModel('right', Number(this.form.rightInput.value))
                 })
             })
+        }
+    }
+    eventClick = () => {
+        let coords: DOMRect = this.styles.track.getBoundingClientRect()
+        let length: number = coords.right - coords.left
+        let currentPosition: number     
+        let percent: number  
+        this.styles.track.onmousedown = e => {
+            currentPosition = e.pageX - coords.left
+            percent = currentPosition/length * 100
+            this.thumb.placeThumb(this.options.isRange, percent)
+            this.progressBar.setDefault(this.options.isRange, percent)
+        }
+        this.progressBar.bar.onmousemove = e => {
+            currentPosition = e.pageX - coords.left
+            percent = currentPosition/length * 100
+            this.thumb.placeThumb(this.options.isRange, percent)
+            this.progressBar.setDefault(this.options.isRange, percent)
         }
     }
     
