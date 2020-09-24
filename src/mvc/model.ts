@@ -14,16 +14,15 @@ class Model {
     rightValue?: number
     isRange: boolean
     rightProgressBar?: boolean
-    isOutData?: boolean
+    
     dataForView: IData
-    constructor() {
-        this.min = 0
-        this.max = 100
-        this.defaultValue = 60
-        this.rightValue = 50
-        this.isRange = false
-        this.rightProgressBar = false
-        this.isOutData = false
+    constructor(options: IData) {
+        this.min = options.min ? options.min : 0
+        this.max = options.max ? options.max : 100
+        this.defaultValue = options.defaultValue ? options.defaultValue : 50
+        this.rightValue = options.rightValue ? options.rightValue : 60
+        this.isRange = options.isRange ? options.isRange : false
+        this.rightProgressBar = options.rightProgressBar ? options.rightProgressBar : false
         this.dataForView = {
             min: this.min,
             max: this.max,

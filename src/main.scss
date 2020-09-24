@@ -1,8 +1,10 @@
 .range-slider {
+
    position: relative;
    max-width: 266px;
    height: 11px;
-   margin: 100px auto;
+   margin: 40px auto;
+   
    &__form {
      input[type=range] {
         position: absolute;
