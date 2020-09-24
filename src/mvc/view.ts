@@ -8,8 +8,8 @@ interface IData {
     isRange: boolean
     rightProgressBar: boolean
 }
-interface IObserver {
-    updateModel(arg0: string): void
+interface IObserverView {
+    updateModel(arg0: string, arg1: number): void
 }
 
 class View {
@@ -21,7 +21,7 @@ class View {
     progressBar: ProgressBar
     thumb: Thumb
     options: IData
-    observers: IObserver[]
+    observers: IObserverView[]
     constructor(parent: HTMLElement, form: Form, styles: Styles, progressBar: ProgressBar, thumb: Thumb) {
         this.parent = parent
         this.form = form
@@ -41,7 +41,7 @@ class View {
 
         this.observers = []
     }
-    subscribe(observer: IObserver) {
+    subscribe(observer: IObserverView) {
         this.observers.push(observer)
     }
     init = () => {
@@ -102,7 +102,7 @@ class View {
             this.options.defaultValue = Number(this.form.defaultInput.value)
             this.setInput()
             this.observers.forEach(observer => {
-                observer.updateModel('default')
+                observer.updateModel('default', Number(this.form.defaultInput.value))
             })
         })
         if (this.options.isRange) {
@@ -110,7 +110,7 @@ class View {
                 this.options.rightValue = Number(this.form.rightInput.value)
                 this.setInput()
                 this.observers.forEach(observer => {
-                    observer.updateModel('right')
+                    observer.updateModel('right', Number(this.form.rightInput.value))
                 })
             })
         }

@@ -1,3 +1,4 @@
+
 import {Form, Styles, ProgressBar, Thumb} from './mvc/subViews.ts'
 import {View} from './mvc/view.ts'
 import {Model} from './mvc/model.ts'
@@ -37,15 +38,22 @@ import {Controller} from './mvc/controller'
 })(jQuery)
 
 $('#first-range-slider').rangeSlider({
-    isRange: true
+    isRange: true,
+    leftValue: 10,
+    rightValue: 60
 })
 $('#second-range-slider').rangeSlider({
-    rightProgressBar: true,
-    initialValue: 10
+    isRange: true,
+    leftValue: 40,
+    rightValue: 70
 })
 $('#third-range-slider').rangeSlider({
-    min: 10,
+    min: 0,
     max: 30,
     initialValue: 20,
+    rightProgressBar: true
 })
-
+$('#forth-range-slider').rangeSlider({
+    initialValue: 20,
+    rightProgressBar: false
+})

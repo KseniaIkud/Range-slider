@@ -12,16 +12,20 @@ class Controller {
     }
     init = () => {
         this.view.subscribe(this)
+        this.model.subscribe(this)
         this.view.init()
-        this.model.init()  
     }
-    updateModel(option: string) {
-        if (option === 'default') {
-            this.model.defaultValue = Number(this.view.form.defaultInput.value)
+    updateModel(option: string, newValue: number) {
+        if (this.model.isRange) {
+            this.model.limitToggle(option, newValue)
+        } else {
+            this.model.defaultValue = newValue
         }
-        if (option === 'right') {
-            this.model.rightValue = Number(this.view.form.rightInput.value)
-        }
+    }
+    updateView() {
+        this.view.options.defaultValue = this.model.defaultValue
+        this.view.options.rightValue = this.model.rightValue
+        this.view.setInput()
     }
 }
 
