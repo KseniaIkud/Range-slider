@@ -40,7 +40,8 @@ $('#first-range-slider').rangeSlider({
     isRange: true
 })
 $('#second-range-slider').rangeSlider({
-    rightProgressBar: true
+    rightProgressBar: true,
+    initialValue: 10
 })
 $('#third-range-slider').rangeSlider({
     min: 10,
