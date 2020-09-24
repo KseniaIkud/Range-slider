@@ -1,34 +1,23 @@
-const rangeSlider: HTMLDivElement = document.querySelector('.range-slider') as HTMLDivElement
-//querySelectorAll and forEach are needed for independence
-
-
-
-interface IOptions {
-    isDouble?: boolean
-    parent?: HTMLDivElement
-}
-
 class Form {
-    
-    isDouble: boolean
-    parent: HTMLDivElement
     form!: HTMLDivElement
     defaultInput!: HTMLInputElement
     rightInput!: HTMLInputElement
 
-    constructor(options: IOptions) {
-        this.isDouble = options.isDouble ? options.isDouble : false
-        this.parent = options.parent ? options.parent : rangeSlider
+    init(parent: HTMLDivElement, isDouble: boolean, min: number, max: number): void {
+        this.createForm(parent)
+        this.createInput(isDouble)
+        this.setMin(isDouble, min)
+        this.setMax(isDouble, max)
     }
-    
-    createForm(): void {
+
+    createForm(parent: HTMLDivElement): void {
         this.form = <HTMLDivElement>(document.createElement('div'))
         this.form.classList.add('range-slider__form')
-        this.parent.append(this.form)
+        parent.append(this.form)
     }
     
-    createInput(): void {
-        if (this.isDouble) {
+    createInput(isDouble: boolean): void {
+        if (isDouble) {
             this.defaultInput = document.createElement('input')
             this.defaultInput.type = 'range'
             this.defaultInput.classList.add('range-slider__input') 
@@ -48,41 +37,39 @@ class Form {
             this.form.append(this.defaultInput)
         }
     }
-    setInputValue(value: number, rightValue: number = NaN): void {
+    setInputValue(isDouble: boolean, value: number, rightValue: number = NaN): void {
         this.defaultInput.value = String(value)
-        if (this.isDouble) {   
+        if (isDouble) {   
             this.rightInput.value = String(rightValue)
         }
     }
-    setMin(min: number = 0): void {
+    setMin(isDouble: boolean, min: number): void {
         this.defaultInput.min = String(min)
-        if (this.isDouble) {
+        if (isDouble) {
             this.rightInput.min = String(min)
         }
     }
-    setMax(max: number = 100): void {
+    setMax(isDouble: boolean, max: number = 100): void {
         this.defaultInput.max = String(max)
-        if (this.isDouble) {
+        if (isDouble) {
             this.rightInput.max = String(max)
         }
     }
 }
 
 class Styles {
-    isDouble: boolean
-    parent: HTMLDivElement
     style!: HTMLDivElement
     track!: HTMLDivElement
 
-    constructor(options: IOptions) {
-        this.isDouble = options.isDouble ? options.isDouble : false
-        this.parent = options.parent ? options.parent : rangeSlider
+    init(parent: HTMLDivElement) {
+        this.createStyles(parent)
+        this.createTrack()
     }
     
-    createStyles(): void {
+    createStyles(parent: HTMLDivElement): void {
         this.style = document.createElement('div')
         this.style.classList.add('range-slider__style')
-        this.parent.append(this.style)
+        parent.append(this.style)
     }
     
     createTrack(): void {
@@ -93,32 +80,26 @@ class Styles {
 }
 
 class ProgressBar {
-    isDouble: boolean
-    parent: HTMLDivElement
     bar!: HTMLDivElement
-    constructor(options: IOptions) {
-        this.isDouble = options.isDouble ? options.isDouble : false
-        this.parent = document.querySelector('.range-slider__style') as HTMLDivElement
-    }
-    createProgressBar(): void {
+    createProgressBar(parent: HTMLDivElement): void {
         this.bar = document.createElement('div')
         this.bar.classList.add('range-slider__progress-bar')
-        this.parent.append(this.bar)
+        parent.append(this.bar)
     }
     calcPercent(value: number, min: number, max: number): number {
         return ((value - min) / (max - min)) * 100
     }
-    setDefault(percent: number, percentRight: number = NaN): void {
-        if (!this.isDouble) {
-            this.bar.style.right = (100 - percent) + '%'
-            this.bar.style.left = String(0)
-        } else {
+    setDefault(isDouble: boolean, percent: number, percentRight: number = NaN): void {
+        if (isDouble) {
             this.bar.style.left = percent + '%'
             this.bar.style.right = (100 - percentRight) + '%'
+        } else {
+            this.bar.style.right = (100 - percent) + '%'
+            this.bar.style.left = String(0)
         }
     }
-    setRight(percent: number): void {
-        if (!this.isDouble) {
+    setRight(isDouble: boolean, percent: number): void {
+        if (!isDouble) {
             this.bar.style.left = percent + '%'
             this.bar.style.right = String(0)
         }
@@ -126,35 +107,30 @@ class ProgressBar {
 }
 
 class Thumb {
-    isDouble: boolean
-    parent: HTMLDivElement
+
     thumbDefault!: HTMLDivElement
     thumbRight!: HTMLDivElement
 
-    constructor(options: IOptions) {
-        this.isDouble = options.isDouble ? options.isDouble : false
-        this.parent = document.querySelector('.range-slider__style') as HTMLDivElement
-    }
-    createThumb() {
-        if(this.isDouble) {
+    createThumb(parent: HTMLDivElement, isDouble: boolean) {
+        if(isDouble) {
             this.thumbDefault = document.createElement('div')
             this.thumbDefault.classList.add('range-slider__thumb')
             this.thumbDefault.classList.add('range-slider__thumb_left')
-            this.parent.append(this.thumbDefault)
+            parent.append(this.thumbDefault)
 
             this.thumbRight = document.createElement('div')
             this.thumbRight.classList.add('range-slider__thumb')
             this.thumbRight.classList.add('range-slider__thumb_right')
-            this.parent.append(this.thumbRight)
+            parent.append(this.thumbRight)
         } else {
             this.thumbDefault = document.createElement('div')
             this.thumbDefault.className = 'range-slider__thumb'
-            this.parent.append(this.thumbDefault)
+            parent.append(this.thumbDefault)
         }
     }
-    placeThumb(percent: number, percentRight: number = NaN): void {
+    placeThumb(isDouble: boolean, percent: number, percentRight: number = NaN): void {
         this.thumbDefault.style.left = percent + '%'
-        if (this.isDouble) {
+        if (isDouble) {
             this.thumbRight.style.right = (100 - percentRight) + '%'
         }
     }

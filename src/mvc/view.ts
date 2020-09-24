@@ -13,20 +13,23 @@ interface IObserver {
 }
 
 class View {
+    parent: HTMLElement
+    wrapper!: HTMLDivElement
+
     form: Form
     styles: Styles
     progressBar: ProgressBar
     thumb: Thumb
     options: IData
     observers: IObserver[]
-    constructor(form: Form, styles: Styles, progressBar: ProgressBar, thumb: Thumb) {
+    constructor(parent: HTMLElement, form: Form, styles: Styles, progressBar: ProgressBar, thumb: Thumb) {
+        this.parent = parent
         this.form = form
         this.styles = styles
         this.progressBar = progressBar
         this.thumb = thumb
 
-        // this options are only an example, the plugin works with options from the model
-        // view gets options from model via controller
+    // default data
         this.options = {
             min: 0,
             max: 100,
@@ -42,33 +45,33 @@ class View {
         this.observers.push(observer)
     }
     init = () => {
+        this.createWrapper()
 
-        this.form.isDouble = this.options.isRange
-        this.styles.isDouble = this.options.isRange
-        this.progressBar.isDouble = this.options.isRange
-        this.thumb.isDouble = this.options.isRange
-
-        this.form.createForm()
-        this.form.createInput()
-        this.form.setMin(this.options.min)
-        this.form.setMax(this.options.max)
-
-        this.styles.createStyles()
-        this.styles.createTrack()
-
-        this.progressBar.parent = this.styles.style
-        this.progressBar.createProgressBar() 
-
-        this.thumb.parent = this.styles.style
-        this.thumb.createThumb()
+        this.form.init(
+            this.wrapper, 
+            this.options.isRange, 
+            this.options.min, 
+            this.options.max
+        )
+        this.styles.init(this.wrapper)
+        this.progressBar.createProgressBar(this.styles.style)
+        this.thumb.createThumb(this.styles.style, this.options.isRange)
+        
+        
 
         this.setInput()
         this.eventInput()
   
     } 
 
+    createWrapper = () => {
+        this.wrapper = document.createElement('div')
+        this.wrapper.classList.add('range-slider')
+        this.parent.append(this.wrapper)
+    }
+
     setInput = () => {
-        this.form.setInputValue(this.options.defaultValue, this.options.rightValue)
+        this.form.setInputValue(this.options.isRange, this.options.defaultValue, this.options.rightValue)
         
         const placeDefault: number = this.progressBar.calcPercent(
                     Number(this.form.defaultInput.value), 
@@ -84,13 +87,13 @@ class View {
                 : NaN 
         
         
-        this.progressBar.setDefault(placeDefault, placeRight)
+        this.progressBar.setDefault(this.options.isRange, placeDefault, placeRight)
         
         if (this.options.rightProgressBar) { 
-            this.progressBar.setRight(placeDefault) 
+            this.progressBar.setRight(this.options.isRange, placeDefault) 
         }
 
-        this.thumb.placeThumb(placeDefault, placeRight)
+        this.thumb.placeThumb(this.options.isRange, placeDefault, placeRight)
 
         
     }

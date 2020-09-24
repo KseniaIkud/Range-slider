@@ -19,10 +19,10 @@ class Model {
     constructor() {
         this.min = 0
         this.max = 100
-        this.defaultValue = 10
+        this.defaultValue = 60
         this.rightValue = 50
-        this.isRange = true
-        this.rightProgressBar = true
+        this.isRange = false
+        this.rightProgressBar = false
         this.isOutData = false
         this.dataForView = {
             min: this.min,

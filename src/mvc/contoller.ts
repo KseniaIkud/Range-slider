@@ -1,5 +1,5 @@
 import {Model} from './model'
-import {View} from './mainView'
+import {View} from './view'
 
 class Controller {
     model: Model
