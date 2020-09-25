@@ -123,19 +123,45 @@ class View {
         }
     }
     eventClick(elem: MouseEvent) {
-        let coords: DOMRect = this.styles.track.getBoundingClientRect()
-        let length: number = coords.right - coords.left
-        let currentPosition: number = elem.pageX - coords.left
-        let percent: number = currentPosition/length * 100
-        let newValue: number
+        const coords: DOMRect = this.styles.track.getBoundingClientRect()
+        const length: number = coords.right - coords.left
+        const currentPosition: number = elem.pageX - coords.left
+        const percent: number = currentPosition/length * 100
 
-        this.thumb.placeThumb(this.options.isRange, percent)
-        this.progressBar.setDefault(this.options.isRange, percent)
-        newValue = this.calcValue(percent)
-        this.form.defaultInput.value = String(newValue)
-        this.observers.forEach(observer => {
-            observer.updateModel('default', newValue)
-        })
+        const placeDefault: number = this.progressBar.calcPercent(
+            Number(this.form.defaultInput.value), 
+            Number(this.form.defaultInput.min), 
+            Number(this.form.defaultInput.max))
+        
+        
+        
+        const newValue: number = this.calcValue(percent)
+        if(this.options.isRange && newValue > this.options.rightValue) {
+            this.form.rightInput.value = String(newValue)
+            this.options.rightValue = newValue
+            this.thumb.placeThumb(this.options.isRange, placeDefault, percent)
+
+            this.progressBar.setDefault(this.options.isRange, placeDefault, percent)
+
+            this.observers.forEach(observer => {
+                observer.updateModel('right', newValue)
+            })
+
+        } else {
+            this.form.defaultInput.value = String(newValue)
+            this.options.defaultValue = newValue
+            this.thumb.placeThumb(this.options.isRange, percent)
+            
+            if (this.options.rightProgressBar) {
+                this.progressBar.setRight(this.options.isRange, percent)
+            } else {
+                this.progressBar.setDefault(this.options.isRange, percent)
+            }
+
+            this.observers.forEach(observer => {
+                observer.updateModel('default', newValue)
+            })
+        }
     }
     calcValue(percent: number, 
         min: number = this.options.min, 
@@ -143,6 +169,7 @@ class View {
             let diapason: number = max - min
             return Math.round(diapason - (max - ((diapason) * percent) / 100))
     }
+    
     
     
 }
