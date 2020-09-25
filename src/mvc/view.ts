@@ -47,7 +47,7 @@ class View {
     }
     init = () => {
         this.createWrapper()
-
+        
         this.form.init(
             this.wrapper, 
             this.options.isRange, 
@@ -133,12 +133,16 @@ class View {
             Number(this.form.defaultInput.min), 
             Number(this.form.defaultInput.max))
         
-        
-        
         const newValue: number = this.calcValue(percent)
-        if(this.options.isRange && newValue > this.options.rightValue) {
+        const halfOfBar: number = (this.options.rightValue + this.options.defaultValue) / 2
+    
+        const isRightTrack: boolean = this.options.isRange && newValue > this.options.rightValue
+        const isRightBar = this.options.isRange && newValue > halfOfBar
+
+        if(isRightTrack || isRightBar) {
             this.form.rightInput.value = String(newValue)
             this.options.rightValue = newValue
+            
             this.thumb.placeThumb(this.options.isRange, placeDefault, percent)
 
             this.progressBar.setDefault(this.options.isRange, placeDefault, percent)
@@ -150,6 +154,7 @@ class View {
         } else {
             this.form.defaultInput.value = String(newValue)
             this.options.defaultValue = newValue
+            
             this.thumb.placeThumb(this.options.isRange, percent)
             
             if (this.options.rightProgressBar) {
