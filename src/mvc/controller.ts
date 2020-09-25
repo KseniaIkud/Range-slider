@@ -21,6 +21,7 @@ class Controller {
         } else {
             this.model.defaultValue = newValue
         }
+        console.log(this.model.defaultValue)
     }
     updateView() {
         this.view.options.defaultValue = this.model.defaultValue

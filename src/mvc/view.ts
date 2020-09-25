@@ -1,4 +1,4 @@
-import { event } from 'jquery'
+
 import {Form, Styles, ProgressBar, Thumb} from './subViews'
 
 interface IData {
@@ -62,7 +62,12 @@ class View {
 
         this.setInput()
         this.eventInput()
-        this.eventClick()
+        this.progressBar.bar.onmousedown = elem => {
+            this.eventClick(elem)
+        }
+        this.styles.track.onmousedown = elem => {
+            this.eventClick(elem)
+        }
   
     } 
 
@@ -117,24 +122,28 @@ class View {
             })
         }
     }
-    eventClick = () => {
+    eventClick(elem: MouseEvent) {
         let coords: DOMRect = this.styles.track.getBoundingClientRect()
         let length: number = coords.right - coords.left
-        let currentPosition: number     
-        let percent: number  
-        this.styles.track.onmousedown = e => {
-            currentPosition = e.pageX - coords.left
-            percent = currentPosition/length * 100
-            this.thumb.placeThumb(this.options.isRange, percent)
-            this.progressBar.setDefault(this.options.isRange, percent)
-        }
-        this.progressBar.bar.onmousemove = e => {
-            currentPosition = e.pageX - coords.left
-            percent = currentPosition/length * 100
-            this.thumb.placeThumb(this.options.isRange, percent)
-            this.progressBar.setDefault(this.options.isRange, percent)
-        }
+        let currentPosition: number = elem.pageX - coords.left
+        let percent: number = currentPosition/length * 100
+        let newValue: number
+
+        this.thumb.placeThumb(this.options.isRange, percent)
+        this.progressBar.setDefault(this.options.isRange, percent)
+        newValue = this.calcValue(percent)
+        this.form.defaultInput.value = String(newValue)
+        this.observers.forEach(observer => {
+            observer.updateModel('default', newValue)
+        })
     }
+    calcValue(percent: number, 
+        min: number = this.options.min, 
+        max: number = this.options.max): number {
+            let diapason: number = max - min
+            return Math.round(diapason - (max - ((diapason) * percent) / 100))
+    }
+    
     
 }
 
