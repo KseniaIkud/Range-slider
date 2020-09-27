@@ -8,6 +8,7 @@ interface IData {
     rightValue: number
     isRange: boolean
     rightProgressBar: boolean
+    overThumbElement: boolean
 }
 interface IObserverView {
     updateModel(arg0: string, arg1: number): void
@@ -37,7 +38,8 @@ class View {
             defaultValue: 10,
             rightValue: 50,
             isRange: true,
-            rightProgressBar: false
+            rightProgressBar: false,
+            overThumbElement: true
         }
 
         this.observers = []
@@ -56,11 +58,17 @@ class View {
         )
         this.styles.init(this.wrapper)
         this.progressBar.createProgressBar(this.styles.style)
-        this.thumb.createThumb(this.styles.style, this.options.isRange)
-        
+        this.thumb.init(
+            this.styles.style,
+            this.options.isRange,
+            this.options.overThumbElement,
+            this.options.defaultValue,
+            this.options.rightValue
+        )
         
 
         this.setInput()
+        
         this.eventInput()
         this.progressBar.bar.onmousedown = elem => {
             this.eventClick(elem)
@@ -68,7 +76,8 @@ class View {
         this.styles.track.onmousedown = elem => {
             this.eventClick(elem)
         }
-  
+        this.eventHover()
+        this.eventActive()
     } 
 
     createWrapper = () => {
@@ -108,17 +117,23 @@ class View {
         this.form.defaultInput.addEventListener('input', () => {
             this.options.defaultValue = Number(this.form.defaultInput.value)
             this.setInput()
+            
             this.observers.forEach(observer => {
                 observer.updateModel('default', Number(this.form.defaultInput.value))
             })
+            this.thumb.setThumbValue(this.options.isRange, 
+                this.options.defaultValue, this.options.rightValue)
         })
         if (this.options.isRange) {
             this.form.rightInput.addEventListener('input', () => {
                 this.options.rightValue = Number(this.form.rightInput.value)
                 this.setInput()
+                
                 this.observers.forEach(observer => {
                     observer.updateModel('right', Number(this.form.rightInput.value))
                 })
+                this.thumb.setThumbValue(this.options.isRange, 
+                    this.options.defaultValue, this.options.rightValue)
             })
         }
     }
@@ -151,6 +166,7 @@ class View {
                 observer.updateModel('right', newValue)
             })
 
+
         } else {
             this.form.defaultInput.value = String(newValue)
             this.options.defaultValue = newValue
@@ -166,6 +182,8 @@ class View {
             this.observers.forEach(observer => {
                 observer.updateModel('default', newValue)
             })
+
+            
         }
     }
     calcValue(percent: number, 
@@ -175,7 +193,56 @@ class View {
             return Math.round(diapason - (max - ((diapason) * percent) / 100))
     }
     
-    
+    eventHover = () => {
+        this.form.defaultInput.addEventListener('mouseover', () => {
+            if (this.options.overThumbElement) {
+                this.thumb.thumbOutput.classList.add('display-block')
+            }
+            this.thumb.thumbDefault.classList.add('range-slider__thumb_hover')
+        })
+        if (this.options.isRange) {
+            this.form.rightInput.addEventListener('mouseover', () => {
+                if (this.options.overThumbElement) {
+                    this.thumb.thumbOutputRight?.classList.add('display-block')
+                }
+                this.thumb.thumbRight.classList.add('range-slider__thumb_hover')
+            })
+        }
+
+        this.form.defaultInput.addEventListener('mouseout', () => {
+            if (this.options.overThumbElement) {
+                this.thumb.thumbOutput.classList.remove('display-block')
+            }
+            this.thumb.thumbDefault.classList.remove('range-slider__thumb_hover')
+        })
+        if (this.options.isRange) {
+            this.form.rightInput.addEventListener('mouseout', () => {
+                if (this.options.overThumbElement) {
+                    this.thumb.thumbOutputRight?.classList.remove('display-block')
+                }
+                this.thumb.thumbRight.classList.remove('range-slider__thumb_hover')
+            })
+        }
+    }
+    eventActive = () => {
+        this.form.defaultInput.addEventListener('mousedown', () => {
+            this.thumb.thumbDefault.classList.add('range-slider__thumb_active')
+        })
+        if (this.options.isRange) {
+            this.form.rightInput.addEventListener('mousedown', () => {
+                this.thumb.thumbRight.classList.add('range-slider__thumb_active')
+            })
+        }
+
+        this.form.defaultInput.addEventListener('mouseup', () => {
+            this.thumb.thumbDefault.classList.remove('range-slider__thumb_active')
+        })
+        if (this.options.isRange) {
+            this.form.rightInput.addEventListener('mouseup', () => {
+                this.thumb.thumbRight.classList.remove('range-slider__thumb_active')
+            })
+        }
+    }
     
 }
 

@@ -110,7 +110,21 @@ class Thumb {
 
     thumbDefault!: HTMLDivElement
     thumbRight!: HTMLDivElement
+    thumbOutput!: HTMLDivElement
+    thumbOutputRight?: HTMLDivElement
 
+    init (parent: HTMLDivElement, 
+        isDouble: boolean, 
+        toggleElement: boolean, 
+        defaultValue: number, 
+        rightValue?: number) {
+
+        this.createThumb(parent, isDouble)
+        if (toggleElement) {
+            this.createThumbElement(isDouble, this.thumbDefault, this.thumbRight)
+            this.setThumbValue(isDouble, defaultValue, rightValue)
+        }
+    }
     createThumb(parent: HTMLDivElement, isDouble: boolean) {
         if(isDouble) {
             this.thumbDefault = document.createElement('div')
@@ -122,12 +136,34 @@ class Thumb {
             this.thumbRight.classList.add('range-slider__thumb')
             this.thumbRight.classList.add('range-slider__thumb_right')
             parent.append(this.thumbRight)
+
         } else {
             this.thumbDefault = document.createElement('div')
             this.thumbDefault.className = 'range-slider__thumb'
             parent.append(this.thumbDefault)
+
+            
         }
     }
+    createThumbElement(isDouble: boolean, parent: HTMLDivElement, rightParent?: HTMLDivElement) {
+        if (isDouble) {
+            this.thumbOutputRight = document.createElement('div')
+            this.thumbOutputRight.classList.add('range-slider__value-thumb')
+            rightParent!.append(this.thumbOutputRight)
+        }
+        this.thumbOutput = document.createElement('div')
+        this.thumbOutput.className = 'range-slider__value-thumb'
+        parent.append(this.thumbOutput)
+    }
+    setThumbValue(isDouble: boolean, value: number, rightValue?: number) {
+        this.thumbOutput.textContent = String(value)
+        if (isDouble) {
+            this.thumbOutputRight!.textContent = String(rightValue)
+        }
+        
+        
+    }
+
     placeThumb(isDouble: boolean, percent: number, percentRight: number = NaN): void {
         this.thumbDefault.style.left = percent + '%'
         if (isDouble) {

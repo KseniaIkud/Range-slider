@@ -5,6 +5,7 @@ interface IData {
     rightValue: number
     isRange: boolean
     rightProgressBar: boolean
+    overThumbElement: boolean
 }
 interface IObserverModel {
     updateView(): void
@@ -17,6 +18,7 @@ class Model {
     rightValue: number
     isRange: boolean
     rightProgressBar: boolean
+    overThumbElement: boolean
     dataForView: IData
     observers: IObserverModel[]
     constructor(options: IData) {
@@ -24,8 +26,9 @@ class Model {
         this.max = options.max ? options.max : 100
         this.defaultValue = options.defaultValue ? options.defaultValue : 50
         this.rightValue = options.rightValue ? options.rightValue : 60
-        this.isRange = options.isRange ? options.isRange : false
-        this.rightProgressBar = options.rightProgressBar ? options.rightProgressBar : false
+        this.isRange = options.isRange
+        this.rightProgressBar = options.rightProgressBar
+        this.overThumbElement = options.overThumbElement
         this.observers = []
         this.dataForView = {
             min: this.min,
@@ -33,7 +36,8 @@ class Model {
             defaultValue: this.defaultValue,
             rightValue: this.rightValue,
             isRange: this.isRange,
-            rightProgressBar: this.rightProgressBar
+            rightProgressBar: this.rightProgressBar,
+            overThumbElement: this.overThumbElement
         }
     }
     subscribe(observer: IObserverModel) {
