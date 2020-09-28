@@ -202,14 +202,14 @@ class View {
     eventHover = () => {
         this.form.defaultInput.addEventListener('mouseover', () => {
             if (this.options.overThumbElement) {
-                this.thumb.thumbOutput.classList.add('display-block')
+                this.thumb.thumbOutput.classList.add('range-slider__value-thumb_big')
             }
             this.thumb.thumbDefault.classList.add('range-slider__thumb_hover')
         })
         if (this.options.isRange) {
             this.form.rightInput.addEventListener('mouseover', () => {
                 if (this.options.overThumbElement) {
-                    this.thumb.thumbOutputRight?.classList.add('display-block')
+                    this.thumb.thumbOutputRight?.classList.add('range-slider__value-thumb_big')
                 }
                 this.thumb.thumbRight.classList.add('range-slider__thumb_hover')
             })
@@ -217,14 +217,14 @@ class View {
 
         this.form.defaultInput.addEventListener('mouseout', () => {
             if (this.options.overThumbElement) {
-                this.thumb.thumbOutput.classList.remove('display-block')
+                this.thumb.thumbOutput.classList.remove('range-slider__value-thumb_big')
             }
             this.thumb.thumbDefault.classList.remove('range-slider__thumb_hover')
         })
         if (this.options.isRange) {
             this.form.rightInput.addEventListener('mouseout', () => {
                 if (this.options.overThumbElement) {
-                    this.thumb.thumbOutputRight?.classList.remove('display-block')
+                    this.thumb.thumbOutputRight?.classList.remove('range-slider__value-thumb_big')
                 }
                 this.thumb.thumbRight.classList.remove('range-slider__thumb_hover')
             })

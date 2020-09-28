@@ -53,7 +53,7 @@ $('#second-range-slider').rangeSlider({
     isRange: true,
     leftValue: 40,
     rightValue: 70,
-    overThumbElement: true
+    overThumbElement: false
 })
 $('#third-range-slider').rangeSlider({
     min: 0,

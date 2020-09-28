@@ -71,7 +71,9 @@ class Model {
             
                 if (newValue > this.defaultValue) {
                     this.limitStep(newValue, 'right')
+                    
                 } else {
+                    console.log('алярма')
                     this.observers.forEach(observer => {
                         observer.updateView()
                     })
