@@ -16,11 +16,7 @@ class Controller {
         this.view.init()
     }
     updateModel(option: string, newValue: number) {
-        if (this.model.isRange) {
-            this.model.limitToggle(option, newValue)
-        } else {
-            this.model.defaultValue = newValue
-        }
+        this.model.update(option, newValue)
     }
     updateView() {
         this.view.options.defaultValue = this.model.defaultValue

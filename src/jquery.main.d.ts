@@ -16,6 +16,7 @@ import {Controller} from './mvc/controller'
         isRange?: boolean
         rightProgressBar?: boolean
         overThumbElement?: boolean
+        step?: number
     }) {
         const plugin = new Controller(
             new Model({
@@ -25,7 +26,8 @@ import {Controller} from './mvc/controller'
                 rightValue: settings.rightValue,
                 isRange: settings.isRange,
                 rightProgressBar: settings.rightProgressBar,
-                overThumbElement: settings.overThumbElement
+                overThumbElement: settings.overThumbElement,
+                step: settings.step
             }), 
             new View( 
                 this,
@@ -39,11 +41,13 @@ import {Controller} from './mvc/controller'
     }
 })(jQuery)
 
+
 $('#first-range-slider').rangeSlider({
     isRange: true,
-    leftValue: 10,
+    leftValue: 15,
     rightValue: 60,
-    overThumbElement: true
+    overThumbElement: true,
+    step: 3
 })
 $('#second-range-slider').rangeSlider({
     isRange: true,
@@ -61,5 +65,6 @@ $('#third-range-slider').rangeSlider({
 $('#forth-range-slider').rangeSlider({
     initialValue: 20,
     rightProgressBar: false,
-    overThumbElement: true
+    overThumbElement: true,
+    step: 10
 })

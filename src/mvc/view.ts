@@ -166,6 +166,8 @@ class View {
                 observer.updateModel('right', newValue)
             })
 
+            this.thumb.setThumbValue(this.options.isRange, 
+                this.options.defaultValue, this.options.rightValue)
 
         } else {
             this.form.defaultInput.value = String(newValue)
@@ -179,10 +181,14 @@ class View {
                 this.progressBar.setDefault(this.options.isRange, percent)
             }
 
+            
+
             this.observers.forEach(observer => {
                 observer.updateModel('default', newValue)
             })
 
+            this.thumb.setThumbValue(this.options.isRange, 
+                this.options.defaultValue, this.options.rightValue)
             
         }
     }

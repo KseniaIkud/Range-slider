@@ -6,6 +6,7 @@ interface IData {
     isRange: boolean
     rightProgressBar: boolean
     overThumbElement: boolean
+    step?: number
 }
 interface IObserverModel {
     updateView(): void
@@ -20,6 +21,7 @@ class Model {
     rightProgressBar: boolean
     overThumbElement: boolean
     dataForView: IData
+    step: number
     observers: IObserverModel[]
     constructor(options: IData) {
         this.min = options.min ? options.min : 0
@@ -29,6 +31,7 @@ class Model {
         this.isRange = options.isRange
         this.rightProgressBar = options.rightProgressBar
         this.overThumbElement = options.overThumbElement
+        this.step = options.step ? options.step : 1
         this.observers = []
         this.dataForView = {
             min: this.min,
@@ -43,12 +46,19 @@ class Model {
     subscribe(observer: IObserverModel) {
         this.observers.push(observer)
     }
+    update(option: string, newValue: number) {
+        if (this.isRange) {
+            this.limitToggle(option, newValue)
+        } else {
+            this.limitStep(newValue)
+        }
+    }
     limitToggle(option: string, newValue: number) {
         switch (option) {
+            
             case('default'):
-
                 if (newValue < this.rightValue) {
-                    this.defaultValue = newValue
+                    this.limitStep(newValue)
                 } else {
                     this.observers.forEach(observer => {
                         observer.updateView()
@@ -60,7 +70,7 @@ class Model {
             case('right'):
             
                 if (newValue > this.defaultValue) {
-                    this.rightValue = newValue
+                    this.limitStep(newValue, 'right')
                 } else {
                     this.observers.forEach(observer => {
                         observer.updateView()
@@ -69,6 +79,45 @@ class Model {
             
         }
         
+    }
+    limitStep(newValue: number, option: string = 'default') {
+
+        switch(option) {
+            case('default'): 
+            if(newValue % this.step === 0) {
+                this.defaultValue = newValue
+                
+            } else {
+                this.defaultValue = this.calcNearest(newValue)
+                this.observers.forEach(observer => {
+                    observer.updateView()
+                })
+                
+            }
+            break
+
+
+            case('right'):
+            if(newValue % this.step === 0) {
+                this.rightValue = newValue
+                
+            } else {
+                this.rightValue = this.calcNearest(newValue)
+                this.observers.forEach(observer => {
+                    observer.updateView()
+                })
+            }
+
+            break
+        }
+
+    }
+    calcNearest(newValue: number): number {
+        let roundToMin = newValue - (newValue % this.step)
+        if ((newValue % this.step) > (this.step / 2)) {
+            return this.step + roundToMin
+        }
+        return roundToMin
     }
 }
 
