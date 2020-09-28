@@ -6,6 +6,7 @@ interface IData {
     isRange: boolean
     rightProgressBar: boolean
     overThumbElement: boolean
+    isVertical: boolean
     step?: number
 }
 interface IObserverModel {
@@ -22,6 +23,7 @@ class Model {
     overThumbElement: boolean
     dataForView: IData
     step: number
+    isVertical: boolean
     observers: IObserverModel[]
     constructor(options: IData) {
         this.min = options.min ? options.min : 0
@@ -32,6 +34,7 @@ class Model {
         this.rightProgressBar = options.rightProgressBar
         this.overThumbElement = options.overThumbElement
         this.step = options.step ? options.step : 1
+        this.isVertical = options.isVertical
         this.observers = []
         this.dataForView = {
             min: this.min,
@@ -40,7 +43,8 @@ class Model {
             rightValue: this.rightValue,
             isRange: this.isRange,
             rightProgressBar: this.rightProgressBar,
-            overThumbElement: this.overThumbElement
+            overThumbElement: this.overThumbElement,
+            isVertical: this.isVertical
         }
     }
     subscribe(observer: IObserverModel) {

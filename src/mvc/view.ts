@@ -9,6 +9,7 @@ interface IData {
     isRange: boolean
     rightProgressBar: boolean
     overThumbElement: boolean
+    isVertical: boolean
 }
 interface IObserverView {
     updateModel(arg0: string, arg1: number): void
@@ -39,7 +40,8 @@ class View {
             rightValue: 50,
             isRange: true,
             rightProgressBar: false,
-            overThumbElement: true
+            overThumbElement: true,
+            isVertical: false
         }
 
         this.observers = []
@@ -78,6 +80,11 @@ class View {
         }
         this.eventHover()
         this.eventActive()
+        if(this.options.isVertical) {
+            this.wrapper.classList.add('range-slider_vertical')
+            this.thumb.thumbOutput.classList.add('range-slider__value-thumb_vertical')
+            this.thumb.thumbOutputRight?.classList.add('range-slider__value-thumb_Vertical')
+        }
     } 
 
     createWrapper = () => {
@@ -137,7 +144,7 @@ class View {
             })
         }
     }
-    eventClick(elem: MouseEvent) {
+    eventClick(elem: MouseEvent) { // for vertical slider it works different
         const coords: DOMRect = this.styles.track.getBoundingClientRect()
         const length: number = coords.right - coords.left
         const currentPosition: number = elem.pageX - coords.left

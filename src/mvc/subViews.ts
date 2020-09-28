@@ -147,11 +147,11 @@ class Thumb {
     }
     createThumbElement(isDouble: boolean, parent: HTMLDivElement, rightParent?: HTMLDivElement) {
         if (isDouble) {
-            this.thumbOutputRight = document.createElement('div')
+            this.thumbOutputRight = document.createElement('p')
             this.thumbOutputRight.classList.add('range-slider__value-thumb')
             rightParent!.append(this.thumbOutputRight)
         }
-        this.thumbOutput = document.createElement('div')
+        this.thumbOutput = document.createElement('p')
         this.thumbOutput.className = 'range-slider__value-thumb'
         parent.append(this.thumbOutput)
     }
