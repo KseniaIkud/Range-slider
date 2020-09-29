@@ -83,7 +83,7 @@ class View {
         if(this.options.isVertical) {
             this.wrapper.classList.add('range-slider_vertical')
             this.thumb.thumbOutput.classList.add('range-slider__value-thumb_vertical')
-            this.thumb.thumbOutputRight?.classList.add('range-slider__value-thumb_Vertical')
+            this.thumb.thumbOutputRight?.classList.add('range-slider__value-thumb_vertical')
         }
     } 
 
@@ -146,9 +146,20 @@ class View {
     }
     eventClick(elem: MouseEvent) { // for vertical slider it works different
         const coords: DOMRect = this.styles.track.getBoundingClientRect()
-        const length: number = coords.right - coords.left
-        const currentPosition: number = elem.pageX - coords.left
-        const percent: number = currentPosition/length * 100
+        let length: number = coords.right - coords.left
+        let currentPosition: number = elem.pageX - coords.left
+        let percent: number
+
+        if (this.options.isVertical) {
+            currentPosition = elem.pageY - coords.top
+            length = coords.bottom - coords.top
+            if (length < currentPosition) {
+                currentPosition = length
+            }
+        }
+        
+        
+        percent = currentPosition/length * 100
 
         const placeDefault: number = this.progressBar.calcPercent(
             Number(this.form.defaultInput.value), 
@@ -173,8 +184,11 @@ class View {
                 observer.updateModel('right', newValue)
             })
 
+            
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
+            
+            
 
         } else {
             this.form.defaultInput.value = String(newValue)

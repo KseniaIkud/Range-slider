@@ -65,8 +65,8 @@ $('#third-range-slider').rangeSlider({
 })
 $('#forth-range-slider').rangeSlider({
     initialValue: 20,
-    isRange: true,
     overThumbElement: true,
+    isRange: true,
     step: 10,
     max: 100,
     isVertical: true
