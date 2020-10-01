@@ -8,6 +8,8 @@ interface IData {
     overThumbElement: boolean
     isVertical: boolean
     step?: number
+    isScale: boolean
+    scaleValues: number[]
 }
 interface IObserverModel {
     updateView(): void
@@ -24,6 +26,8 @@ class Model {
     dataForView: IData
     step: number
     isVertical: boolean
+    isScale: boolean
+    scaleValues: number[]
     observers: IObserverModel[]
     constructor(options: IData) {
         this.min = options.min ? options.min : 0
@@ -35,6 +39,8 @@ class Model {
         this.overThumbElement = options.overThumbElement
         this.step = options.step ? options.step : 1
         this.isVertical = options.isVertical
+        this.isScale = options.isScale
+        this.scaleValues = []
         this.observers = []
         this.dataForView = {
             min: this.min,
@@ -44,11 +50,16 @@ class Model {
             isRange: this.isRange,
             rightProgressBar: this.rightProgressBar,
             overThumbElement: this.overThumbElement,
-            isVertical: this.isVertical
+            isVertical: this.isVertical,
+            isScale: this.isScale,
+            scaleValues: this.scaleValues
         }
     }
     subscribe(observer: IObserverModel) {
         this.observers.push(observer)
+    }
+    init = () => {
+        this.setScale()
     }
     update(option: string, newValue: number) {
         if (this.isRange) {
@@ -56,6 +67,30 @@ class Model {
         } else {
             this.limitStep(newValue)
         }
+    }
+    setScale() {
+        let allValues: number[] = []
+        
+        for (let i: number = this.min; i <= this.max; i++) {
+            if (i % this.step === 0) {
+                allValues.push(i)
+            }
+        }
+        if (allValues.length <= 11) {
+            allValues.forEach(i => {
+                this.scaleValues.push(i)
+            })
+        } else {
+            let scaleStep = Math.round(allValues.length / 10)
+            for (let i: number = 0; i < allValues.length; i+=scaleStep) {
+                this.scaleValues.push(allValues[i])
+            }
+        }
+        let lastValue: number = allValues[allValues.length - 1]
+        if (!this.scaleValues.includes(lastValue)) {
+            this.scaleValues.push(lastValue)
+        }
+        
     }
     limitToggle(option: string, newValue: number) {
         switch (option) {
@@ -87,7 +122,6 @@ class Model {
         
     }
     limitStep(newValue: number, option: string = 'default') {
-
         switch(option) {
             case('default'): 
             if(newValue % this.step === 0) {

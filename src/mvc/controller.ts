@@ -7,13 +7,18 @@ class Controller {
     constructor(model: Model, view: View) {
         this.model = model
         this.view = view
-        this.view.options = this.model.dataForView
+        
         this.init() 
     }
     init = () => {
-        this.view.subscribe(this)
-        this.model.subscribe(this)
+        this.model.init()
+        this.view.options = this.model.dataForView
         this.view.init()
+
+        
+        this.model.subscribe(this)
+        this.view.subscribe(this)
+        
     }
     updateModel(option: string, newValue: number) {
         this.model.update(option, newValue)

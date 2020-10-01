@@ -10,6 +10,8 @@ interface IData {
     rightProgressBar: boolean
     overThumbElement: boolean
     isVertical: boolean
+    isScale: boolean
+    scaleValues: number[]
 }
 interface IObserverView {
     updateModel(arg0: string, arg1: number): void
@@ -18,7 +20,6 @@ interface IObserverView {
 class View {
     parent: HTMLElement
     wrapper!: HTMLDivElement
-
     form: Form
     styles: Styles
     progressBar: ProgressBar
@@ -41,7 +42,9 @@ class View {
             isRange: true,
             rightProgressBar: false,
             overThumbElement: true,
-            isVertical: false
+            isVertical: false,
+            isScale: false,
+            scaleValues: []
         }
 
         this.observers = []
@@ -49,6 +52,7 @@ class View {
     subscribe(observer: IObserverView) {
         this.observers.push(observer)
     }
+    
     init = () => {
         this.createWrapper()
         
@@ -68,63 +72,77 @@ class View {
             this.options.rightValue
         )
         
-
         this.setInput()
-        
         this.eventInput()
         this.progressBar.bar.onmousedown = elem => {
-            this.eventClick(elem)
+            this.clickOnBar(elem)
         }
         this.styles.track.onmousedown = elem => {
-            this.eventClick(elem)
+            this.clickOnBar(elem)
         }
         this.eventHover()
         this.eventActive()
+
+
         if(this.options.isVertical) {
             this.wrapper.classList.add('range-slider_vertical')
             this.thumb.thumbOutput.classList.add('range-slider__value-thumb_vertical')
             this.thumb.thumbOutputRight?.classList.add('range-slider__value-thumb_vertical')
         }
+        if (this.options.isScale) {
+            this.createScale()
+        }
     } 
-
     createWrapper = () => {
         this.wrapper = document.createElement('div')
         this.wrapper.classList.add('range-slider')
         this.parent.append(this.wrapper)
     }
+    createScale = () => {
+        let scale = document.createElement('div')
+        scale.classList.add('range-slider__scale')
+        this.wrapper.append(scale)
 
+        for (let i = 0; i < this.options.scaleValues.length; i++) {
+            const divValue: HTMLDivElement = document.createElement('div')
+            divValue.classList.add('range-slider__value')
+            const value: number = this.options.scaleValues[i]
+            divValue.textContent = String(value + ' –')
+            scale.append(divValue)
+            const min = this.options.min
+            const max = this.options.max
+            const percent: number = Math.round(((value - min) / (max - min)) * 100)
+            divValue.style.left = percent + '%'
+
+            divValue.addEventListener('click', () => {
+                this.eventClick(value)
+            })
+        }
+    }
     setInput = () => {
         this.form.setInputValue(this.options.isRange, this.options.defaultValue, this.options.rightValue)
-        
         const placeDefault: number = this.progressBar.calcPercent(
                     Number(this.form.defaultInput.value), 
                     Number(this.form.defaultInput.min), 
                     Number(this.form.defaultInput.max))
-        
-            
+
         const placeRight: number = this.form.rightInput ? 
             this.progressBar.calcPercent(
                 Number(this.form.rightInput.value), 
                 Number(this.form.rightInput.min), 
                 Number(this.form.rightInput.max)) 
-                : NaN 
-        
-        
+                : NaN
+
         this.progressBar.setDefault(this.options.isRange, placeDefault, placeRight)
-        
         if (this.options.rightProgressBar) { 
             this.progressBar.setRight(this.options.isRange, placeDefault) 
         }
-
         this.thumb.placeThumb(this.options.isRange, placeDefault, placeRight)
-
-        
     }
     eventInput = () => {
         this.form.defaultInput.addEventListener('input', () => {
             this.options.defaultValue = Number(this.form.defaultInput.value)
             this.setInput()
-            
             this.observers.forEach(observer => {
                 observer.updateModel('default', Number(this.form.defaultInput.value))
             })
@@ -135,7 +153,6 @@ class View {
             this.form.rightInput.addEventListener('input', () => {
                 this.options.rightValue = Number(this.form.rightInput.value)
                 this.setInput()
-                
                 this.observers.forEach(observer => {
                     observer.updateModel('right', Number(this.form.rightInput.value))
                 })
@@ -144,9 +161,11 @@ class View {
             })
         }
     }
-    eventClick(elem: MouseEvent) { // for vertical slider it works different
+    
+    clickOnBar(elem: MouseEvent) {
         const coords: DOMRect = this.styles.track.getBoundingClientRect()
         let length: number = coords.right - coords.left
+        let range: number = this.options.max - this.options.min
         let currentPosition: number = elem.pageX - coords.left
         let percent: number
 
@@ -157,69 +176,32 @@ class View {
                 currentPosition = length
             }
         }
-        
-        
         percent = currentPosition/length * 100
-
-        const placeDefault: number = this.progressBar.calcPercent(
-            Number(this.form.defaultInput.value), 
-            Number(this.form.defaultInput.min), 
-            Number(this.form.defaultInput.max))
-        
-        const newValue: number = this.calcValue(percent)
-        const halfOfBar: number = (this.options.rightValue + this.options.defaultValue) / 2
-    
-        const isRightTrack: boolean = this.options.isRange && newValue > this.options.rightValue
-        const isRightBar = this.options.isRange && newValue > halfOfBar
-
+        const newValue: number = Math.round(this.options.min + ((range) * percent) / 100)
+        this.eventClick(newValue)
+    }
+    eventClick(newValue: number) {
+        const halfOfBar: number = (this.options.rightValue + this.options.defaultValue) / 2 
+        const isRightTrack: boolean = this.options.isRange && newValue > this.options.rightValue 
+        const isRightBar = this.options.isRange && newValue > halfOfBar 
         if(isRightTrack || isRightBar) {
-            this.form.rightInput.value = String(newValue)
             this.options.rightValue = newValue
-            
-            this.thumb.placeThumb(this.options.isRange, placeDefault, percent)
-
-            this.progressBar.setDefault(this.options.isRange, placeDefault, percent)
-
+            this.setInput()
             this.observers.forEach(observer => {
                 observer.updateModel('right', newValue)
             })
-
-            
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
-            
-            
-
         } else {
-            this.form.defaultInput.value = String(newValue)
             this.options.defaultValue = newValue
-            
-            this.thumb.placeThumb(this.options.isRange, percent)
-            
-            if (this.options.rightProgressBar) {
-                this.progressBar.setRight(this.options.isRange, percent)
-            } else {
-                this.progressBar.setDefault(this.options.isRange, percent)
-            }
-
-            
-
+            this.setInput()
             this.observers.forEach(observer => {
                 observer.updateModel('default', newValue)
             })
-
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
-            
         }
     }
-    calcValue(percent: number, 
-        min: number = this.options.min, 
-        max: number = this.options.max): number {
-            let diapason: number = max - min
-            return Math.round(diapason - (max - ((diapason) * percent) / 100))
-    }
-    
     eventHover = () => {
         this.form.defaultInput.addEventListener('mouseover', () => {
             if (this.options.overThumbElement) {
@@ -270,7 +252,6 @@ class View {
             })
         }
     }
-    
 }
 
 export {View}

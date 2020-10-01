@@ -18,6 +18,7 @@ import {Controller} from './mvc/controller'
         overThumbElement?: boolean
         step?: number
         isVertical?: boolean
+        isScale?: boolean
     }) {
         const plugin = new Controller(
             new Model({
@@ -29,7 +30,8 @@ import {Controller} from './mvc/controller'
                 rightProgressBar: settings.rightProgressBar,
                 overThumbElement: settings.overThumbElement,
                 step: settings.step,
-                isVertical: settings.isVertical
+                isVertical: settings.isVertical,
+                isScale: settings.isScale
             }), 
             new View( 
                 this,
@@ -49,19 +51,24 @@ $('#first-range-slider').rangeSlider({
     leftValue: 15,
     rightValue: 60,
     overThumbElement: true,
-    step: 3
+    step: 3,
+    isScale: true
 })
 $('#second-range-slider').rangeSlider({
+    min: 20,
+    max: 60,
     leftValue: 40,
-    rightValue: 70,
-    overThumbElement: false
+    overThumbElement: true,
+    isScale: true
 })
 $('#third-range-slider').rangeSlider({
     min: 0,
     max: 30,
     initialValue: 20,
     rightProgressBar: true,
-    overThumbElement: true
+    overThumbElement: true,
+    step: 5,
+    isScale: true
 })
 $('#forth-range-slider').rangeSlider({
     initialValue: 20,
@@ -69,5 +76,6 @@ $('#forth-range-slider').rangeSlider({
     isRange: true,
     step: 10,
     max: 100,
-    isVertical: true
+    isVertical: true,
+    isScale: true
 })
