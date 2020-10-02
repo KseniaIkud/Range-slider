@@ -45,36 +45,3 @@ import {Controller} from './mvc/controller.ts'
     }
 })(jQuery)
 
-$('#first-range-slider').rangeSlider({
-    isRange: true,
-    leftValue: 15,
-    rightValue: 60,
-    overThumbElement: true,
-    step: 3,
-    isScale: true
-})
-$('#second-range-slider').rangeSlider({
-    min: 20,
-    max: 60,
-    leftValue: 40,
-    overThumbElement: true,
-    isScale: true
-})
-$('#third-range-slider').rangeSlider({
-    min: 0,
-    max: 30,
-    initialValue: 20,
-    rightProgressBar: true,
-    overThumbElement: true,
-    step: 5,
-    isScale: true
-})
-$('#forth-range-slider').rangeSlider({
-    initialValue: 20,
-    overThumbElement: true,
-    isRange: true,
-    step: 10,
-    max: 100,
-    isVertical: true,
-    isScale: true
-})

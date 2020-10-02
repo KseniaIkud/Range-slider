@@ -4,12 +4,11 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
-const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
 
-const filename = ext => isDev? `[name].${ext}` : `[name][hash].${ext}`
+const filename = ext => `[name].${ext}`
 
 const optimization = () => {
     const config = {
@@ -88,9 +87,6 @@ const plugins = () => {
         })
     ]
 
-    if (isProd) {
-        base.push(new BundleAnalyzerPlugin() )
-    }
 
     return base
 }

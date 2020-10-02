@@ -1,19 +1,8 @@
-
-
-
-.container {
-   width: 226px;
-   margin: 0 auto;  // to demo css
-}
-
 .range-slider {
-
    position: relative;
    width: 100%;
-   margin: 80px auto; // to demo css
    &_vertical {
       transform: rotate(90deg);
-      margin: 70% 0;  // to demo css
    }
 
    &__form {
@@ -162,12 +151,7 @@
       width: 15px;
       text-align: right;
       top: 6px;
-      // margin-left: $scale-margin-left; //
       transform: rotate(-90deg);
       cursor: pointer;
    }
-}
-
-.output-data {
-   margin: 50px;
 }

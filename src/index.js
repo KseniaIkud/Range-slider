@@ -3,3 +3,5 @@ function importAll(r) {
 }
 
 importAll(require.context('./', true, /\.(ts|scss)$/))
+import ('./demo')
+
