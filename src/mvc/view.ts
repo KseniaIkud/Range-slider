@@ -117,7 +117,13 @@ class View {
             divValue.addEventListener('click', () => {
                 this.eventClick(value)
             })
+            divValue.style.marginLeft = '-' + this.placeScale() + '%'
         }
+    }
+    placeScale = () => {
+        const containerWidth: number = this.wrapper.offsetWidth
+        const scaleShift: number = (0.42 * containerWidth + 777.8) / containerWidth
+        return scaleShift
     }
     setInput = () => {
         this.form.setInputValue(this.options.isRange, this.options.defaultValue, this.options.rightValue)

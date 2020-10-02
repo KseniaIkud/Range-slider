@@ -2,7 +2,7 @@
 import {Form, Styles, ProgressBar, Thumb} from './mvc/subViews.ts'
 import {View} from './mvc/view.ts'
 import {Model} from './mvc/model.ts'
-import {Controller} from './mvc/controller'
+import {Controller} from './mvc/controller.ts'
 
 
 (function($: JQueryStatic) {
@@ -44,7 +44,6 @@ import {Controller} from './mvc/controller'
         return plugin
     }
 })(jQuery)
-
 
 $('#first-range-slider').rangeSlider({
     isRange: true,

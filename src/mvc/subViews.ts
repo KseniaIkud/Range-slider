@@ -101,7 +101,7 @@ class ProgressBar {
     setRight(isDouble: boolean, percent: number): void {
         if (!isDouble) {
             this.bar.style.left = percent + '%'
-            this.bar.style.right = String(0)
+            this.bar.style.right = String(-1) + 'px'
         }
     }
 }
