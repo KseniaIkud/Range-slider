@@ -95,11 +95,11 @@ module.exports = {
     context: path.resolve(__dirname, 'src'),
     mode: 'development',
     entry: {
-        main: ['@babel/polyfill','./index.js'] // сюда можно добавить другие точки входа
+        main: ['@babel/polyfill','./index.js']
     },
     output: {
         filename: filename('js'),
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'docs')
     },
     resolve: {
         extensions: ['.ts', '.js']

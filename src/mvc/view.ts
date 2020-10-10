@@ -1,7 +1,7 @@
 
 import {Form, Styles, ProgressBar, Thumb} from './subViews'
 
-interface IData {
+interface IDataView {
     min: number
     max: number
     defaultValue: number
@@ -24,7 +24,7 @@ class View {
     styles: Styles
     progressBar: ProgressBar
     thumb: Thumb
-    options: IData
+    options: IDataView
     observers: IObserverView[]
     constructor(parent: HTMLElement, form: Form, styles: Styles, progressBar: ProgressBar, thumb: Thumb) {
         this.parent = parent
@@ -86,8 +86,10 @@ class View {
 
         if(this.options.isVertical) {
             this.wrapper.classList.add('range-slider_vertical')
-            this.thumb.thumbOutput.classList.add('range-slider__value-thumb_vertical')
-            this.thumb.thumbOutputRight?.classList.add('range-slider__value-thumb_vertical')
+            if(this.options.overThumbElement) {
+                this.thumb.thumbOutput.classList.add('range-slider__value-thumb_vertical')
+                this.thumb.thumbOutputRight?.classList.add('range-slider__value-thumb_vertical')
+            }   
         }
         if (this.options.isScale) {
             this.createScale()

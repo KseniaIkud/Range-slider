@@ -34,12 +34,12 @@ class Model {
         this.max = options.max ? options.max : 100
         this.defaultValue = options.defaultValue ? options.defaultValue : 50
         this.rightValue = options.rightValue ? options.rightValue : 60
-        this.isRange = options.isRange
-        this.rightProgressBar = options.rightProgressBar
-        this.overThumbElement = options.overThumbElement
+        this.isRange = options.isRange || false
+        this.rightProgressBar = options.rightProgressBar || false
+        this.overThumbElement = options.overThumbElement || false
         this.step = options.step ? options.step : 1
-        this.isVertical = options.isVertical
-        this.isScale = options.isScale
+        this.isVertical = options.isVertical || false
+        this.isScale = options.isScale || false
         this.scaleValues = []
         this.observers = []
         this.dataForView = {
@@ -60,6 +60,9 @@ class Model {
     }
     init = () => {
         this.setScale()
+    }
+    sum(arg1: number, arg2: number) {
+        return arg1 + arg2
     }
     update(option: string, newValue: number) {
         if (this.isRange) {
