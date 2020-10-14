@@ -1,6 +1,7 @@
-const Model = require('./modelII')
+
+import {Model} from '../src/mvc/model'
 
 it('defined', () => {
     const model = new Model({})
-    expect(model.sum).toBeDefined()
+    expect(model.update).toBeDefined()
 })

@@ -61,9 +61,6 @@ class Model {
     init = () => {
         this.setScale()
     }
-    sum(arg1: number, arg2: number) {
-        return arg1 + arg2
-    }
     update(option: string, newValue: number) {
         if (this.isRange) {
             this.limitToggle(option, newValue)
