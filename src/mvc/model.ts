@@ -9,7 +9,7 @@ interface IData {
     isVertical: boolean
     step?: number
     isScale: boolean
-    scaleValues: number[]
+    scaleValues: Array<number>
 }
 interface IObserverModel {
     updateView(): void
@@ -69,6 +69,7 @@ class Model {
         }
     }
     setScale() {
+        // сделать проверку на подключение шкалы
         let allValues: number[] = []
         
         for (let i: number = this.min; i <= this.max; i++) {
@@ -87,7 +88,7 @@ class Model {
             }
         }
         let lastValue: number = allValues[allValues.length - 1]
-        if (!this.scaleValues.includes(lastValue)) {
+        if(this.scaleValues.indexOf(lastValue) !== -1) {
             this.scaleValues.push(lastValue)
         }
         
