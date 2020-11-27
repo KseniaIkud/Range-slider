@@ -11,7 +11,6 @@ import {Controller} from './mvc/controller.ts'
         max?: number
         initialValue?: number
         leftValue?: number
-        defaultValue?: number
         rightValue?: number
         isRange?: boolean
         rightProgressBar?: boolean
@@ -24,7 +23,7 @@ import {Controller} from './mvc/controller.ts'
             new Model({
                 min: settings.min,
                 max: settings.max,
-                defaultValue: settings.initialValue || settings.leftValue,
+                defaultValue: settings.isRange && settings.leftValue || settings.initialValue,
                 rightValue: settings.rightValue,
                 isRange: settings.isRange,
                 rightProgressBar: settings.rightProgressBar,

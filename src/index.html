@@ -8,11 +8,66 @@
 </head>
 <body>
     <div class="title">Demo page</div>
-    <div class="container">
-        <div class="first-range-slider"></div>
-        <div class="second-range-slider"></div>
-        <div class="third-range-slider"></div>
-        <div class="forth-range-slider"></div>
+    <div class="rangeSlider">
+        <div id="rangeSlider_first" class="rangeSlider_first"></div>
+        <div class="panel">
+            First Slider
+            <div class="panelOption">
+                minimum:
+                <input type="number" value="100" id="min1">
+            </div>
+            <div class="panelOption">
+                maximum:
+                <input type="number" value="1000" id="max1">
+            </div>
+            <div class="panelOption">
+                initial value:
+                <input type="number" value="500" id="initialValue1">
+            </div>
+            <div class="panelOption">
+                left value:
+                <input type="number" value="20" id="leftValue1">
+            </div>
+            <div class="panelOption">
+                right value:
+                <input type="number" value="50" id="rightValue1">
+            </div>
+            <div class="panelOption">
+                step:
+                <input type="number" value="100" id="step1">
+            </div>
+            <div class="panelOption">
+                range:
+                <input type="checkbox" id="isRange1">
+            </div>
+            <div class="panelOption">
+                right progress bar:
+                <input type="checkbox" id="rightProgressBar1">
+            </div>
+            <div class="panelOption">
+                thumb:
+                <input type="checkbox" id="overThumbElement1" checked>
+            </div>
+            <div class="panelOption">
+                vertical position:
+                <input type="checkbox" id="isVertical1" checked>
+            </div>
+            <div class="panelOption">
+                scale:
+                <input type="checkbox" id="isScale1" checked>
+            </div>
+
+        </div>
     </div>
+        <div class="rangeSlider">
+            <div id="rangeSlider_second" class="rangeSlider_second"></div>
+        </div>
+        <div class="rangeSlider">
+        <div id="rangeSlider_third" class="rangeSlider_third"></div>
+        </div>
+        <div class="rangeSlider">
+        <div id="rangeSlider_forth" class="rangeSlider_forth"></div>
+        </div>
+
 </body>
 </html>

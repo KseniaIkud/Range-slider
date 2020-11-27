@@ -103,13 +103,13 @@ class View {
     createScale = () => {
         let scale = document.createElement('div')
         scale.classList.add('range-slider__scale')
-        this.wrapper.append(scale)
+        this.wrapper.append(scale, this.styles.style)
 
         for (let i = 0; i < this.options.scaleValues.length; i++) {
             const divValue: HTMLDivElement = document.createElement('div')
             divValue.classList.add('range-slider__value')
             const value: number = this.options.scaleValues[i]
-            divValue.textContent = String(value + ' –')
+            divValue.textContent = String('— ' + value)
             scale.append(divValue)
             const min = this.options.min
             const max = this.options.max
@@ -122,10 +122,9 @@ class View {
             divValue.style.marginLeft = '-' + this.placeScale() + '%'
         }
     }
-    placeScale = () => {
+    placeScale = (): number => {
         const containerWidth: number = this.wrapper.offsetWidth
-        const scaleShift: number = (0.42 * containerWidth + 777.8) / containerWidth
-        return scaleShift
+        return (0.42 * containerWidth + 777.8) / containerWidth
     }
     setInput = () => {
         this.form.setInputValue(this.options.isRange, this.options.defaultValue, this.options.rightValue)

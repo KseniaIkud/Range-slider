@@ -97,7 +97,7 @@
    &__value-thumb {
       transition: margin-top .3s ease-in-out;
       position: relative;
-      margin-top: -200%;
+      margin-top: -300%;
       margin-left: -40%;
       font-size: 12px;
       color: black;
@@ -111,23 +111,23 @@
          z-index: -1;
          content: '';
          border: 1px solid #000;
-         top: -5px;
+         top: -15px;
+         left: -10px;
          display: block;
-         width: 20px;
-         height: 20px;
+         width: 40px;
+         height: 40px;
          transform: rotate(45deg);
          background-color:  #66D2EA;
-         border-radius: 50%;
-         border-bottom-right-radius: 0%;
+         border-radius: 50% 50% 0 50%;
       }
       &_big {
-         margin-top: -260%;
+         margin-top: -360%;
          font-size: 14px;
          &::before {
-            width: 25px;
-            height: 25px;
-            top: -8px;
-            left: -2.5px;
+            width: 45px;
+            height: 45px;
+            top: -18px;
+            left: -12px;
          }
       }
       &_vertical {
@@ -140,17 +140,16 @@
    }
 
    &__scale {
-      font-size: 6px;
+      font-size: 20px;
       position: relative;
-      
    }
    &__value {
       position: absolute;
       white-space: nowrap;
       padding-right: 1px;
       width: 15px;
-      text-align: right;
-      top: 6px;
+      margin: 10px;
+      bottom: -15px;
       transform: rotate(-90deg);
       cursor: pointer;
    }
