@@ -20,8 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41639a28-4750-4e65-a7ad-fa3ee9fa5954" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/docs/0.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/2.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/main.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/main.js" beforeDir="false" />
@@ -29,10 +30,6 @@
       <change beforePath="$PROJECT_DIR$/src/demo/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/demo/demo.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/demo/demo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/demo/demo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jquery.main.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/jquery.main.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +77,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1606483462218</updated>
-      <workItem from="1606483463409" duration="13969000" />
+      <workItem from="1606483463409" duration="14225000" />
+      <workItem from="1606503704054" duration="2991000" />
     </task>
     <servers />
   </component>
@@ -97,8 +95,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="496" y="260" width="363" height="602" key="RollbackChangesDialog" timestamp="1606503777052">
+      <screen x="0" y="187" width="1366" height="741" />
+    </state>
+    <state x="496" y="260" width="363" height="602" key="RollbackChangesDialog/0.187.1366.741/1366.0.1920.1080@0.187.1366.741" timestamp="1606503777052" />
     <state x="346" y="249" width="672" height="678" key="search.everywhere.popup" timestamp="1606488863100">
       <screen x="0" y="187" width="1366" height="741" />
     </state>
