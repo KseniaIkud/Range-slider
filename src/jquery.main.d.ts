@@ -19,7 +19,7 @@ import {Controller} from './mvc/controller.ts'
         isVertical?: boolean
         isScale?: boolean
     }) {
-        const plugin = new Controller(
+        return new Controller(
             new Model({
                 min: settings.min,
                 max: settings.max,
@@ -40,7 +40,6 @@ import {Controller} from './mvc/controller.ts'
                 new Thumb() 
             )
         )
-        return plugin
     }
 })(jQuery)
 

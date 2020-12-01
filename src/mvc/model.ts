@@ -31,11 +31,10 @@ class Model {
     observers: IObserverModel[]
     constructor(options: IData) {
         this.min = Number(options.min || 0)
-        this.max = Number(options.max || 100)
-        this.defaultValue = Number(options.defaultValue || 50)
-        this.rightValue = Number(options.rightValue || 60)
+        this.max = Number(options.max === 0 ? 0 : (options.max || 100))
+        this.defaultValue = Number(options.defaultValue === 0 ? 0 : (options.defaultValue || 50))
+        this.rightValue = Number(options.rightValue === 0 ? 0 : (options.rightValue || 50))
         this.step = Number(options.step || 1)
-
         this.isRange = options.isRange || false
         this.rightProgressBar = options.rightProgressBar || false
         this.overThumbElement = options.overThumbElement || false

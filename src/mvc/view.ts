@@ -20,6 +20,9 @@ interface IObserverView {
 class View {
     parent: HTMLElement
     wrapper!: HTMLDivElement
+    singleInput?: HTMLInputElement
+    leftInput?: HTMLInputElement
+    rightInput?: HTMLInputElement
     form: Form
     styles: Styles
     progressBar: ProgressBar
@@ -83,6 +86,19 @@ class View {
         this.eventHover()
         this.eventActive()
 
+        const inputs = this.createInputs(this.options.isRange, this.options.defaultValue, this.options.rightValue)
+
+        if (this.options.isRange) {
+            this.leftInput = inputs[0]
+            this.rightInput = inputs[1]
+        } else {
+            this.singleInput = inputs[0]
+        }
+
+        inputs.forEach(input => {
+            this.parent.append(input)
+        })
+
 
         if(this.options.isVertical) {
             this.wrapper.classList.add('range-slider_vertical')
@@ -109,7 +125,7 @@ class View {
             const divValue: HTMLDivElement = document.createElement('div')
             divValue.classList.add('range-slider__value')
             const value: number = this.options.scaleValues[i]
-            divValue.textContent = String('— ' + value)
+            divValue.textContent = String('– ' + value)
             scale.append(divValue)
             const min = this.options.min
             const max = this.options.max
@@ -125,6 +141,28 @@ class View {
     placeScale = (): number => {
         const containerWidth: number = this.wrapper.offsetWidth
         return (0.42 * containerWidth + 777.8) / containerWidth
+    }
+    createInputs = (isRange: boolean, defaultValue: number, rightValue?: number): HTMLInputElement[] => {
+        if (isRange) {
+            let leftInput = document.createElement('input')
+            leftInput.classList.add('range-slider__input')
+            leftInput.placeholder = 'left value'
+            leftInput.value = String(defaultValue)
+
+            let rightInput = document.createElement('input')
+            rightInput.classList.add('range-slider__input')
+            rightInput.placeholder = 'right value'
+            rightInput.value = String(rightValue)
+
+            return [leftInput, rightInput]
+        } else {
+            let singleInput = document.createElement('input')
+            singleInput.classList.add('range-slider__input')
+            singleInput.placeholder = 'value'
+            singleInput.value = String(defaultValue)
+
+            return [singleInput]
+        }
     }
     setInput = () => {
         this.form.setInputValue(this.options.isRange, this.options.defaultValue, this.options.rightValue)
@@ -155,6 +193,11 @@ class View {
             })
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
+            if (this.options.isRange) {
+                this.leftInput!.value = String(this.options.defaultValue)
+            } else {
+                this.singleInput!.value = String(this.options.defaultValue)
+            }
         })
         if (this.options.isRange) {
             this.form.rightInput.addEventListener('input', () => {
@@ -165,6 +208,7 @@ class View {
                 })
                 this.thumb.setThumbValue(this.options.isRange, 
                     this.options.defaultValue, this.options.rightValue)
+                this.rightInput!.value = String(this.options.rightValue)
             })
         }
     }

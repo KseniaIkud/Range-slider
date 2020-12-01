@@ -4,7 +4,6 @@
    &_vertical {
       transform: rotate(90deg);
    }
-
    &__form {
      input[type=range] {
         position: absolute;
@@ -152,5 +151,9 @@
       bottom: -15px;
       transform: rotate(-90deg);
       cursor: pointer;
+   }
+   &__input {
+      margin: 5px 3px 0;
+      display: block;
    }
 }
