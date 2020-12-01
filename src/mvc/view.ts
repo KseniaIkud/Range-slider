@@ -86,18 +86,6 @@ class View {
         this.eventHover()
         this.eventActive()
 
-        const inputs = this.createInputs(this.options.isRange, this.options.defaultValue, this.options.rightValue)
-
-        if (this.options.isRange) {
-            this.leftInput = inputs[0]
-            this.rightInput = inputs[1]
-        } else {
-            this.singleInput = inputs[0]
-        }
-
-        inputs.forEach(input => {
-            this.parent.append(input)
-        })
 
 
         if(this.options.isVertical) {
@@ -110,6 +98,7 @@ class View {
         if (this.options.isScale) {
             this.createScale()
         }
+        this.createInputs()
     } 
     createWrapper = () => {
         this.wrapper = document.createElement('div')
@@ -142,26 +131,29 @@ class View {
         const containerWidth: number = this.wrapper.offsetWidth
         return (0.42 * containerWidth + 777.8) / containerWidth
     }
-    createInputs = (isRange: boolean, defaultValue: number, rightValue?: number): HTMLInputElement[] => {
-        if (isRange) {
+    createInputs = () => {
+        if (this.options.isRange) {
             let leftInput = document.createElement('input')
             leftInput.classList.add('range-slider__input')
             leftInput.placeholder = 'left value'
-            leftInput.value = String(defaultValue)
+            leftInput.value = String(this.options.defaultValue)
+            this.leftInput = leftInput
+            this.wrapper.append(this.leftInput)
 
             let rightInput = document.createElement('input')
             rightInput.classList.add('range-slider__input')
             rightInput.placeholder = 'right value'
-            rightInput.value = String(rightValue)
+            rightInput.value = String(this.options.rightValue)
+            this.rightInput = rightInput
+            this.wrapper.append(this.rightInput)
 
-            return [leftInput, rightInput]
         } else {
             let singleInput = document.createElement('input')
             singleInput.classList.add('range-slider__input')
             singleInput.placeholder = 'value'
-            singleInput.value = String(defaultValue)
-
-            return [singleInput]
+            singleInput.value = String(this.options.defaultValue)
+            this.singleInput = singleInput
+            this.wrapper.append(this.singleInput)
         }
     }
     setInput = () => {
