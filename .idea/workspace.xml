@@ -27,9 +27,7 @@
       <change beforePath="$PROJECT_DIR$/docs/main.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/main.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/vendors~main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/demo/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/demo/demo.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +78,7 @@
       <workItem from="1606483463409" duration="14225000" />
       <workItem from="1606503704054" duration="2991000" />
       <workItem from="1606553642561" duration="39000" />
-      <workItem from="1606813652029" duration="7833000" />
+      <workItem from="1606813652029" duration="9466000" />
     </task>
     <servers />
   </component>
