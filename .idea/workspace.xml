@@ -21,17 +21,13 @@
   <component name="ChangeListManager">
     <list default="true" id="41639a28-4750-4e65-a7ad-fa3ee9fa5954" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/0.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/0.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/main.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/main.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/vendors~main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/subViews.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/subViews.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +84,8 @@
       <workItem from="1606933282290" duration="81000" />
       <workItem from="1606933903950" duration="141000" />
       <workItem from="1606937452617" duration="59000" />
-      <workItem from="1606981275163" duration="3007000" />
+      <workItem from="1606981275163" duration="3273000" />
+      <workItem from="1606984977652" duration="396000" />
     </task>
     <servers />
   </component>
@@ -108,10 +105,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="554" y="391" width="374" height="337" key="FileChooserDialogImpl" timestamp="1606934042835">
+    <state x="554" y="391" width="374" height="337" key="FileChooserDialogImpl" timestamp="1606984547742">
       <screen x="0" y="187" width="1366" height="741" />
     </state>
-    <state x="554" y="391" width="374" height="337" key="FileChooserDialogImpl/0.187.1366.741/1366.0.1920.1080@0.187.1366.741" timestamp="1606934042835" />
+    <state x="554" y="391" width="374" height="337" key="FileChooserDialogImpl/0.187.1366.741/1366.0.1920.1080@0.187.1366.741" timestamp="1606984547742" />
     <state x="2145" y="298" width="424" height="491" key="FileChooserDialogImpl/0.187.1366.741/1366.0.1920.1080@1366.0.1920.1080" timestamp="1606553679697" />
     <state x="496" y="260" width="363" height="602" key="RollbackChangesDialog" timestamp="1606503777052">
       <screen x="0" y="187" width="1366" height="741" />

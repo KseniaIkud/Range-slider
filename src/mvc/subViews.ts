@@ -156,10 +156,13 @@ class Thumb {
         parent.append(this.thumbOutput)
     }
     setThumbValue(isDouble: boolean, value: number, rightValue?: number) {
-        this.thumbOutput.textContent = String(value)
-        if (isDouble) {
-            this.thumbOutputRight!.textContent = String(rightValue)
+        if (this.thumbOutput) {
+            this.thumbOutput.textContent = String(value)
+            if (isDouble) {
+                this.thumbOutputRight!.textContent = String(rightValue)
+            }
         }
+
         
         
     }
