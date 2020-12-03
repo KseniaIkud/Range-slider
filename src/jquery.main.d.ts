@@ -23,7 +23,7 @@ import {Controller} from './mvc/controller.ts'
             new Model({
                 min: settings.min,
                 max: settings.max,
-                defaultValue: settings.isRange && settings.leftValue || settings.initialValue,
+                defaultValue: settings.isRange ? settings.leftValue : settings.initialValue,
                 rightValue: settings.rightValue,
                 isRange: settings.isRange,
                 rightProgressBar: settings.rightProgressBar,
