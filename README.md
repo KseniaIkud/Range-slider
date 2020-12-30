@@ -23,4 +23,18 @@ Add range slider to the desired html tag and set options
     })
 ```
 
-
+API
+Description of range slider settings
+| Option | Default | Type | Description |
+|:---------:|:---------:|:---------:|:---------:|
+| min | 0 | number | Set slider minimum |
+| max | 100 | number | Set slider maximum |
+| initialValue | 50 | number | Set start position for the single thumb |
+| leftValue | 50 | number | Set start position for the left thumb |
+| rightValue | 70 | number | Set start position for the right thumb |
+| isRange | false | boolean | Choose slider type, ***false*** for one thumb, ***true*** for two |
+| rightProgressBar | false | boolean | Choose progress bar position, ***false*** on the left of the single thumb, ***true*** on the right |
+| overThumbElement | false | boolean | Choose ***true*** to show an element over the thumb |
+| step | 1 | number | Set sliders step |
+| isVertical | false | boolean | Choose slider positioning, ***false*** for horizontal, ***true*** for vertical |
+| isScale | false | boolean | Choose ***true*** to show a scale near to the slider |
