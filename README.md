@@ -23,7 +23,7 @@ Add range slider to the desired html tag and set options
     })
 ```
 
-API
+API \
 Description of range slider settings
 | Option | Default | Type | Description |
 |:---------:|:---------:|:---------:|:---------:|
