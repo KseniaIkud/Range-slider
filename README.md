@@ -5,7 +5,7 @@ https://kseniaikud.github.io/Range-slider/
 Download the project \
 Put downloaded files into corresponding folders \
 Load jquery library \
-Import files (.js and .css) to your script \
+Import files (***.js*** and ***.css***) to your script
 ```js
     import '../docs/rangeSlider.js'
     import '../docs/rangeSlider.css'
@@ -23,7 +23,7 @@ Add range slider to the desired html tag and set options
     })
 ```
 
-API \
+## API
 Description of range slider settings
 | Option | Default | Type | Description |
 |:---------:|:---------:|:---------:|:---------:|
