@@ -8,13 +8,10 @@ const TerserWebpackPlugin = require('terser-webpack-plugin')
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
 
-const filename = ext => `[name].${ext}`
+const filename = ext => `rangeSlider.${ext}`
 
 const optimization = () => {
     const config = {
-        splitChunks: {
-            chunks: "all"
-        }
     }
 
     if(isProd) {
@@ -93,7 +90,6 @@ const plugins = () => {
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
-    mode: 'development',
     entry: {
         main: ['@babel/polyfill','./index.js']
     },
@@ -124,12 +120,12 @@ module.exports = {
                 use: ['file-loader']
             }, {
                 test: /\.js$/,
-                exclude: /node_modules/,  // потому что они и так скомпилированы
+                exclude: /node_modules/,
                 use: jsLoaders()
             },
             {
                 test: /\.ts$/,
-                exclude: /node_modules/,  // потому что они и так скомпилированы
+                exclude: /node_modules/,
                 loader: {
                     loader: 'babel-loader',
                     options: babelOptions('@babel/preset-typescript')
