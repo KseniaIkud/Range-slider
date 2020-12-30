@@ -1,7 +1,7 @@
-Demo page:
+# Demo page:
 https://kseniaikud.github.io/Range-slider/
 
-# How to add the plugin to your page:
+## How to add the plugin to your page:
 Download the project
 Put downloaded files into corresponding folders
 Load jquery library
