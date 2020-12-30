@@ -2,10 +2,10 @@
 https://kseniaikud.github.io/Range-slider/
 
 ## How to add the plugin to your page:
-Download the project
-Put downloaded files into corresponding folders
-Load jquery library
-Import files (.js and .css) to your script
+Download the project \
+Put downloaded files into corresponding folders \
+Load jquery library \
+Import files (.js and .css) to your script \
 ```js
     import '../docs/rangeSlider.js'
     import '../docs/rangeSlider.css'
