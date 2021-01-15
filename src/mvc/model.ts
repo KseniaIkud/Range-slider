@@ -69,8 +69,8 @@ class Model {
         }
     }
     setScale() {
-        // сделать проверку на подключение шкалы
-        let allValues: number[] = []
+        if (this.isScale) {
+            let allValues: number[] = []
         
         for (let i: number = this.min; i <= this.max; i++) {
             if (i % this.step === 0) {
@@ -90,8 +90,8 @@ class Model {
         let lastValue: number = allValues[allValues.length - 1]
         if(this.scaleValues.indexOf(lastValue) !== -1) {
             this.scaleValues.push(lastValue)
-        } // наоборот же, не? Если нет - добавить, если есть - не надо.
-        
+        }
+        }
     }
     limitToggle(option: string, newValue: number) {
         switch (option) {
