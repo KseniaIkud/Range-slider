@@ -61,9 +61,9 @@ class Model {
     init = () => {
         this.setScale()
     }
-    update(option: string, newValue: number) {
+    update(newValue: number, option: string, ) {
         if (this.isRange) {
-            this.limitToggle(option, newValue)
+            this.limitToggle(newValue, option)
         } else {
             this.limitStep(newValue)
         }
@@ -93,7 +93,7 @@ class Model {
         }
         }
     }
-    limitToggle(option: string, newValue: number) {
+    limitToggle( newValue: number, option: string) {
         switch (option) {
             
             case('default'):
@@ -123,9 +123,11 @@ class Model {
     }
     limitStep(newValue: number, option: string = 'default') {
         switch(option) {
-            case('default'): 
+            case('default'):
+            
             if(newValue % this.step === 0) {
                 this.defaultValue = newValue
+                
                 
             } else {
                 this.defaultValue = this.calcNearest(newValue)

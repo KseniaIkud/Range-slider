@@ -7,17 +7,44 @@ describe('subscribe function', () => {
     test('subscribe functions should be defined', () => {
         expect(_.subscribe).toBeDefined()
     })
+    test('an item should be added to the observers list', () => {
+        class ExampleClass {}
+        _.subscribe(ExampleClass)
+        expect(_.observers).toContain(ExampleClass)
+    })
 })
 
 describe('init function', () => {
     test('init function should be defined', () => {
         expect(_.init).toBeDefined()
     })
+    test('should call setScale function', () => {
+        _.setScale = jest.fn()
+        _.init()
+        expect(_.setScale).toBeCalled()
+    })
 })
 
 describe('update function', () => {
     test('update function should be defined', () => {
         expect(_.update).toBeDefined()
+    })
+    test('new limit for range slider toggles should be set', () => {
+        _.limitToggle = jest.fn()
+        _.isRange = true
+
+        _.update(5, 'default')
+        expect(_.limitToggle).toBeCalledWith(5, 'default')
+        
+        _.update(500, 'right')
+        expect(_.limitToggle).toHaveBeenCalled()
+    })
+    test('new step limit for single hangle slider should be set', () => {
+        _.limitStep = jest.fn()
+        _.isRange = false
+
+        _.update( 4002, "default")
+        expect(_.limitStep).toHaveBeenCalledWith(4002)
     })
 })
 

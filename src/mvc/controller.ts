@@ -21,7 +21,7 @@ class Controller {
         
     }
     updateModel(option: string, newValue: number) {
-        this.model.update(option, newValue)
+        this.model.update(newValue, option)
     }
     updateView() {
         this.view.options.defaultValue = this.model.defaultValue
