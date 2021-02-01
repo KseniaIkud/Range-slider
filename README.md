@@ -1,4 +1,4 @@
-# Demo page:
+## Demo page:
 https://kseniaikud.github.io/Range-slider/
 
 ## How to add the plugin to your page:
