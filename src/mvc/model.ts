@@ -60,7 +60,7 @@ class Model {
     init = () => {
         this.getScale()
     }
-    update(newValue: number, option: string, ) {
+    update(newValue: number, option: string) {
         if (this.isRange) {
             this.limitToggle(newValue, option)
         } else {
@@ -93,34 +93,22 @@ class Model {
             }
             return scaleValues
     }
-    limitToggle(newValue: number, option: string,
-        leftValue: number = this.defaultValue,
-        rightValue: number = this.rightValue) {
+    limitToggle(newValue: number, option: string) {
             switch (option) {
                 case('default'):
-                    if (newValue < rightValue) {
+                    if (newValue < this.rightValue) {
                         this.limitStep(newValue)
                     } else {
-                        this.observers.forEach(observer => {
-                            observer.updateView()
-                        })
+                        this.updateObservers()
                     }
                     break
                 case('right'):
-                    if (newValue > leftValue) {
+                    if (newValue > this.defaultValue) {
                         this.limitStep(newValue, 'right')
                     } else {
-                        this.observers.forEach(observer => {
-                            observer.updateView()
-                        })
+                        this.updateObservers()
                     }
             }
-    }
-    setDefaultValue(value: number) {
-        this.defaultValue = value
-    }
-    setRightValue(value: number) {
-        this.rightValue = value
     }
     limitStep(newValue: number, option: string = 'default')  {
         switch(option) {
@@ -130,9 +118,7 @@ class Model {
                 } else {
                     let value: number = this.calcNearest(newValue)
                     this.setDefaultValue(value)
-                    this.observers.forEach(observer => {
-                        observer.updateView()
-                    })
+                    this.updateObservers()
                 }
                 break
             case('right'):
@@ -141,12 +127,21 @@ class Model {
                 } else {
                     let value: number = this.calcNearest(newValue)
                     this.setRightValue(value)
-                    this.observers.forEach(observer => {
-                        observer.updateView()
-                    })
+                    this.updateObservers()
                 }
             break
         }
+    }
+    setDefaultValue(value: number) {
+        this.defaultValue = value
+    }
+    setRightValue(value: number) {
+        this.rightValue = value
+    }
+    updateObservers() {
+        this.observers.forEach(observer => {
+            observer.updateView()
+        })
     }
     calcNearest(newValue: number, step: number = this.step): number {
         let roundToMin = newValue - (newValue % step)

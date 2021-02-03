@@ -3,19 +3,6 @@ import {Model} from '../src/mvc/model'
 
 const _ = new Model({})
 
-describe('subscribe function', () => {
-    test('subscribe functions should be defined', () => {
-        expect(_.subscribe).toBeDefined()
-    })
-    test('an item should be added to the observers list', () => {
-        class ExampleClass {}
-        _.subscribe(ExampleClass)
-        expect(_.observers).toContain(ExampleClass)
-    })
-})
-
-
-
 describe('get scale values function', () => {
     test('getScaleValues function should be defined', () => {
         expect(_.getScale).toBeDefined()
@@ -56,11 +43,7 @@ describe('set right value function', () => {
     })
 })
 
-describe('limit toggle function', () => {
-    test('limit toggle function should be defined', () => {
-        expect(_.limitToggle).toBeDefined()
-    })
-})
+
 
 describe('limit step function', () => {
     test('limit step function should be defined', () => {
@@ -95,6 +78,43 @@ describe('limit step function', () => {
         expect(_.setRightValue).toHaveBeenCalledWith(35)
     })
 })
+describe('limit toggle function', () => {
+    test('limit toggle function should be defined', () => {
+        expect(_.limitToggle).toBeDefined()
+    })
+    test('limit step function should be called with the same argument', () => {
+        //the new value is for single handle slider or it's left and less then the right value
+        _.limitStep = jest.fn()
+        _.rightValue = 10
+        _.limitToggle(9, 'default')
+        expect(_.limitStep).toHaveBeenCalledWith(9)
+    })
+    test('limit step function should NOT be called and update observers should', () => {
+        //the new value pretending to be for left handle, but it's greater than the right value
+        _.limitStep = jest.fn()
+        _.updateObservers = jest.fn()
+        _.rightValue = 10
+        _.limitToggle(100, 'default')
+        expect(_.limitStep).not.toHaveBeenCalled()
+        expect(_.updateObservers).toHaveBeenCalled()
+    })
+    test('limit step function should be called with the same arguments', () => {
+        //the new value is for right handle and it's less than the left value
+        _.limitStep = jest.fn()
+        _.defaultValue = 15
+        _.limitToggle(100, 'right')
+        expect(_.limitStep).toHaveBeenCalledWith(100, 'right')
+    })
+    test('limit step function should NOT be called and update observers should', () => {
+        //the new value pretending to be for right handle, but it's less than the left value
+        _.limitStep = jest.fn()
+        _.updateObservers = jest.fn()
+        _.defaultValue = -25
+        _.limitToggle(-26, 'right')
+        expect(_.limitStep).not.toHaveBeenCalled()
+        expect(_.updateObservers).toHaveBeenCalled()
+    })
+})
 describe('calc nearest function', () => {
     test('calc nearest function should be defined', () => {
         expect(_.calcNearest).toBeDefined()
@@ -109,7 +129,16 @@ describe('calc nearest function', () => {
         expect(_.calcNearest(-1, 10)).toBe(0)
     })
 })
-
+describe('subscribe function', () => {
+    test('subscribe functions should be defined', () => {
+        expect(_.subscribe).toBeDefined()
+    })
+    test('an item should be added to the observers list', () => {
+        class ExampleClass {}
+        _.subscribe(ExampleClass)
+        expect(_.observers).toContain(ExampleClass)
+    })
+})
 describe('init function', () => {
     test('init function should be defined', () => {
         expect(_.init).toBeDefined()
