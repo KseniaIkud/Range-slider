@@ -4,7 +4,7 @@
   "description": "jQuery plugin ozRangeSlider",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --collect-coverage",
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open"

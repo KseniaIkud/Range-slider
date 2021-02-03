@@ -52,14 +52,14 @@ class Model {
             overThumbElement: this.overThumbElement,
             isVertical: this.isVertical,
             isScale: this.isScale,
-            scaleValues: this.getScale(this.min, this.max, this.step, this.isScale)
+            scaleValues: this.getScale()
         }
     }
     subscribe(observer: IObserverModel) {
         this.observers.push(observer)
     }
     init = () => {
-        this.getScale(this.min, this.max, this.step, this.isScale)
+        this.getScale()
     }
     update(newValue: number, option: string, ) {
         if (this.isRange) {
@@ -96,7 +96,7 @@ class Model {
         
         return scaleValues
     }
-    limitToggle( newValue: number, option: string) {
+    limitToggle(newValue: number, option: string) {
         switch (option) {
             
             case('default'):
