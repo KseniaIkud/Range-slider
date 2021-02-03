@@ -68,31 +68,6 @@ class Model {
             this.limitStep(newValue)
         }
     }
-    // setScale(min: number, max: number, step: number): number[] {
-    //     let scaleValues: number[] = []
-    //     if (!this.isScale) {
-    //         return []
-    //     }
-
-    //     let allValues: number[] = []
-    //     for (let i: number = min; i <= max; i++) {
-    //         if (i % step === 0) {
-    //             allValues.push(i)
-    //         }
-    //     }
-    //     if (allValues.length <= 11) {
-    //         allValues.forEach(i => {
-    //             scaleValues.push(i)
-    //         })
-    //     } else {
-    //         let scaleStep = Math.round(allValues.length / 10)
-    //         for (let i: number = 0; i < allValues.length; i+=scaleStep) {
-    //             scaleValues.push(allValues[i])
-    //         }
-    //     }
-    //     console.log(scaleValues)
-    //     return scaleValues
-    // }
     getScaleValues(min: number = this.min,
         max: number = this.max, 
         step: number = this.step, 
