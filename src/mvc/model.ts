@@ -14,7 +14,6 @@ interface IData {
 interface IObserverModel {
     updateView(): void
 }
-
 class Model {
     min: number
     max: number
@@ -68,94 +67,86 @@ class Model {
             this.limitStep(newValue)
         }
     }
-    
     getScale(min: number = this.min,
         max: number = this.max, 
         step: number = this.step, 
         isScale: boolean = this.isScale): number[] {
-        let scaleValues: number[] = []
-        if (!isScale) {
+            let scaleValues: number[] = []
+            if (!isScale) {
+                return scaleValues
+            }
+            let allValues: number[] = []
+            for (let i: number = min; i <= max; i++) {
+                if (i % step === 0) {
+                    allValues.push(i)
+                }
+            }
+            if (allValues.length <= 11) {
+                allValues.forEach(i => {
+                    scaleValues.push(i)
+                })
+            } else {
+                let scaleStep = Math.round(allValues.length / 10)
+                for (let i: number = 0; i < allValues.length; i+=scaleStep) {
+                    scaleValues.push(allValues[i])
+                }
+            }
             return scaleValues
-        }
-        let allValues: number[] = []
-        for (let i: number = min; i <= max; i++) {
-            if (i % step === 0) {
-                allValues.push(i)
-            }
-        }
-        if (allValues.length <= 11) {
-            allValues.forEach(i => {
-                scaleValues.push(i)
-            })
-        } else {
-            let scaleStep = Math.round(allValues.length / 10)
-            for (let i: number = 0; i < allValues.length; i+=scaleStep) {
-                scaleValues.push(allValues[i])
-            }
-        }
-        
-        return scaleValues
     }
-    limitToggle(newValue: number, option: string) {
-        switch (option) {
-            
-            case('default'):
-                if (newValue < this.rightValue) {
-                    this.limitStep(newValue)
-                } else {
-                    this.observers.forEach(observer => {
-                        observer.updateView()
-                    })
-                }
-    
-                break
-            
-            case('right'):
-            
-                if (newValue > this.defaultValue) {
-                    this.limitStep(newValue, 'right')
-                    
-                } else {
-                    this.observers.forEach(observer => {
-                        observer.updateView()
-                    })
-                }
-            
-        }
-        
+    limitToggle(newValue: number, option: string,
+        leftValue: number = this.defaultValue,
+        rightValue: number = this.rightValue) {
+            switch (option) {
+                case('default'):
+                    if (newValue < rightValue) {
+                        this.limitStep(newValue)
+                    } else {
+                        this.observers.forEach(observer => {
+                            observer.updateView()
+                        })
+                    }
+                    break
+                case('right'):
+                    if (newValue > leftValue) {
+                        this.limitStep(newValue, 'right')
+                    } else {
+                        this.observers.forEach(observer => {
+                            observer.updateView()
+                        })
+                    }
+            }
     }
-    limitStep(newValue: number, option: string = 'default') {
+    setDefaultValue(value: number) {
+        this.defaultValue = value
+    }
+    setRightValue(value: number) {
+        this.rightValue = value
+    }
+    limitStep(newValue: number, option: string = 'default')  {
         switch(option) {
             case('default'):
-            
-            if(newValue % this.step === 0) {
-                this.defaultValue = newValue
-                
-                
-            } else {
-                this.defaultValue = this.calcNearest(newValue)
-                this.observers.forEach(observer => {
-                    observer.updateView()
-                })
-                
-            }
-            break
-
-
+                if(newValue % this.step === 0) {
+                    this.setDefaultValue(newValue)
+                } else {
+                    let value: number = this.calcNearest(newValue)
+                    this.setDefaultValue(value)
+                    this.observers.forEach(observer => {
+                        observer.updateView()
+                    })
+                }
+                break
             case('right'):
-            if(newValue % this.step === 0) {
-                this.rightValue = newValue
-                
-            } else {
-                this.rightValue = this.calcNearest(newValue)
-                this.observers.forEach(observer => {
-                    observer.updateView()
-                })
-            }
-
+                if(newValue % this.step === 0) {
+                    this.setRightValue(newValue)
+                } else {
+                    let value: number = this.calcNearest(newValue)
+                    this.setRightValue(value)
+                    this.observers.forEach(observer => {
+                        observer.updateView()
+                    })
+                }
             break
         }
-
     }
     calcNearest(newValue: number, step: number = this.step): number {
         let roundToMin = newValue - (newValue % step)
@@ -164,7 +155,6 @@ class Model {
         }
         return roundToMin
     }
-
 }
 
 export {Model}

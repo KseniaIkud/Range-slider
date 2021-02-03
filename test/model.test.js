@@ -37,6 +37,25 @@ describe('get scale values function', () => {
     })
 })
 
+describe('set default value function', () => {
+    test('function should be defined', () => {
+        expect(_.setDefaultValue).toBeDefined()
+    })
+    test('default value should be set', () => {
+        _.setDefaultValue(50)
+        expect(_.defaultValue).toBe(50)
+    })
+})
+describe('set right value function', () => {
+    test('function should be defined', () => {
+        expect(_.setRightValue).toBeDefined()
+    })
+    test('default value should be set', () => {
+        _.setRightValue(500)
+        expect(_.rightValue).toBe(500)
+    })
+})
+
 describe('limit toggle function', () => {
     test('limit toggle function should be defined', () => {
         expect(_.limitToggle).toBeDefined()
@@ -46,6 +65,34 @@ describe('limit toggle function', () => {
 describe('limit step function', () => {
     test('limit step function should be defined', () => {
         expect(_.limitStep).toBeDefined()
+    })
+    test('setDefaultValue should be called with the same argument', () => {
+        // the value is on the scale and it's left or single
+        _.setDefaultValue = jest.fn()
+        _.step = 1
+        _.limitStep(5, 'default')
+        expect(_.setDefaultValue).toHaveBeenCalledWith(5)
+    })
+    test('setDefaultValue should be called with different argument', () => {
+        // the value is NOT on the scale and it's left or single
+        _.setDefaultValue = jest.fn()
+        _.step = 10
+        _.limitStep(33, 'default')
+        expect(_.setDefaultValue).toHaveBeenCalledWith(30)
+    })
+    test('setRightValue should be called with the same argument', () => {
+        // the value is on the scale and it's right
+        _.setRightValue = jest.fn()
+        _.step = 1
+        _.limitStep(50, 'right')
+        expect(_.setRightValue).toHaveBeenCalledWith(50)
+    })
+    test('setRightValue should be called with different argument', () => {
+        // the value is NOT on the scale and it's right
+        _.setRightValue = jest.fn()
+        _.step = 5
+        _.limitStep(33, 'right')
+        expect(_.setRightValue).toHaveBeenCalledWith(35)
     })
 })
 describe('calc nearest function', () => {
