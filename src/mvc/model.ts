@@ -52,14 +52,14 @@ class Model {
             overThumbElement: this.overThumbElement,
             isVertical: this.isVertical,
             isScale: this.isScale,
-            scaleValues: this.scaleValues
+            scaleValues: this.getScaleValues()
         }
     }
     subscribe(observer: IObserverModel) {
         this.observers.push(observer)
     }
     init = () => {
-        this.setScale()
+        this.getScaleValues()
     }
     update(newValue: number, option: string, ) {
         if (this.isRange) {
@@ -68,30 +68,56 @@ class Model {
             this.limitStep(newValue)
         }
     }
-    setScale() {
-        if (this.isScale) {
-            let allValues: number[] = []
-        
-        for (let i: number = this.min; i <= this.max; i++) {
-            if (i % this.step === 0) {
+    // setScale(min: number, max: number, step: number): number[] {
+    //     let scaleValues: number[] = []
+    //     if (!this.isScale) {
+    //         return []
+    //     }
+
+    //     let allValues: number[] = []
+    //     for (let i: number = min; i <= max; i++) {
+    //         if (i % step === 0) {
+    //             allValues.push(i)
+    //         }
+    //     }
+    //     if (allValues.length <= 11) {
+    //         allValues.forEach(i => {
+    //             scaleValues.push(i)
+    //         })
+    //     } else {
+    //         let scaleStep = Math.round(allValues.length / 10)
+    //         for (let i: number = 0; i < allValues.length; i+=scaleStep) {
+    //             scaleValues.push(allValues[i])
+    //         }
+    //     }
+    //     console.log(scaleValues)
+    //     return scaleValues
+    // }
+    getScaleValues(min: number = this.min,
+        max: number = this.max, 
+        step: number = this.step, 
+        isScale: boolean = this.isScale): number[] {
+        let scaleValues: number[] = []
+        if (!isScale) {
+            return scaleValues
+        }
+        let allValues: number[] = []
+        for (let i: number = min; i <= max; i++) {
+            if (i % step === 0) {
                 allValues.push(i)
             }
         }
         if (allValues.length <= 11) {
             allValues.forEach(i => {
-                this.scaleValues.push(i)
+                scaleValues.push(i)
             })
         } else {
             let scaleStep = Math.round(allValues.length / 10)
             for (let i: number = 0; i < allValues.length; i+=scaleStep) {
-                this.scaleValues.push(allValues[i])
+                scaleValues.push(allValues[i])
             }
         }
-        let lastValue: number = allValues[allValues.length - 1]
-        if(this.scaleValues.indexOf(lastValue) !== -1) {
-            this.scaleValues.push(lastValue)
-        }
-        }
+        return scaleValues
     }
     limitToggle( newValue: number, option: string) {
         switch (option) {
@@ -161,6 +187,7 @@ class Model {
         }
         return roundToMin
     }
+
 }
 
 export {Model}
