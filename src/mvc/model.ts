@@ -52,14 +52,14 @@ class Model {
             overThumbElement: this.overThumbElement,
             isVertical: this.isVertical,
             isScale: this.isScale,
-            scaleValues: this.getScaleValues()
+            scaleValues: this.getScale(this.min, this.max, this.step, this.isScale)
         }
     }
     subscribe(observer: IObserverModel) {
         this.observers.push(observer)
     }
     init = () => {
-        this.getScaleValues()
+        this.getScale(this.min, this.max, this.step, this.isScale)
     }
     update(newValue: number, option: string, ) {
         if (this.isRange) {
@@ -68,7 +68,8 @@ class Model {
             this.limitStep(newValue)
         }
     }
-    getScaleValues(min: number = this.min,
+    
+    getScale(min: number = this.min,
         max: number = this.max, 
         step: number = this.step, 
         isScale: boolean = this.isScale): number[] {
@@ -92,6 +93,7 @@ class Model {
                 scaleValues.push(allValues[i])
             }
         }
+        
         return scaleValues
     }
     limitToggle( newValue: number, option: string) {
@@ -155,10 +157,10 @@ class Model {
         }
 
     }
-    calcNearest(newValue: number): number {
-        let roundToMin = newValue - (newValue % this.step)
-        if ((newValue % this.step) > (this.step / 2)) {
-            return this.step + roundToMin
+    calcNearest(newValue: number, step: number = this.step): number {
+        let roundToMin = newValue - (newValue % step)
+        if ((newValue % step) > (step / 2)) {
+            return step + roundToMin
         }
         return roundToMin
     }
