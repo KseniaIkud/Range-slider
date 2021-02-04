@@ -83,14 +83,14 @@ describe('limit toggle function', () => {
         expect(_.limitToggle).toBeDefined()
     })
     test('limit step function should be called with the same argument', () => {
-        //the new value is for single handle slider or it's left and less then the right value
+        //new value is for single handle slider or it's left and less then the right value
         _.limitStep = jest.fn()
         _.rightValue = 10
         _.limitToggle(9, 'default')
         expect(_.limitStep).toHaveBeenCalledWith(9)
     })
     test('limit step function should NOT be called and update observers should', () => {
-        //the new value pretending to be for left handle, but it's greater than the right value
+        //new value pretending to be for left handle, but it's greater than the right value
         _.limitStep = jest.fn()
         _.updateObservers = jest.fn()
         _.rightValue = 10
@@ -99,14 +99,14 @@ describe('limit toggle function', () => {
         expect(_.updateObservers).toHaveBeenCalled()
     })
     test('limit step function should be called with the same arguments', () => {
-        //the new value is for right handle and it's less than the left value
+        //new value is for right handle and it's less than the left value
         _.limitStep = jest.fn()
         _.defaultValue = 15
         _.limitToggle(100, 'right')
         expect(_.limitStep).toHaveBeenCalledWith(100, 'right')
     })
     test('limit step function should NOT be called and update observers should', () => {
-        //the new value pretending to be for right handle, but it's less than the left value
+        //new value pretending to be for right handle, but it's less than the left value
         _.limitStep = jest.fn()
         _.updateObservers = jest.fn()
         _.defaultValue = -25
