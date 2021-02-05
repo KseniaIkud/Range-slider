@@ -3,6 +3,23 @@ import {Model} from '../src/mvc/model'
 
 const _ = new Model({})
 
+describe('update observers function', () => {
+    test('updateObservers function should be defined', () => {
+        expect(_.updateObservers).toBeDefined()
+    })
+    test('o', () => {
+        class ExampleClass {
+            updateView() {
+                return 
+            }
+        }
+        let exampleClass = new ExampleClass()
+        _.subscribe(exampleClass)
+        exampleClass.updateView = jest.fn()
+        _.updateObservers()
+        expect(exampleClass.updateView).toHaveBeenCalled()
+    })
+})
 describe('get scale values function', () => {
     test('getScaleValues function should be defined', () => {
         expect(_.getScale).toBeDefined()
@@ -23,7 +40,6 @@ describe('get scale values function', () => {
         expect(_.getScale(100, 1000, 10, true)).toEqual(expectArray)
     })
 })
-
 describe('set default value function', () => {
     test('function should be defined', () => {
         expect(_.setDefaultValue).toBeDefined()
@@ -42,9 +58,6 @@ describe('set right value function', () => {
         expect(_.rightValue).toBe(500)
     })
 })
-
-
-
 describe('limit step function', () => {
     test('limit step function should be defined', () => {
         expect(_.limitStep).toBeDefined()
@@ -134,7 +147,11 @@ describe('subscribe function', () => {
         expect(_.subscribe).toBeDefined()
     })
     test('an item should be added to the observers list', () => {
-        class ExampleClass {}
+        class ExampleClass {
+            updateView() {
+                return 
+            }
+        }
         _.subscribe(ExampleClass)
         expect(_.observers).toContain(ExampleClass)
     })
