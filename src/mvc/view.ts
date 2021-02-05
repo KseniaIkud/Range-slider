@@ -14,7 +14,7 @@ interface IDataView {
     scaleValues: number[]
 }
 interface IObserverView {
-    updateModel(arg0: string, arg1: number): void
+    updateModel(arg0: number, arg1: string): void
 }
 
 class View {
@@ -181,7 +181,7 @@ class View {
             this.options.defaultValue = Number(this.form.defaultInput.value)
             this.setInput()
             this.observers.forEach(observer => {
-                observer.updateModel('default', Number(this.form.defaultInput.value))
+                observer.updateModel(Number(this.form.defaultInput.value), 'default')
             })
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
@@ -196,7 +196,7 @@ class View {
                 this.options.rightValue = Number(this.form.rightInput.value)
                 this.setInput()
                 this.observers.forEach(observer => {
-                    observer.updateModel('right', Number(this.form.rightInput.value))
+                    observer.updateModel(Number(this.form.rightInput.value), 'right')
                 })
                 this.thumb.setThumbValue(this.options.isRange, 
                     this.options.defaultValue, this.options.rightValue)
@@ -231,7 +231,7 @@ class View {
             this.options.rightValue = newValue
             this.setInput()
             this.observers.forEach(observer => {
-                observer.updateModel('right', newValue)
+                observer.updateModel(newValue, 'right')
             })
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
@@ -239,7 +239,7 @@ class View {
             this.options.defaultValue = newValue
             this.setInput()
             this.observers.forEach(observer => {
-                observer.updateModel('default', newValue)
+                observer.updateModel(newValue, 'default')
             })
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
