@@ -3,6 +3,60 @@ import {Model} from '../src/mvc/model'
 
 const _ = new Model({})
 
+describe('max value', () => {
+    test('if max is not defined, default value is 100', () => {
+        expect(_.max).toBe(100)
+    })
+    test('max should be equal to 10', () => {
+        let modelMax = new Model({
+            max: 10
+        })
+        expect(modelMax.max).toBe(10)
+    })
+    test('max should be equal to 0', () => {
+        let modelMax = new Model({
+            max: 0
+        })
+        expect(modelMax.max).toBe(0)
+    })
+})
+
+describe('main value, single or left', () => {
+    test('if the value is not defined, default value is 50', () => {
+        expect(_.defaultValue).toBe(50)
+    })
+    test('the value should be equal to 1000', () => {
+        let modelDefault = new Model({
+            defaultValue: 1000
+        })
+        expect(modelDefault.defaultValue).toBe(1000)
+    })
+    test('the value should be equal to 0', () => {
+        let modelDefault = new Model({
+            defaultValue: 0
+        })
+        expect(modelDefault.defaultValue).toBe(0)
+    })
+})
+
+describe('right value', () => {
+    test('if right value is not defined, default value is 70', () => {
+        expect(_.rightValue).toBe(70)
+    })
+    test('right value should be equal to -200', () => {
+        let modelRight = new Model({
+            rightValue: -200
+        })
+        expect(modelRight.rightValue).toBe(-200)
+    })
+    test('right value should be equal to 0', () => {
+        let modelRight = new Model({
+            rightValue: 0
+        })
+        expect(modelRight.rightValue).toBe(0)
+    })
+})
+
 describe('update observers function', () => {
     test('updateObservers function should be defined', () => {
         expect(_.updateObservers).toBeDefined()
@@ -62,6 +116,7 @@ describe('limit step function', () => {
     test('limit step function should be defined', () => {
         expect(_.limitStep).toBeDefined()
     })
+    
     test('setDefaultValue should be called with the same argument', () => {
         // the value is on the scale and it's left or single
         _.setDefaultValue = jest.fn()
@@ -100,7 +155,7 @@ describe('limit toggle function', () => {
         _.limitStep = jest.fn()
         _.rightValue = 10
         _.limitToggle(9, 'default')
-        expect(_.limitStep).toHaveBeenCalledWith(9)
+        expect(_.limitStep).toHaveBeenCalledWith(9, "default")
     })
     test('limit step function should NOT be called and update observers should', () => {
         //new value pretending to be for left handle, but it's greater than the right value
@@ -185,6 +240,6 @@ describe('update function', () => {
         _.isRange = false //one handle slider
 
         _.update( 4002, "default")
-        expect(_.limitStep).toHaveBeenCalledWith(4002)
+        expect(_.limitStep).toHaveBeenCalledWith(4002, "default")
     })
 })

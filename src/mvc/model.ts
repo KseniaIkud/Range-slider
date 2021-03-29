@@ -64,7 +64,7 @@ class Model {
         if (this.isRange) {
             this.limitToggle(newValue, option)
         } else {
-            this.limitStep(newValue)
+            this.limitStep(newValue, option)
         }
     }
     getScale(min: number = this.min,
@@ -97,7 +97,7 @@ class Model {
             switch (option) {
                 case('default'):
                     if (newValue < this.rightValue) {
-                        this.limitStep(newValue)
+                        this.limitStep(newValue, option)
                     } else {
                         this.updateObservers()
                     }
@@ -110,7 +110,7 @@ class Model {
                     }
             }
     }
-    limitStep(newValue: number, option: string = 'default')  {
+    limitStep(newValue: number, option: string)  {
         switch(option) {
             case('default'):
                 if(newValue % this.step === 0) {
