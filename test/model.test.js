@@ -61,7 +61,7 @@ describe('update observers function', () => {
     test('updateObservers function should be defined', () => {
         expect(_.updateObservers).toBeDefined()
     })
-    test('o', () => {
+    test('example class should be added in observers', () => {
         class ExampleClass {
             updateView() {
                 return 
