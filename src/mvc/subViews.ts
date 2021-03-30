@@ -167,10 +167,10 @@ class Thumb {
         
     }
 
-    placeThumb(isDouble: boolean, percent: number, percentRight: number = NaN): void {
+    placeThumb(isDouble: boolean, percent: number, percentRight?: number): void {
         this.thumbDefault.style.left = percent + '%'
         if (isDouble) {
-            this.thumbRight.style.right = (100 - percentRight) + '%'
+            this.thumbRight.style.right = (100 - (percentRight || 0)) + '%'
         }
     }
 }
