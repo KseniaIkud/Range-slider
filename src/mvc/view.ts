@@ -171,8 +171,8 @@ class View {
                 : NaN
 
         this.progressBar.setDefault(this.options.isRange, placeDefault, placeRight)
-        if (this.options.rightProgressBar) { 
-            this.progressBar.setRight(this.options.isRange, placeDefault) 
+        if (this.options.rightProgressBar && !this.options.isRange) { 
+            this.progressBar.setRight(placeDefault) 
         }
         this.thumb.placeThumb(this.options.isRange, placeDefault, placeRight)
     }
