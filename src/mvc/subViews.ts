@@ -37,7 +37,7 @@ class Form {
             this.form.append(this.defaultInput)
         }
     }
-    setInputValue(isDouble: boolean, value: number, rightValue: number = NaN): void {
+    setInputValue(isDouble: boolean, value: number, rightValue?: number): void {
         this.defaultInput.value = String(value)
         if (isDouble) {   
             this.rightInput.value = String(rightValue)
