@@ -89,10 +89,10 @@ class ProgressBar {
     calcPercent(value: number, min: number, max: number): number {
         return ((value - min) / (max - min)) * 100
     }
-    setDefault(isDouble: boolean, percent: number, percentRight: number = NaN): void {
+    setDefault(isDouble: boolean, percent: number, percentRight?: number): void {
         if (isDouble) {
             this.bar.style.left = percent + '%'
-            this.bar.style.right = (100 - percentRight) + '%'
+            this.bar.style.right = (100 - (percentRight || 0)) + '%'
         } else {
             this.bar.style.right = (100 - percent) + '%'
             this.bar.style.left = String(0)
