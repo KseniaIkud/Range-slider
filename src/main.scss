@@ -4,23 +4,6 @@
   &_vertical {
     transform: rotate(90deg);
     position: relative;
-    .range-slider__window-value {
-      transform: rotate(-90deg);
-      top: 60px;
-      &_right {
-        left: 25px;
-      }
-    }
-  }
-  &__window-value {
-    border: 1px solid black;
-    border-radius: 4px;
-    position: absolute;
-    width: 100px;
-    top: 15px;
-    &_right {
-      top: 40px;
-    }
   }
   &__form {
     input[type=range] {

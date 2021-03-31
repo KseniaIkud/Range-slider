@@ -1,6 +1,5 @@
 import './demo.css'
 
-
 const getValue = (id) => {
   return Number(document.getElementById(id).value)
 }
@@ -61,3 +60,10 @@ for (let i=1; i<5; i++) {
   renderRangeSlider(rangeSliderId[i-1], panel)
 
 }
+
+let slider = document.getElementById('rangeSlider_first').firstChild
+let sliderValue = slider.getAttribute('default-value')
+
+
+
+document.getElementById('initialValue1').value = sliderValue

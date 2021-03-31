@@ -98,12 +98,20 @@ class View {
         if (this.options.isScale) {
             this.createScale()
         }
-        this.createInputs()
     } 
     createWrapper = () => {
         this.wrapper = document.createElement('div')
         this.wrapper.classList.add('range-slider')
+        this.setAttributesValue()
         this.parent.append(this.wrapper)
+    }
+    setAttributesValue = () =>  {
+        if (this.options.isRange) {
+                this.wrapper.setAttribute('left-value', String(this.options.defaultValue))
+                this.wrapper.setAttribute('right-value', String(this.options.rightValue))
+            } else {
+                this.wrapper.setAttribute('default-value', String(this.options.defaultValue))
+            }
     }
     createScale = () => {
         let scale = document.createElement('div')
@@ -130,31 +138,6 @@ class View {
     placeScale = (): number => {
         const containerWidth: number = this.wrapper.offsetWidth
         return (0.42 * containerWidth + 777.8) / containerWidth
-    }
-    createInputs = () => {
-        if (this.options.isRange) {
-            let leftInput = document.createElement('input')
-            leftInput.classList.add('range-slider__window-value')
-            leftInput.placeholder = 'left value'
-            leftInput.value = String(this.options.defaultValue)
-            this.leftInput = leftInput
-            this.wrapper.append(this.leftInput)
-
-            let rightInput = document.createElement('input')
-            rightInput.classList.add('range-slider__window-value', 'range-slider__window-value_right')
-            rightInput.placeholder = 'right value'
-            rightInput.value = String(this.options.rightValue)
-            this.rightInput = rightInput
-            this.wrapper.append(this.rightInput)
-
-        } else {
-            let singleInput = document.createElement('input')
-            singleInput.classList.add('range-slider__window-value')
-            singleInput.placeholder = 'value'
-            singleInput.value = String(this.options.defaultValue)
-            this.singleInput = singleInput
-            this.wrapper.append(this.singleInput)
-        }
     }
     setInput = () => {
         this.form.setInputValue(this.options.isRange, this.options.defaultValue, this.options.rightValue)
@@ -183,13 +166,9 @@ class View {
             this.observers.forEach(observer => {
                 observer.updateModel(Number(this.form.defaultInput.value), 'default')
             })
+            this.setAttributesValue()
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
-            if (this.options.isRange) {
-                this.leftInput!.value = String(this.options.defaultValue)
-            } else {
-                this.singleInput!.value = String(this.options.defaultValue)
-            }
         })
         if (this.options.isRange) {
             this.form.rightInput.addEventListener('input', () => {
@@ -200,7 +179,7 @@ class View {
                 })
                 this.thumb.setThumbValue(this.options.isRange, 
                     this.options.defaultValue, this.options.rightValue)
-                this.rightInput!.value = String(this.options.rightValue)
+                this.setAttributesValue()
             })
         }
     }
@@ -233,6 +212,7 @@ class View {
             this.observers.forEach(observer => {
                 observer.updateModel(newValue, 'right')
             })
+            this.setAttributesValue()
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
         } else {
@@ -241,6 +221,7 @@ class View {
             this.observers.forEach(observer => {
                 observer.updateModel(newValue, 'default')
             })
+            this.setAttributesValue()
             this.thumb.setThumbValue(this.options.isRange, 
                 this.options.defaultValue, this.options.rightValue)
         }
