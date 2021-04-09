@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>112/112</span>
+                <span class='fraction'>111/111</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.86% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>26/28</span>
+                <span class='fraction'>28/28</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>108/108</span>
+                <span class='fraction'>107/107</span>
             </div>
         
             
@@ -350,11 +350,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -378,20 +378,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -519,17 +519,17 @@ class Thumb {
     thumbRight!: HTMLDivElement
     thumbOutput!: HTMLDivElement
     thumbOutputRight?: HTMLDivElement
-    isDouble!: boolean
+&nbsp;
     init (parent: HTMLDivElement, 
         isDouble: boolean, 
         toggleElement: boolean, 
         defaultValue: number, 
         rightValue?: number) {
-        this.isDouble = isDouble
+&nbsp;
         this.createThumb(parent, isDouble)
         if (toggleElement) {
-            this.createThumbElement(this.thumbDefault, this.thumbRight)
-            this.setThumbValue(defaultValue, rightValue)
+            this.createThumbElement(isDouble, this.thumbDefault, this.thumbRight)
+            this.setThumbValue(isDouble, defaultValue, rightValue)
         }
     }
     createThumb(parent: HTMLDivElement, isDouble: boolean) {
@@ -552,8 +552,8 @@ class Thumb {
             
         }
     }
-    createThumbElement(parent: HTMLDivElement, rightParent?: HTMLDivElement) {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (this.isDouble) {
+    createThumbElement(isDouble: boolean, parent: HTMLDivElement, rightParent?: HTMLDivElement) {
+        if (isDouble) {
             this.thumbOutputRight = document.createElement('p')
             this.thumbOutputRight.classList.add('range-slider__value-thumb')
             rightParent!.append(this.thumbOutputRight)
@@ -562,10 +562,10 @@ class Thumb {
         this.thumbOutput.className = 'range-slider__value-thumb'
         parent.append(this.thumbOutput)
     }
-    setThumbValue(value: number, rightValue?: number) {
+    setThumbValue(isDouble: boolean, value: number, rightValue?: number) {
         if (this.thumbOutput) {
             this.thumbOutput.textContent = String(value)
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (this.isDouble) {
+            if (isDouble) {
                 this.thumbOutputRight!.textContent = String(rightValue)
             }
         }
@@ -589,7 +589,7 @@ export {Form, Styles, ProgressBar, Thumb}</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 31 2021 23:38:13 GMT+0300 (Moscow Standard Time)
+                at Fri Apr 09 2021 07:55:23 GMT+0300 (Moscow Standard Time)
             </div>
         </div>
         <script src="prettify.js"></script>
