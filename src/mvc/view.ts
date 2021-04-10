@@ -107,11 +107,11 @@ class View {
     }
     setAttributesValue = () =>  {
         if (this.options.isRange) {
-                this.wrapper.setAttribute('left-value', String(this.options.defaultValue))
-                this.wrapper.setAttribute('right-value', String(this.options.rightValue))
-            } else {
-                this.wrapper.setAttribute('default-value', String(this.options.defaultValue))
-            }
+            this.wrapper.setAttribute('left-value', String(this.options.defaultValue))
+            this.wrapper.setAttribute('right-value', String(this.options.rightValue))
+        } else {
+            this.wrapper.setAttribute('default-value', String(this.options.defaultValue))
+        }
     }
     createScale = () => {
         let scale = document.createElement('div')
@@ -132,11 +132,10 @@ class View {
             divValue.addEventListener('click', () => {
                 this.eventClick(value)
             })
-            divValue.style.marginLeft = '-' + this.placeScale() + '%'
+            divValue.style.marginLeft = '-' + this.placeScale(this.wrapper.offsetWidth) + '%'
         }
     }
-    placeScale = (): number => {
-        const containerWidth: number = this.wrapper.offsetWidth
+    placeScale = (containerWidth: number): number => {
         return (0.42 * containerWidth + 777.8) / containerWidth
     }
     setInput = () => {
@@ -183,7 +182,6 @@ class View {
             })
         }
     }
-    
     clickOnBar(elem: MouseEvent) {
         const coords: DOMRect = this.styles.track.getBoundingClientRect()
         let length: number = coords.right - coords.left
