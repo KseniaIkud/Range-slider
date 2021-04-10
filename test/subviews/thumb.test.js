@@ -26,7 +26,6 @@ describe('createThumbElement', () => {
         jest.clearAllMocks()
         _.createThumbElement(false, document.body)
         expect(document.createElement).toHaveBeenCalledTimes(1);
-        expect(_.thumbOutput.classList.contains('range-slider__value-thumb'))
         createElementMock.mockRestore()
     })
     test('two thumbs should be created', () => {
@@ -34,8 +33,6 @@ describe('createThumbElement', () => {
         jest.clearAllMocks()
         _.createThumbElement(true, document.body, document.body)
         expect(document.createElement).toHaveBeenCalledTimes(2);
-        expect(_.thumbOutput.classList.contains('range-slider__value-thumb'))
-        expect(_.thumbOutputRight.classList.contains('range-slider__value-thumb'))
         createElementMock.mockRestore()
     })
 })
