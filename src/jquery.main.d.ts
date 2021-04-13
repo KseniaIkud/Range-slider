@@ -1,6 +1,10 @@
 
-import {Form, Styles, ProgressBar, Thumb} from './mvc/subViews.ts'
-import {View} from './mvc/view.ts'
+
+import {Slider} from './mvc/view/slider'
+import {Track} from './mvc/view/track'
+import {ProgressBar} from './mvc/view/progressBar'
+import {Thumb} from './mvc/view/thumb'
+import {View} from './mvc/view/view.ts'
 import {Model} from './mvc/model.ts'
 import {Controller} from './mvc/controller.ts'
 
@@ -34,8 +38,8 @@ import {Controller} from './mvc/controller.ts'
             }), 
             new View( 
                 this,
-                new Form(),
-                new Styles(),
+                new Slider(),
+                new Track(),
                 new ProgressBar(),
                 new Thumb() 
             )

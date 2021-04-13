@@ -1,4 +1,4 @@
-import {ProgressBar} from '../../src/mvc/subViews'
+import {ProgressBar} from '../../src/mvc/view/progressBar'
 
 const _ = new ProgressBar()
 

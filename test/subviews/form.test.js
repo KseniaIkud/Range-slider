@@ -1,4 +1,4 @@
-import {Form} from '../../src/mvc/subViews'
+import {Form} from '../../src/mvc/view/slider'
 
 const _ = new Form()
 

@@ -1,4 +1,4 @@
-import {Thumb} from '../../src/mvc/subViews'
+import {Thumb} from '../../src/mvc/view/thumb'
 
 const _ = new Thumb()
 

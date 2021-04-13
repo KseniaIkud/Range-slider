@@ -1,6 +1,8 @@
 
-import {Form, Styles, ProgressBar, Thumb} from './subViews'
-
+import {Slider} from './slider'
+import {Track} from './track'
+import {ProgressBar} from './progressBar'
+import {Thumb} from './thumb'
 interface IDataView {
     min: number
     max: number
@@ -23,13 +25,13 @@ class View {
     singleInput?: HTMLInputElement
     leftInput?: HTMLInputElement
     rightInput?: HTMLInputElement
-    form: Form
-    styles: Styles
+    form: Slider
+    styles: Track
     progressBar: ProgressBar
     thumb: Thumb
     options: IDataView
     observers: IObserverView[]
-    constructor(parent: HTMLElement, form: Form, styles: Styles, progressBar: ProgressBar, thumb: Thumb) {
+    constructor(parent: HTMLElement, form: Slider, styles: Track, progressBar: ProgressBar, thumb: Thumb) {
         this.parent = parent
         this.form = form
         this.styles = styles
