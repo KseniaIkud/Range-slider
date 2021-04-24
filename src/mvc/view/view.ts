@@ -3,6 +3,8 @@ import {Slider} from './slider'
 import {Track} from './track'
 import {ProgressBar} from './progressBar'
 import {Thumb} from './thumb'
+import {Scale} from './scale'
+
 interface IDataView {
     min: number
     max: number
@@ -29,14 +31,16 @@ class View {
     styles: Track
     progressBar: ProgressBar
     thumb: Thumb
+    scale: Scale
     options: IDataView
     observers: IObserverView[]
-    constructor(parent: HTMLElement, form: Slider, styles: Track, progressBar: ProgressBar, thumb: Thumb) {
+    constructor(parent: HTMLElement, form: Slider, styles: Track, progressBar: ProgressBar, thumb: Thumb, scale: Scale) {
         this.parent = parent
         this.form = form
         this.styles = styles
         this.progressBar = progressBar
         this.thumb = thumb
+        this.scale = scale
 
     // default data
         this.options = {
@@ -98,7 +102,18 @@ class View {
             }   
         }
         if (this.options.isScale) {
-            this.createScale()
+            let scale = this.scale.createScale(this.options.scaleValues, this.wrapper.offsetWidth)
+            let scaleElement = scale.scaleElement
+            let scaleValues = scale.values
+
+            this.wrapper.append(scaleElement)
+
+            for (let i = 0; i < scaleValues.length; i++) {
+                scaleValues[i].element.addEventListener("click", () => {
+                    this.eventClick(scaleValues[i].value)
+                })
+            }
+            
         }
     } 
     createWrapper = () => {
@@ -114,31 +129,6 @@ class View {
         } else {
             this.wrapper.setAttribute('default-value', String(this.options.defaultValue))
         }
-    }
-    createScale = () => {
-        let scale = document.createElement('div')
-        scale.classList.add('range-slider__scale')
-        this.wrapper.append(scale, this.styles.style)
-
-        for (let i = 0; i < this.options.scaleValues.length; i++) {
-            const divValue: HTMLDivElement = document.createElement('div')
-            divValue.classList.add('range-slider__value')
-            const value: number = this.options.scaleValues[i]
-            divValue.textContent = String('– ' + value)
-            scale.append(divValue)
-            const min = this.options.min
-            const max = this.options.max
-            const percent: number = Math.round(((value - min) / (max - min)) * 100)
-            divValue.style.left = percent + '%'
-
-            divValue.addEventListener('click', () => {
-                this.eventClick(value)
-            })
-            divValue.style.marginLeft = '-' + this.placeScale(this.wrapper.offsetWidth) + '%'
-        }
-    }
-    placeScale = (containerWidth: number): number => {
-        return (0.42 * containerWidth + 777.8) / containerWidth
     }
     setInput = () => {
         this.form.setInputValue(this.options.isRange, this.options.defaultValue, this.options.rightValue)
