@@ -4,6 +4,7 @@ import {Slider} from './mvc/view/slider'
 import {Track} from './mvc/view/track'
 import {ProgressBar} from './mvc/view/progressBar'
 import {Thumb} from './mvc/view/thumb'
+import {Scale} from './mvc/view/scale'
 import {View} from './mvc/view/view.ts'
 import {Model} from './mvc/model.ts'
 import {Controller} from './mvc/controller.ts'
@@ -41,7 +42,8 @@ import {Controller} from './mvc/controller.ts'
                 new Slider(),
                 new Track(),
                 new ProgressBar(),
-                new Thumb() 
+                new Thumb(),
+                new Scale()
             )
         )
     }
