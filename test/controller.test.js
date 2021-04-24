@@ -1,15 +1,21 @@
-import {Form, Styles, ProgressBar, Thumb} from '../src/mvc/subViews.ts'
 import {Controller} from '../src/mvc/controller'
 import {Model} from '../src/mvc/model'
-import {View} from '../src/mvc/view'
+import {View} from '../src/mvc/view/view';
+import {Slider} from '../src/mvc/view/slider';
+import {Track} from '../src/mvc/view/track';
+import {ProgressBar} from '../src/mvc/view/progressBar';
+import {Thumb} from '../src/mvc/view/thumb';
+import {Scale} from '../src/mvc/view/scale'
+
 const _ = new Controller(
     new Model({}), 
     new View(
         document.body, 
-        new Form(), 
-        new Styles(),
+        new Slider(), 
+        new Track(),
         new ProgressBar(),
-        new Thumb()
+        new Thumb(),
+        new Scale()
     )
 )
 

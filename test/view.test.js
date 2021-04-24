@@ -1,6 +1,10 @@
-import {View} from '../src/mvc/view';
-import {Form, Styles, ProgressBar, Thumb} from '../src/mvc/subViews.ts';
-let _ = new View(document.body, Form, Styles, ProgressBar, Thumb)
+import {View} from '../src/mvc/view/view';
+import {Slider} from '../src/mvc/view/slider';
+import {Track} from '../src/mvc/view/track';
+import {ProgressBar} from '../src/mvc/view/progressBar';
+import {Thumb} from '../src/mvc/view/thumb';
+import {Scale} from '../src/mvc/view/scale'
+let _ = new View(document.body, Slider, Track, ProgressBar, Thumb, Scale)
 
 
 describe('init function', () => {
@@ -68,37 +72,36 @@ describe('setAttributesValue function', () => {
         })
     })
 })
-describe('createScale function', () => {
-    test('new element should be created', () => {
-        let mock = jest.spyOn(document, "createElement")
-        _.createScale()
-        expect(document.createElement).toHaveBeenCalledTimes(1);
-        mock.mockRestore()
-    })
-    test('scale element should have className range-slider__scale', () => {
-        expect(_.wrapper.firstChild.classList.contains('range-slider__scale')).toBe(true)
-    })
-    test('the element should be added inside wrapper', () => {
-        let mock = jest.spyOn(_.wrapper, "append")
-        _.createScale()
-        expect(_.wrapper.append).toHaveBeenCalledTimes(1)
-        mock.mockRestore()
-    })
-    test('4 elements should be created (for every value and for scale itself)', () => {
-        _.options = {
-            ..._.options,
-            scaleValues: [1, 2, 3]
-        }
-        let mock = jest.spyOn(document, "createElement")
-        _.createScale()
-        expect(document.createElement).toHaveBeenCalledTimes(4)
-        mock.mockRestore()
-    })
-})
-describe('placeScale function', () => {
-    test('scale position should adapt to different wrapper width', () => {
-        let x = 450
-        expect(_.placeScale(x)).toBe((0.42 * x + 777.8) / x)
-    })
-})
-// expect(_.thumbOutput.classList.contains('range-slider__value-thumb'))
+// describe('createScale function', () => {
+//     test('new element should be created', () => {
+//         let mock = jest.spyOn(document, "createElement")
+//         _.createScale()
+//         expect(document.createElement).toHaveBeenCalledTimes(1);
+//         mock.mockRestore()
+//     })
+//     test('scale element should have className range-slider__scale', () => {
+//         expect(_.wrapper.firstChild.classList.contains('range-slider__scale')).toBe(true)
+//     })
+//     test('the element should be added inside wrapper', () => {
+//         let mock = jest.spyOn(_.wrapper, "append")
+//         _.createScale()
+//         expect(_.wrapper.append).toHaveBeenCalledTimes(1)
+//         mock.mockRestore()
+//     })
+//     test('4 elements should be created (for every value and for scale itself)', () => {
+//         _.options = {
+//             ..._.options,
+//             scaleValues: [1, 2, 3]
+//         }
+//         let mock = jest.spyOn(document, "createElement")
+//         _.createScale()
+//         expect(document.createElement).toHaveBeenCalledTimes(4)
+//         mock.mockRestore()
+//     })
+// })
+// describe('placeScale function', () => {
+//     test('scale position should adapt to different wrapper width', () => {
+//         let x = 450
+//         expect(_.placeScale(x)).toBe((0.42 * x + 777.8) / x)
+//     })
+// })

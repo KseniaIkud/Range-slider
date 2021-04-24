@@ -1,6 +1,6 @@
-import {Form} from '../../src/mvc/view/slider'
+import {Slider} from '../../src/mvc/view/slider'
 
-const _ = new Form()
+const _ = new Slider()
 
 describe('setInputValue function for slider with one handle', () => {
     _.init(document.body, false, 0, 100)
