@@ -81,7 +81,6 @@ class Model {
                     allValues.push(i)
                 }
             }
-            console.log(allValues[allValues.length - 1])
             if (allValues.length <= 11) {
                 allValues.forEach(i => {
                     scaleValues.push(i)
