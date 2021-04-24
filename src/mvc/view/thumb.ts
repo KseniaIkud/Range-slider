@@ -39,11 +39,11 @@ class Thumb {
     }
     createThumbElement(isDouble: boolean, parent: HTMLDivElement, rightParent?: HTMLDivElement) {
         if (isDouble) {
-            this.thumbOutputRight = document.createElement('p')
+            this.thumbOutputRight = document.createElement('div')
             this.thumbOutputRight.classList.add('range-slider__value-thumb')
             rightParent!.append(this.thumbOutputRight)
         }
-        this.thumbOutput = document.createElement('p')
+        this.thumbOutput = document.createElement('div')
         this.thumbOutput.className = 'range-slider__value-thumb'
         parent.append(this.thumbOutput)
     }
@@ -51,14 +51,11 @@ class Thumb {
         if (this.thumbOutput) {
             this.thumbOutput.textContent = String(value)
             if (isDouble) {
-                this.thumbOutputRight!.textContent = String(rightValue)
+                this.thumbOutputRight!.innerText = String(rightValue)
             }
-        }
-
-        
-        
+        }   
     }
-
+    
     placeThumb(isDouble: boolean, percent: number, percentRight?: number): void {
         this.thumbDefault.style.left = percent + '%'
         if (isDouble) {
