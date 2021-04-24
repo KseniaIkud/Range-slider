@@ -29,7 +29,7 @@ const renderRangeSlider = (id, panel) => {
     isScale: panel.isScale
   })
 }
-for (let i=1; i<5; i++) {
+for (let i = 1; i <= rangeSliderId.length; i++) {
   const panel = {
     min: getValue('min'+ i),
     max: getValue('max'+ i),
@@ -58,12 +58,22 @@ for (let i=1; i<5; i++) {
     })
   })
   renderRangeSlider(rangeSliderId[i-1], panel)
-
 }
+rangeSliderId.forEach((item, index)=> {
+  let slider = document.getElementById(item).firstChild
+  
+  let setSliderValue = () => {
+    document.getElementById('initialValue' + (index + 1)).value = slider.getAttribute('default-value')
+    document.getElementById('leftValue' + (index + 1)).value = slider.getAttribute('left-value')
+    document.getElementById('rightValue' + (index + 1)).value = slider.getAttribute('right-value')
+  }
+  slider.addEventListener('mousemove', () => {
+    setSliderValue()
+  })
+  slider.addEventListener('click', () => {
+    setSliderValue()
+  })
+})
 
-let slider = document.getElementById('rangeSlider_first').firstChild
-let sliderValue = slider.getAttribute('default-value')
 
 
-
-document.getElementById('initialValue1').value = sliderValue
