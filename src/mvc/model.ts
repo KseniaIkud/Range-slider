@@ -75,24 +75,28 @@ class Model {
             if (!isScale) {
                 return scaleValues
             }
-            let allValues: number[] = []
-            for (let i: number = min; i <= max; i++) {
-                if (i % step === 0) {
-                    allValues.push(i)
-                }
-            }
-            if (allValues.length <= 11) {
-                allValues.forEach(i => {
+            let possibleValues = (max - min) / step
+            
+            if (possibleValues <= 11) {
+                for (let i: number = min; i <= max; i += step) {
                     scaleValues.push(i)
-                })
+                }
             } else {
-                let scaleStep = Math.round(allValues.length / 10)
-                for (let i: number = 0; i < allValues.length; i+=scaleStep) {
-                    scaleValues.push(allValues[i])
+                let scaleStep = Math.round(possibleValues / 10)
+                let currentValue = min
+                for (let i: number = 0; i < possibleValues; i+=scaleStep) {
+                    if (currentValue <= max) {
+                        scaleValues.push(currentValue)
+                    }
+                    currentValue += step * scaleStep
+                }
+                if (currentValue <= max) {
+                    scaleValues.push(currentValue)
                 }
             }
-            if (scaleValues[scaleValues.length - 1] !== this.max) {
-                scaleValues.push(this.max)
+            if (scaleValues[scaleValues.length - 1] !== max) {
+                scaleValues.pop()
+                scaleValues.push(max)
             }
             
             return scaleValues
