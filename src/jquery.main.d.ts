@@ -1,13 +1,12 @@
 
-
 import {Slider} from './mvc/view/slider'
 import {Track} from './mvc/view/track'
 import {ProgressBar} from './mvc/view/progressBar'
 import {Thumb} from './mvc/view/thumb'
 import {Scale} from './mvc/view/scale'
-import {View} from './mvc/view/view.ts'
-import {Model} from './mvc/model.ts'
-import {Controller} from './mvc/controller.ts'
+import {View} from './mvc/view/view'
+import {Model} from './mvc/model'
+import {Controller} from './mvc/controller'
 
 
 (function($: JQueryStatic) {
@@ -48,4 +47,3 @@ import {Controller} from './mvc/controller.ts'
         )
     }
 })(jQuery)
-

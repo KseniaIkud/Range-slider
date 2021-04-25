@@ -8,8 +8,6 @@ const TerserWebpackPlugin = require('terser-webpack-plugin')
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
 
-const filename = ext => `rangeSlider.${ext}`
-
 const optimization = () => {
     const config = {
     }
@@ -80,7 +78,8 @@ const plugins = () => {
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: filename('css')
+            filename: '[name].css',
+            
         })
     ]
 
@@ -91,10 +90,11 @@ const plugins = () => {
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: {
-        main: ['@babel/polyfill','./index.js']
+        rangeSlider: ['@babel/polyfill','./rangeSlider.js'],
+        index: ['@babel/polyfill', './demo/demo.js']
     },
     output: {
-        filename: filename('js'),
+        filename: '[name].js',
         path: path.resolve(__dirname, 'docs')
     },
     resolve: {
