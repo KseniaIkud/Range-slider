@@ -9,12 +9,31 @@ const getBooleanValue = (id) => {
 const rangeSliderNumbersId = ['min', 'max', 'initialValue', 'leftValue', 'rightValue', 'step']
 const rangeSliderBooleansId = ['isRange', 'rightProgressBar', 'overThumbElement', 'isVertical', 'isScale']
 const rangeSliderId = ['rangeSlider_first', 'rangeSlider_second', 'rangeSlider_third', 'rangeSlider_forth']
+
+const spyOnSlider = (item, index) => {
+  let slider = document.getElementById(item).firstChild
+  let setSliderValue = () => {
+    document.getElementById('initialValue' + index).value = slider.getAttribute('default-value')
+    document.getElementById('leftValue' + index).value = slider.getAttribute('left-value')
+    document.getElementById('rightValue' + index).value = slider.getAttribute('right-value')
+  }
+  setSliderValue()
+  slider.addEventListener('mousemove', () => {
+    setSliderValue()
+  })
+  slider.addEventListener('click', () => {
+    setSliderValue()
+  })
+}
+
+
 const renderRangeSlider = (id, panel) => {
   let elem = document.getElementById(id)
-  let div = elem.firstElementChild
-  if (div) {
-    elem.removeChild(div)
+  
+  if (elem.firstElementChild) {
+    elem.removeChild(elem.firstElementChild)
   }
+  
   $('#'+id).rangeSlider({
     min: panel.min,
     max: panel.max,
@@ -28,6 +47,7 @@ const renderRangeSlider = (id, panel) => {
     isVertical: panel.isVertical,
     isScale: panel.isScale
   })
+  
 }
 for (let i = 1; i <= rangeSliderId.length; i++) {
   const panel = {
@@ -45,9 +65,11 @@ for (let i = 1; i <= rangeSliderId.length; i++) {
   }
   rangeSliderNumbersId.forEach(item => {
     let element = document.getElementById(item + i)
-    element.addEventListener('blur', () => {
+    element.addEventListener('change', () => {
       panel[item] = element.value
       renderRangeSlider(rangeSliderId[i-1], panel)
+      spyOnSlider(rangeSliderId[i-1], i)
+      
     })
   })
   rangeSliderBooleansId.forEach(item => {
@@ -55,25 +77,14 @@ for (let i = 1; i <= rangeSliderId.length; i++) {
     element.addEventListener('change', () => {
       panel[item] = element.checked
       renderRangeSlider(rangeSliderId[i-1], panel)
+      spyOnSlider(rangeSliderId[i-1], i)
     })
   })
   renderRangeSlider(rangeSliderId[i-1], panel)
+  spyOnSlider(rangeSliderId[i-1], i)
 }
-rangeSliderId.forEach((item, index)=> {
-  let slider = document.getElementById(item).firstChild
-  
-  let setSliderValue = () => {
-    document.getElementById('initialValue' + (index + 1)).value = slider.getAttribute('default-value')
-    document.getElementById('leftValue' + (index + 1)).value = slider.getAttribute('left-value')
-    document.getElementById('rightValue' + (index + 1)).value = slider.getAttribute('right-value')
-  }
-  slider.addEventListener('mousemove', () => {
-    setSliderValue()
-  })
-  slider.addEventListener('click', () => {
-    setSliderValue()
-  })
-})
+
+
 
 
 
