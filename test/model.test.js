@@ -89,6 +89,15 @@ describe('get scale values function', () => {
         let expectArray = [-6, -4, -2, 0, 2, 4]
         expect(_.getScale(-6, 4, 2, true)).toEqual(expectArray)
     })
+    test('should overwrite step if it is less or equal to zero', () => {
+        let expectArray = [1, 2, 3, 4, 5]
+        expect(_.getScale(1, 5, 0, true)).toEqual(expectArray)
+        expect(_.getScale(1, 5, -100, true)).toEqual(expectArray)
+    })
+    test('the last value should be the max even if it does not fit the step', () => {
+        let expectArray = [0, 5, 10, 16]
+        expect(_.getScale(0, 16, 5, true)).toEqual(expectArray)
+    })
     test('should return only 11 numbers max', () => {
         let expectArray = [100, 190, 280, 370, 460, 550, 640, 730, 820, 910, 1000]
         expect(_.getScale(100, 1000, 10, true)).toEqual(expectArray)
