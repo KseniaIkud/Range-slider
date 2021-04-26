@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1619464683290" clover="3.2.0">
-  <project timestamp="1619464683290" name="All files">
+<coverage generated="1619465418199" clover="3.2.0">
+  <project timestamp="1619465418199" name="All files">
     <metrics statements="371" coveredstatements="311" conditionals="148" coveredconditionals="114" methods="72" coveredmethods="53" elements="591" coveredelements="478" complexity="0" loc="371" ncloc="371" packages="2" files="8" classes="8"/>
     <package name="mvc">
       <metrics statements="104" coveredstatements="104" conditionals="64" coveredconditionals="62" methods="18" coveredmethods="18"/>
@@ -140,28 +140,28 @@
       </file>
       <file name="scale.ts" path="/home/xena/Range-slider/src/mvc/view/scale.ts">
         <metrics statements="22" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="11" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="13" count="3" type="stmt"/>
-        <line num="14" count="3" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
-        <line num="16" count="3" type="stmt"/>
-        <line num="17" count="3" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
-        <line num="22" count="3" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="31" count="3" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="11" type="stmt"/>
+        <line num="10" count="11" type="stmt"/>
+        <line num="11" count="11" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="13" count="11" type="stmt"/>
+        <line num="14" count="11" type="stmt"/>
+        <line num="15" count="11" type="stmt"/>
+        <line num="16" count="11" type="stmt"/>
+        <line num="17" count="11" type="stmt"/>
+        <line num="20" count="11" type="stmt"/>
+        <line num="22" count="11" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="12" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
       </file>
       <file name="slider.ts" path="/home/xena/Range-slider/src/mvc/view/slider.ts">
         <metrics statements="40" coveredstatements="40" conditionals="10" coveredconditionals="10" methods="7" coveredmethods="7"/>
