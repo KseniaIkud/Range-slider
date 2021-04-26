@@ -71,6 +71,9 @@ class Model {
         max: number = this.max, 
         step: number = this.step, 
         isScale: boolean = this.isScale): number[] {
+            if (step <= 0) {
+                step = 1
+            }
             let scaleValues: number[] = []
             if (!isScale) {
                 return scaleValues
