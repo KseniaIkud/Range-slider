@@ -5,7 +5,7 @@ import Thumb from './mvc/view/thumb';
 import Scale from './mvc/view/scale';
 import View from './mvc/view/view';
 import Model from './mvc/model';
-import Controller from './mvc/controller';
+import Presenter from './mvc/presenter';
 
 (function initSlider($: JQueryStatic) {
   $.fn.rangeSlider = function init(settings: {
@@ -21,7 +21,7 @@ import Controller from './mvc/controller';
     isVertical?: boolean
     isScale?: boolean
   }) {
-    return new Controller(
+    return new Presenter(
       new Model({
         min: settings.min,
         max: settings.max,

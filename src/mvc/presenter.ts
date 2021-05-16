@@ -1,7 +1,7 @@
 import Model from './model';
 import View from './view/view';
 
-class Controller {
+class Presenter {
   model: Model;
 
   view: View;
@@ -31,4 +31,4 @@ class Controller {
   }
 }
 
-export default Controller;
+export default Presenter;
