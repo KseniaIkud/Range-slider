@@ -76,9 +76,6 @@ describe('update observers function', () => {
   });
 });
 describe('get scale values function', () => {
-  test('getScaleValues function should be defined', () => {
-    expect(testModel.getScale).toBeDefined();
-  });
   test('if there is no scale, getScaleValues function should return empty array', () => {
     expect(testModel.getScale(0, 1, 1, false)).toEqual([]);
   });
