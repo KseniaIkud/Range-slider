@@ -1,11 +1,11 @@
-import { Controller } from '../src/mvc/controller';
-import { Model } from '../src/mvc/model';
-import { View } from '../src/mvc/view/view';
-import { Slider } from '../src/mvc/view/slider';
-import { Track } from '../src/mvc/view/track';
-import { ProgressBar } from '../src/mvc/view/progressBar';
-import { Thumb } from '../src/mvc/view/thumb';
-import { Scale } from '../src/mvc/view/scale';
+import Controller from '../src/mvc/controller';
+import Model from '../src/mvc/model';
+import View from '../src/mvc/view/view';
+import Slider from '../src/mvc/view/slider';
+import Track from '../src/mvc/view/track';
+import ProgressBar from '../src/mvc/view/progressBar';
+import Thumb from '../src/mvc/view/thumb';
+import Scale from '../src/mvc/view/scale';
 
 const testController = new Controller(
   new Model({}),

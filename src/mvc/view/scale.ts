@@ -28,4 +28,4 @@ class Scale {
   placeScale = (containerWidth: number): number => (0.42 * containerWidth + 777.8) / containerWidth;
 }
 
-export { Scale };
+export default Scale;

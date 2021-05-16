@@ -1,4 +1,4 @@
-import { Track } from '../../src/mvc/view/track';
+import Track from '../../src/mvc/view/track';
 
 const testTrack = new Track();
 

@@ -1,4 +1,4 @@
-import { Slider } from '../../src/mvc/view/slider';
+import Slider from '../../src/mvc/view/slider';
 
 const testSlider = new Slider();
 

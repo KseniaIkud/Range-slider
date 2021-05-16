@@ -1,9 +1,9 @@
-import { View } from '../src/mvc/view/view';
-import { Slider } from '../src/mvc/view/slider';
-import { Track } from '../src/mvc/view/track';
-import { ProgressBar } from '../src/mvc/view/progressBar';
-import { Thumb } from '../src/mvc/view/thumb';
-import { Scale } from '../src/mvc/view/scale';
+import View from '../src/mvc/view/view';
+import Slider from '../src/mvc/view/slider';
+import Track from '../src/mvc/view/track';
+import ProgressBar from '../src/mvc/view/progressBar';
+import Thumb from '../src/mvc/view/thumb';
+import Scale from '../src/mvc/view/scale';
 
 const testView = new View(document.body, Slider, Track, ProgressBar, Thumb, Scale);
 

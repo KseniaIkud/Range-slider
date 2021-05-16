@@ -1,11 +1,11 @@
-import { Slider } from './mvc/view/slider';
-import { Track } from './mvc/view/track';
-import { ProgressBar } from './mvc/view/progressBar';
-import { Thumb } from './mvc/view/thumb';
-import { Scale } from './mvc/view/scale';
-import { View } from './mvc/view/view';
-import { Model } from './mvc/model';
-import { Controller } from './mvc/controller';
+import Slider from './mvc/view/slider';
+import Track from './mvc/view/track';
+import ProgressBar from './mvc/view/progressBar';
+import Thumb from './mvc/view/thumb';
+import Scale from './mvc/view/scale';
+import View from './mvc/view/view';
+import Model from './mvc/model';
+import Controller from './mvc/controller';
 
 (function initSlider($: JQueryStatic) {
   $.fn.rangeSlider = function init(settings: {

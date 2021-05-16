@@ -1,4 +1,4 @@
-import { ProgressBar } from '../../src/mvc/view/progressBar';
+import ProgressBar from '../../src/mvc/view/progressBar';
 
 const testProgressBar = new ProgressBar();
 

@@ -1,4 +1,4 @@
-import { Scale } from '../../src/mvc/view/scale';
+import Scale from '../../src/mvc/view/scale';
 
 const testScale = new Scale();
 

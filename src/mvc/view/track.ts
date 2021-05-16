@@ -21,4 +21,4 @@ class Track {
   }
 }
 
-export { Track };
+export default Track;

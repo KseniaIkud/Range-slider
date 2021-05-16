@@ -65,4 +65,4 @@ class Thumb {
   }
 }
 
-export { Thumb };
+export default Thumb;

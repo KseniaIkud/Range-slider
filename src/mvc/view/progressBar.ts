@@ -27,4 +27,4 @@ class ProgressBar {
   }
 }
 
-export { ProgressBar };
+export default ProgressBar;

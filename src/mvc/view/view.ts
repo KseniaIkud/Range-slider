@@ -1,9 +1,8 @@
-// /* eslint-disable fsd/no-function-declaration-in-event-listener */
-import { Slider } from './slider';
-import { Track } from './track';
-import { ProgressBar } from './progressBar';
-import { Thumb } from './thumb';
-import { Scale } from './scale';
+import Slider from './slider';
+import Track from './track';
+import ProgressBar from './progressBar';
+import Thumb from './thumb';
+import Scale from './scale';
 
 interface IDataView {
   min: number
@@ -300,4 +299,4 @@ class View {
   };
 }
 
-export { View };
+export default View;

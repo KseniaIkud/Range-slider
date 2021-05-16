@@ -1,5 +1,5 @@
-import { Model } from './model';
-import { View } from './view/view';
+import Model from './model';
+import View from './view/view';
 
 class Controller {
   model: Model;
@@ -31,4 +31,4 @@ class Controller {
   }
 }
 
-export { Controller };
+export default Controller;

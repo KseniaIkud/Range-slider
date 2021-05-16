@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
-import { Model } from '../src/mvc/model';
+import Model from '../src/mvc/model';
 
 const testModel = new Model({});
 

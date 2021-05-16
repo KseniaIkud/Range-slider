@@ -1,4 +1,4 @@
-import { Thumb } from '../../src/mvc/view/thumb';
+import Thumb from '../../src/mvc/view/thumb';
 
 const testThumb = new Thumb();
 
