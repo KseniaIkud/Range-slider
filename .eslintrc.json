@@ -20,5 +20,6 @@
         "fsd"
     ],
     "rules": {
+        "class-methods-use-this": "off"
     }
 }
