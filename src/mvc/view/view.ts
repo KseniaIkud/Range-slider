@@ -1,4 +1,4 @@
-/* eslint-disable fsd/no-function-declaration-in-event-listener */
+// /* eslint-disable fsd/no-function-declaration-in-event-listener */
 import { Slider } from './slider';
 import { Track } from './track';
 import { ProgressBar } from './progressBar';
@@ -121,9 +121,10 @@ class View {
       this.wrapper.append(scaleElement);
 
       for (let i = 0; i < scaleValues.length; i += 1) {
-        scaleValues[i].element.addEventListener('click', () => {
+        const onClick = () => {
           this.eventClick(scaleValues[i].value);
-        });
+        };
+        scaleValues[i].element.addEventListener('click', onClick);
       }
     }
   };
@@ -169,30 +170,29 @@ class View {
   };
 
   eventInput = () => {
-    let isDefault = true;
-    this.form.defaultInput.addEventListener('input', () => {
-      isDefault = true;
-      this.options.defaultValue = Number(this.form.defaultInput.value);
+    const onInput = (newValue: number, isDefault: boolean) => {
       this.setInput();
+      if (isDefault) {
+        this.options.defaultValue = newValue;
+      } else {
+        this.options.rightValue = newValue;
+      }
       this.observers.forEach((observer) => {
-        observer.updateModel(Number(this.form.defaultInput.value), isDefault);
+        observer.updateModel(newValue, isDefault);
       });
       this.setAttributesValue();
       this.thumb.setThumbValue(this.options.isRange,
         this.options.defaultValue, this.options.rightValue);
-    });
+    };
+    const onDefaultInput = () => {
+      onInput(Number(this.form.defaultInput.value), true);
+    };
+    const onRightInput = () => {
+      onInput(Number(this.form.rightInput.value), false);
+    };
+    this.form.defaultInput.addEventListener('input', onDefaultInput);
     if (this.options.isRange) {
-      this.form.rightInput.addEventListener('input', () => {
-        isDefault = false;
-        this.options.rightValue = Number(this.form.rightInput.value);
-        this.setInput();
-        this.observers.forEach((observer) => {
-          observer.updateModel(Number(this.form.rightInput.value), isDefault);
-        });
-        this.thumb.setThumbValue(this.options.isRange,
-          this.options.defaultValue, this.options.rightValue);
-        this.setAttributesValue();
-      });
+      this.form.rightInput.addEventListener('input', onRightInput);
     }
   };
 
@@ -243,54 +243,59 @@ class View {
   }
 
   eventHover = () => {
-    this.form.defaultInput.addEventListener('mouseover', () => {
-      if (this.options.overThumbElement) {
-        this.thumb.thumbOutput.classList.add('range-slider__value-thumb_big');
+    const onMouseOver = (thumb: HTMLDivElement, thumbOut: HTMLDivElement | undefined) => {
+      if (this.options.overThumbElement && thumbOut) {
+        thumbOut.classList.add('range-slider__value-thumb_big');
       }
-      this.thumb.thumbDefault.classList.add('range-slider__thumb_hover');
-    });
+      thumb.classList.add('range-slider__thumb_hover');
+    };
+    const onDefaultMouseOver = () => {
+      onMouseOver(this.thumb.thumbDefault, this.thumb.thumbOutput);
+    };
+    const onRightMouseOver = () => {
+      onMouseOver(this.thumb.thumbRight, this.thumb.thumbOutputRight);
+    };
+    this.form.defaultInput.addEventListener('mouseover', onDefaultMouseOver);
     if (this.options.isRange) {
-      this.form.rightInput.addEventListener('mouseover', () => {
-        if (this.options.overThumbElement) {
-          this.thumb.thumbOutputRight?.classList.add('range-slider__value-thumb_big');
-        }
-        this.thumb.thumbRight.classList.add('range-slider__thumb_hover');
-      });
+      this.form.rightInput.addEventListener('mouseover', onRightMouseOver);
     }
-
-    this.form.defaultInput.addEventListener('mouseout', () => {
-      if (this.options.overThumbElement) {
-        this.thumb.thumbOutput.classList.remove('range-slider__value-thumb_big');
+    const onMouseOut = (thumb: HTMLDivElement, thumbOut: HTMLDivElement | undefined) => {
+      if (this.options.overThumbElement && thumbOut) {
+        thumbOut.classList.remove('range-slider__value-thumb_big');
       }
-      this.thumb.thumbDefault.classList.remove('range-slider__thumb_hover');
-    });
+      thumb.classList.remove('range-slider__thumb_hover');
+    };
+    const onDefaultMouseOut = () => {
+      onMouseOut(this.thumb.thumbDefault, this.thumb.thumbOutput);
+    };
+    const onRightMouseOut = () => {
+      onMouseOut(this.thumb.thumbRight, this.thumb.thumbOutputRight);
+    };
+    this.form.defaultInput.addEventListener('mouseout', onDefaultMouseOut);
     if (this.options.isRange) {
-      this.form.rightInput.addEventListener('mouseout', () => {
-        if (this.options.overThumbElement) {
-          this.thumb.thumbOutputRight?.classList.remove('range-slider__value-thumb_big');
-        }
-        this.thumb.thumbRight.classList.remove('range-slider__thumb_hover');
-      });
+      this.form.rightInput.addEventListener('mouseout', onRightMouseOut);
     }
   };
 
   eventActive = () => {
-    this.form.defaultInput.addEventListener('mousedown', () => {
+    const onDefaultMouseDown = () => {
       this.thumb.thumbDefault.classList.add('range-slider__thumb_active');
-    });
-    if (this.options.isRange) {
-      this.form.rightInput.addEventListener('mousedown', () => {
-        this.thumb.thumbRight.classList.add('range-slider__thumb_active');
-      });
-    }
-
-    this.form.defaultInput.addEventListener('mouseup', () => {
+    };
+    const onDefaultMouseUp = () => {
       this.thumb.thumbDefault.classList.remove('range-slider__thumb_active');
-    });
+    };
+    const onRightMouseDown = () => {
+      this.thumb.thumbRight.classList.add('range-slider__thumb_active');
+    };
+    const onRightMouseUp = () => {
+      this.thumb.thumbRight.classList.remove('range-slider__thumb_active');
+    };
+
+    this.form.defaultInput.addEventListener('mousedown', onDefaultMouseDown);
+    this.form.defaultInput.addEventListener('mouseup', onDefaultMouseUp);
     if (this.options.isRange) {
-      this.form.rightInput.addEventListener('mouseup', () => {
-        this.thumb.thumbRight.classList.remove('range-slider__thumb_active');
-      });
+      this.form.rightInput.addEventListener('mousedown', onRightMouseDown);
+      this.form.rightInput.addEventListener('mouseup', onRightMouseUp);
     }
   };
 }
