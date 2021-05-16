@@ -1,4 +1,3 @@
-/* eslint-disable default-case */
 interface IData {
   min: number
   max: number
@@ -77,11 +76,11 @@ class Model {
     this.getScale();
   };
 
-  update(newValue: number, option: string) {
+  update(newValue: number, isDefault: boolean) {
     if (this.isRange) {
-      this.limitToggle(newValue, option);
+      this.limitToggle(newValue, isDefault);
     } else {
-      this.limitStep(newValue, option);
+      this.limitStep(newValue, isDefault);
     }
   }
 
@@ -123,44 +122,31 @@ class Model {
     return scaleValues;
   }
 
-  limitToggle(newValue: number, option: string) {
-    switch (option) {
-      case ('default'):
-        if (newValue < this.rightValue) {
-          this.limitStep(newValue, option);
-        } else {
-          this.updateObservers();
-        }
-        break;
-      case ('right'):
-        if (newValue > this.defaultValue) {
-          this.limitStep(newValue, 'right');
-        } else {
-          this.updateObservers();
-        }
+  limitToggle(newValue: number, isDefault: boolean) {
+    const isInRange = isDefault ? newValue < this.rightValue : newValue > this.defaultValue;
+    if (isInRange) {
+      this.limitStep(newValue, isDefault);
+    } else {
+      this.updateObservers();
     }
   }
 
-  limitStep(newValue: number, option: string) {
-    switch (option) {
-      case ('default'):
-        if (newValue % this.step === 0) {
-          this.setDefaultValue(newValue);
-        } else {
-          const value: number = this.calcNearest(newValue);
-          this.setDefaultValue(value);
-          this.updateObservers();
-        }
-        break;
-      case ('right'):
-        if (newValue % this.step === 0) {
-          this.setRightValue(newValue);
-        } else {
-          const value: number = this.calcNearest(newValue);
-          this.setRightValue(value);
-          this.updateObservers();
-        }
-        break;
+  limitStep(newValue: number, isDefault: boolean) {
+    const isInStep = newValue % this.step === 0;
+    if (isDefault) {
+      if (isInStep) {
+        this.setDefaultValue(newValue);
+      } else {
+        const value: number = this.calcNearest(newValue);
+        this.setDefaultValue(value);
+        this.updateObservers();
+      }
+    } else if (isInStep) {
+      this.setRightValue(newValue);
+    } else {
+      const value: number = this.calcNearest(newValue);
+      this.setRightValue(value);
+      this.updateObservers();
     }
   }
 

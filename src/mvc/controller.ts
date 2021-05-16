@@ -20,7 +20,7 @@ class Controller {
     this.view.subscribe(this);
   };
 
-  updateModel(newValue: number, option: string) {
+  updateModel(newValue: number, option: boolean) {
     this.model.update(newValue, option);
   }
 

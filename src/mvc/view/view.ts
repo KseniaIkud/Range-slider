@@ -18,7 +18,7 @@ interface IDataView {
   scaleValues: number[]
 }
 interface IObserverView {
-  updateModel(arg0: number, arg1: string): void
+  updateModel(arg0: number, arg1: boolean): void
 }
 
 class View {
@@ -169,11 +169,13 @@ class View {
   };
 
   eventInput = () => {
+    let isDefault = true;
     this.form.defaultInput.addEventListener('input', () => {
+      isDefault = true;
       this.options.defaultValue = Number(this.form.defaultInput.value);
       this.setInput();
       this.observers.forEach((observer) => {
-        observer.updateModel(Number(this.form.defaultInput.value), 'default');
+        observer.updateModel(Number(this.form.defaultInput.value), isDefault);
       });
       this.setAttributesValue();
       this.thumb.setThumbValue(this.options.isRange,
@@ -181,10 +183,11 @@ class View {
     });
     if (this.options.isRange) {
       this.form.rightInput.addEventListener('input', () => {
+        isDefault = false;
         this.options.rightValue = Number(this.form.rightInput.value);
         this.setInput();
         this.observers.forEach((observer) => {
-          observer.updateModel(Number(this.form.rightInput.value), 'right');
+          observer.updateModel(Number(this.form.rightInput.value), isDefault);
         });
         this.thumb.setThumbValue(this.options.isRange,
           this.options.defaultValue, this.options.rightValue);
@@ -215,20 +218,23 @@ class View {
     const halfOfBar: number = (this.options.rightValue + this.options.defaultValue) / 2;
     const isRightTrack: boolean = this.options.isRange && newValue > this.options.rightValue;
     const isRightBar = this.options.isRange && newValue > halfOfBar;
+    let isDefault = true;
     if (isRightTrack || isRightBar) {
+      isDefault = false;
       this.options.rightValue = newValue;
       this.setInput();
       this.observers.forEach((observer) => {
-        observer.updateModel(newValue, 'right');
+        observer.updateModel(newValue, isDefault);
       });
       this.setAttributesValue();
       this.thumb.setThumbValue(this.options.isRange,
         this.options.defaultValue, this.options.rightValue);
     } else {
+      isDefault = true;
       this.options.defaultValue = newValue;
       this.setInput();
       this.observers.forEach((observer) => {
-        observer.updateModel(newValue, 'default');
+        observer.updateModel(newValue, isDefault);
       });
       this.setAttributesValue();
       this.thumb.setThumbValue(this.options.isRange,

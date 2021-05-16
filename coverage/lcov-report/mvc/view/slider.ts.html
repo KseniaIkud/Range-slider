@@ -116,7 +116,14 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,11 +155,11 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -161,10 +168,12 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -175,73 +184,79 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span></td><td class="text"><pre class="prettyprint lang-js">class Slider {
-    form!: HTMLDivElement
-    defaultInput!: HTMLInputElement
-    rightInput!: HTMLInputElement
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">class Slider {
+  form!: HTMLDivElement;
 &nbsp;
-    init(parent: HTMLDivElement, isDouble: boolean, min: number, max: number): void {
-        this.createForm(parent)
-        this.createInput(isDouble)
-        this.setMin(isDouble, min)
-        this.setMax(isDouble, max)
-    }
+  defaultInput!: HTMLInputElement;
 &nbsp;
-    createForm(parent: HTMLDivElement): void {
-        this.form = &lt;HTMLDivElement&gt;(document.createElement('div'))
-        this.form.classList.add('range-slider__form')
-        parent.append(this.form)
-    }
-    
-    createInput(isDouble: boolean): void {
-        if (isDouble) {
-            this.defaultInput = document.createElement('input')
-            this.defaultInput.type = 'range'
-            this.defaultInput.classList.add('range-slider__input') 
-            this.defaultInput.classList.add('range-slider__input_left')
-            this.form.append(this.defaultInput)
-            
-            this.rightInput = document.createElement('input')
-            this.rightInput.type = 'range'
-            this.rightInput.classList.add('range-slider__input')
-            this.rightInput.classList.add('range-slider__input_right')
-            this.form.append(this.rightInput)
+  rightInput!: HTMLInputElement;
 &nbsp;
-        } else {
-            this.defaultInput = document.createElement('input')
-            this.defaultInput.type = 'range'
-            this.defaultInput.classList.add('range-slider__input')
-            this.form.append(this.defaultInput)
-        }
+  init(parent: HTMLDivElement, isDouble: boolean, min: number, max: number): void {
+    this.createForm(parent);
+    this.createInput(isDouble);
+    this.setMin(isDouble, min);
+    this.setMax(isDouble, max);
+  }
+&nbsp;
+  createForm(parent: HTMLDivElement): void {
+    this.form = &lt;HTMLDivElement&gt;(document.createElement('div'));
+    this.form.classList.add('range-slider__form');
+    parent.append(this.form);
+  }
+&nbsp;
+  createInput(isDouble: boolean): void {
+    if (isDouble) {
+      this.defaultInput = document.createElement('input');
+      this.defaultInput.type = 'range';
+      this.defaultInput.classList.add('range-slider__input');
+      this.defaultInput.classList.add('range-slider__input_left');
+      this.form.append(this.defaultInput);
+&nbsp;
+      this.rightInput = document.createElement('input');
+      this.rightInput.type = 'range';
+      this.rightInput.classList.add('range-slider__input');
+      this.rightInput.classList.add('range-slider__input_right');
+      this.form.append(this.rightInput);
+    } else {
+      this.defaultInput = document.createElement('input');
+      this.defaultInput.type = 'range';
+      this.defaultInput.classList.add('range-slider__input');
+      this.form.append(this.defaultInput);
     }
-    setInputValue(isDouble: boolean, value: number, rightValue?: number): void {
-        this.defaultInput.value = String(value)
-        if (isDouble) {   
-            this.rightInput.value = String(rightValue)
-        }
+  }
+&nbsp;
+  setInputValue(isDouble: boolean, value: number, rightValue?: number): void {
+    this.defaultInput.value = String(value);
+    if (isDouble) {
+      this.rightInput.value = String(rightValue);
     }
-    setMin(isDouble: boolean, min: number): void {
-        this.defaultInput.min = String(min)
-        if (isDouble) {
-            this.rightInput.min = String(min)
-        }
+  }
+&nbsp;
+  setMin(isDouble: boolean, min: number): void {
+    this.defaultInput.min = String(min);
+    if (isDouble) {
+      this.rightInput.min = String(min);
     }
-    setMax(isDouble: boolean, max: number = 100): void {
-        this.defaultInput.max = String(max)
-        if (isDouble) {
-            this.rightInput.max = String(max)
-        }
+  }
+&nbsp;
+  setMax(isDouble: boolean, max: number = 100): void {
+    this.defaultInput.max = String(max);
+    if (isDouble) {
+      this.rightInput.max = String(max);
     }
+  }
 }
 &nbsp;
-export {Slider}</pre></td></tr></table></pre>
+export { Slider };
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun May 16 2021 13:08:30 GMT+0300 (Moscow Standard Time)
+                at Sun May 16 2021 18:12:51 GMT+0300 (Moscow Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

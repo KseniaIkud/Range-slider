@@ -131,28 +131,28 @@ describe('limit step function', () => {
     // the value is on the scale and it's left or single
     testModel.setDefaultValue = jest.fn();
     testModel.step = 1;
-    testModel.limitStep(5, 'default');
+    testModel.limitStep(5, true);
     expect(testModel.setDefaultValue).toHaveBeenCalledWith(5);
   });
   test('setDefaultValue should be called with different argument', () => {
     // the value is NOT on the scale and it's left or single
     testModel.setDefaultValue = jest.fn();
     testModel.step = 10;
-    testModel.limitStep(33, 'default');
+    testModel.limitStep(33, true);
     expect(testModel.setDefaultValue).toHaveBeenCalledWith(30);
   });
   test('setRightValue should be called with the same argument', () => {
     // the value is on the scale and it's right
     testModel.setRightValue = jest.fn();
     testModel.step = 1;
-    testModel.limitStep(50, 'right');
+    testModel.limitStep(50, false);
     expect(testModel.setRightValue).toHaveBeenCalledWith(50);
   });
   test('setRightValue should be called with different argument', () => {
     // the value is NOT on the scale and it's right
     testModel.setRightValue = jest.fn();
     testModel.step = 5;
-    testModel.limitStep(33, 'right');
+    testModel.limitStep(33, false);
     expect(testModel.setRightValue).toHaveBeenCalledWith(35);
   });
 });
@@ -164,15 +164,15 @@ describe('limit toggle function', () => {
     // new value is for single handle slider or it's left and less then the right value
     testModel.limitStep = jest.fn();
     testModel.rightValue = 10;
-    testModel.limitToggle(9, 'default');
-    expect(testModel.limitStep).toHaveBeenCalledWith(9, 'default');
+    testModel.limitToggle(9, true);
+    expect(testModel.limitStep).toHaveBeenCalledWith(9, true);
   });
   test('limit step function should NOT be called and update observers should', () => {
     // new value pretending to be for left handle, but it's greater than the right value
     testModel.limitStep = jest.fn();
     testModel.updateObservers = jest.fn();
     testModel.rightValue = 10;
-    testModel.limitToggle(100, 'default');
+    testModel.limitToggle(100, true);
     expect(testModel.limitStep).not.toHaveBeenCalled();
     expect(testModel.updateObservers).toHaveBeenCalled();
   });
@@ -180,15 +180,15 @@ describe('limit toggle function', () => {
     // new value is for right handle and it's less than the left value
     testModel.limitStep = jest.fn();
     testModel.defaultValue = 15;
-    testModel.limitToggle(100, 'right');
-    expect(testModel.limitStep).toHaveBeenCalledWith(100, 'right');
+    testModel.limitToggle(100, false);
+    expect(testModel.limitStep).toHaveBeenCalledWith(100, false);
   });
   test('limit step function should NOT be called and update observers should', () => {
     // new value pretending to be for right handle, but it's less than the left value
     testModel.limitStep = jest.fn();
     testModel.updateObservers = jest.fn();
     testModel.defaultValue = -25;
-    testModel.limitToggle(-26, 'right');
+    testModel.limitToggle(-26, false);
     expect(testModel.limitStep).not.toHaveBeenCalled();
     expect(testModel.updateObservers).toHaveBeenCalled();
   });
@@ -239,17 +239,17 @@ describe('update function', () => {
     testModel.limitToggle = jest.fn();
     testModel.isRange = true; // range slider (two handles)
 
-    testModel.update(5, 'default');
-    expect(testModel.limitToggle).toHaveBeenCalledWith(5, 'default');
+    testModel.update(5, true);
+    expect(testModel.limitToggle).toHaveBeenCalledWith(5, true);
 
-    testModel.update(500, 'right');
-    expect(testModel.limitToggle).toHaveBeenCalledWith(500, 'right');
+    testModel.update(500, false);
+    expect(testModel.limitToggle).toHaveBeenCalledWith(500, false);
   });
   test('new step limit for single handle slider should be set', () => {
     testModel.limitStep = jest.fn();
     testModel.isRange = false; // one handle slider
 
-    testModel.update(4002, 'default');
-    expect(testModel.limitStep).toHaveBeenCalledWith(4002, 'default');
+    testModel.update(4002, true);
+    expect(testModel.limitStep).toHaveBeenCalledWith(4002, true);
   });
 });
