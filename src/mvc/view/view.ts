@@ -195,8 +195,7 @@ class View {
     }
   };
 
-  getValueByCoords(element: MouseEvent) {
-    const coords: DOMRect = this.styles.track.getBoundingClientRect();
+  getValueByCoords(element: MouseEvent, coords: DOMRect) {
     let length: number = coords.right - coords.left;
     const range: number = this.options.max - this.options.min;
     let currentPosition: number = element.pageX - coords.left;
@@ -213,7 +212,8 @@ class View {
   }
 
   clickOnBar(elem: MouseEvent) {
-    const newValue = this.getValueByCoords(elem);
+    const coords: DOMRect = this.styles.track.getBoundingClientRect();
+    const newValue = this.getValueByCoords(elem, coords);
     this.eventClick(newValue);
   }
 
