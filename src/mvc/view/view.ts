@@ -195,21 +195,25 @@ class View {
     }
   };
 
-  clickOnBar(elem: MouseEvent) {
+  getValueByCoords(element: MouseEvent) {
     const coords: DOMRect = this.styles.track.getBoundingClientRect();
     let length: number = coords.right - coords.left;
     const range: number = this.options.max - this.options.min;
-    let currentPosition: number = elem.pageX - coords.left;
-
+    let currentPosition: number = element.pageX - coords.left;
     if (this.options.isVertical) {
-      currentPosition = elem.pageY - coords.top;
+      currentPosition = element.pageY - coords.top;
       length = coords.bottom - coords.top;
       if (length < currentPosition) {
         currentPosition = length;
       }
     }
     const percent: number = (currentPosition / length) * 100;
-    const newValue: number = Math.round(this.options.min + ((range) * percent) / 100);
+    const coordsValue: number = Math.round(this.options.min + ((range) * percent) / 100);
+    return coordsValue;
+  }
+
+  clickOnBar(elem: MouseEvent) {
+    const newValue = this.getValueByCoords(elem);
     this.eventClick(newValue);
   }
 
