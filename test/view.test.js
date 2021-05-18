@@ -5,12 +5,10 @@ import ProgressBar from '../src/mvc/view/progressBar';
 import Thumb from '../src/mvc/view/thumb';
 import Scale from '../src/mvc/view/scale';
 
-const testView = new View(document.body, Slider, Track, ProgressBar, Thumb, Scale);
-
-describe('init function', () => {
-//   test('init function should be defined', () => {
-//     expect(testView.init).toBeDefined;
-//   });
+const testView = new View(document.body, new Slider(), new Track(),
+  new ProgressBar(), new Thumb(), new Scale());
+beforeAll(() => {
+  testView.init();
 });
 describe('subscribe function', () => {
   test('ExpController should be in the observers array', () => {
@@ -69,5 +67,44 @@ describe('setAttributesValue function', () => {
       testView.setAttributesValue();
       expect(testView.wrapper.getAttribute('right-value')).toBe('40');
     });
+  });
+});
+describe('getValueByCoords function', () => {
+  test('should work with horizontal slider', () => {
+    testView.options = {
+      min: 0,
+      max: 60,
+      isVertical: false,
+    };
+    const coords = {
+      left: 737,
+      right: 1339,
+    };
+    const element = new MouseEvent('click');
+    element.pageX = 864;
+    expect(testView.getValueByCoords(element, coords)).toBe(13);
+  });
+  test('should work with vertical slider', () => {
+    testView.options = {
+      min: 100,
+      max: 1000,
+      isVertical: true,
+    };
+    const coords = {
+      bottom: 516,
+      top: 114,
+    };
+    const element = new MouseEvent('click');
+    element.pageY = 265;
+    expect(testView.getValueByCoords(element, coords)).toBe(438);
+  });
+});
+describe('click on bar event', () => {
+  test('should call eventClick with newValue', () => {
+    testView.getValueByCoords = jest.fn();
+    testView.eventClick = jest.fn();
+    testView.clickOnBar();
+    expect(testView.getValueByCoords).toHaveBeenCalled();
+    expect(testView.eventClick).toHaveBeenCalled();
   });
 });
