@@ -223,7 +223,9 @@ class View {
       this.options.rightValue = newValue;
       this.setInput();
       this.observers.forEach((observer) => {
-        observer.updateModel(newValue, isDefault);
+        if (observer.updateModel) {
+          observer.updateModel(newValue, isDefault);
+        }
       });
       this.setAttributesValue();
       this.thumb.setThumbValue(this.options.isRange,
@@ -233,7 +235,9 @@ class View {
       this.options.defaultValue = newValue;
       this.setInput();
       this.observers.forEach((observer) => {
-        observer.updateModel(newValue, isDefault);
+        if (observer.updateModel) {
+          observer.updateModel(newValue, isDefault);
+        }
       });
       this.setAttributesValue();
       this.thumb.setThumbValue(this.options.isRange,
