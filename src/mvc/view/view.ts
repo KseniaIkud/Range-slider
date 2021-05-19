@@ -216,10 +216,9 @@ class View {
 
   eventClick(newValue: number) {
     const halfOfBar: number = (this.options.rightValue + this.options.defaultValue) / 2;
-    const isRightTrack: boolean = this.options.isRange && newValue > this.options.rightValue;
-    const isRightBar = this.options.isRange && newValue > halfOfBar;
+    const isRightBar: boolean = this.options.isRange && newValue > halfOfBar;
     let isDefault = true;
-    if (isRightTrack || isRightBar) {
+    if (isRightBar) {
       isDefault = false;
       this.options.rightValue = newValue;
       this.setInput();
