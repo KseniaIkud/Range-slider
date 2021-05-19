@@ -196,15 +196,12 @@ class View {
   };
 
   getValueByCoords(element: MouseEvent, coords: DOMRect) {
-    let length: number = coords.right - coords.left;
+    let length: number = coords.width;
     const range: number = this.options.max - this.options.min;
-    let currentPosition: number = element.pageX - coords.left;
+    let currentPosition: number = element.clientX - coords.left;
     if (this.options.isVertical) {
-      currentPosition = element.pageY - coords.top;
-      length = coords.bottom - coords.top;
-      if (length < currentPosition) {
-        currentPosition = length;
-      }
+      currentPosition = element.clientY - coords.top;
+      length = coords.height;
     }
     const percent: number = (currentPosition / length) * 100;
     const coordsValue: number = Math.round(this.options.min + ((range) * percent) / 100);
