@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import View from '../src/mvc/view/view';
 import Slider from '../src/mvc/view/slider';
 import Track from '../src/mvc/view/track';
@@ -12,9 +14,12 @@ beforeAll(() => {
 });
 describe('subscribe function', () => {
   test('ExpController should be in the observers array', () => {
-    class ExpController { }
-    testView.subscribe(ExpController);
-    expect(testView.observers).toEqual(expect.arrayContaining([ExpController]));
+    class Controller {
+      updateModel() {}
+    }
+    const controller = new Controller();
+    testView.subscribe(controller);
+    expect(testView.observers).toContain(controller);
   });
 });
 describe('createWrapper function', () => {
@@ -79,9 +84,9 @@ describe('getValueByCoords function', () => {
     const coords = {
       left: 737,
       right: 1339,
+      width: 602,
     };
-    const element = new MouseEvent('click');
-    element.pageX = 864;
+    const element = new MouseEvent('click', { clientX: 864 });
     expect(testView.getValueByCoords(element, coords)).toBe(13);
   });
   test('should work with vertical slider', () => {
@@ -93,10 +98,49 @@ describe('getValueByCoords function', () => {
     const coords = {
       bottom: 516,
       top: 114,
+      height: 402,
     };
-    const element = new MouseEvent('click');
-    element.pageY = 265;
+    const element = new MouseEvent('click', { clientY: 265 });
     expect(testView.getValueByCoords(element, coords)).toBe(438);
+  });
+});
+describe('eventClick function', () => {
+  test('default value should be rewritten', () => {
+    testView.options = {
+      isRange: false,
+    };
+    testView.eventClick(5);
+    expect(testView.options.defaultValue).toBe(5);
+  });
+  test('right value should be rewritten', () => {
+    testView.options = {
+      isRange: true,
+      rightValue: 80,
+      defaultValue: 0,
+    };
+    testView.eventClick(75);
+    expect(testView.options.rightValue).toBe(75);
+    expect(testView.options.defaultValue).toBe(0);
+  });
+  test('attributes should be set', () => {
+    testView.setAttributesValue = jest.fn();
+    testView.eventClick();
+    expect(testView.setAttributesValue).toHaveBeenCalled();
+  });
+  test('presenter should update data', () => {
+    class Presenter {
+      updateModel(newValue, isDefault) {
+        if (isDefault) {
+          return newValue;
+        }
+        return newValue;
+      }
+    }
+    const present = new Presenter();
+    testView.subscribe(present);
+    testView.observers[1].updateModel = jest.fn();
+    testView.eventClick(100);
+    expect(testView.observers[1].updateModel).toHaveBeenCalledWith(100, true);
   });
 });
 describe('click on bar event', () => {
