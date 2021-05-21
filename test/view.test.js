@@ -103,6 +103,21 @@ describe('getValueByCoords function', () => {
     expect(testView.getValueByCoords(element, coords)).toBe(438);
   });
 });
+describe('mousedown', () => {
+  beforeAll(() => {
+    testView.init();
+  });
+  test('mousedown on ProgressBar should call clickOnBar function', () => {
+    jest.spyOn(testView, 'clickOnBar');
+    testView.progressBar.bar.dispatchEvent(new MouseEvent('mousedown'));
+    expect(testView.clickOnBar).toHaveBeenCalled();
+  });
+  test('mousedown on Track should call clickOnBar function', () => {
+    jest.spyOn(testView, 'clickOnBar');
+    testView.styles.track.dispatchEvent(new MouseEvent('mousedown'));
+    expect(testView.clickOnBar).toHaveBeenCalled();
+  });
+});
 describe('eventClick function', () => {
   test('default value should be rewritten', () => {
     testView.options = {
