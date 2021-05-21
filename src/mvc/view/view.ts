@@ -169,25 +169,14 @@ class View {
   };
 
   eventInput = () => {
-    const onInput = (newValue: number, isDefault: boolean) => {
-      this.setInput();
-      if (isDefault) {
-        this.options.defaultValue = newValue;
-      } else {
-        this.options.rightValue = newValue;
-      }
-      this.observers.forEach((observer) => {
-        observer.updateModel(newValue, isDefault);
-      });
-      this.setAttributesValue();
-      this.thumb.setThumbValue(this.options.isRange,
-        this.options.defaultValue, this.options.rightValue);
-    };
+    let isDefault;
     const onDefaultInput = () => {
-      onInput(Number(this.form.defaultInput.value), true);
+      isDefault = true;
+      this.update(Number(this.form.defaultInput.value), isDefault);
     };
     const onRightInput = () => {
-      onInput(Number(this.form.rightInput.value), false);
+      isDefault = false;
+      this.update(Number(this.form.rightInput.value), isDefault);
     };
     this.form.defaultInput.addEventListener('input', onDefaultInput);
     if (this.options.isRange) {
@@ -215,6 +204,11 @@ class View {
   }
 
   update(newValue: number, isDefault: boolean) {
+    if (isDefault) {
+      this.options.defaultValue = newValue;
+    } else {
+      this.options.rightValue = newValue;
+    }
     this.setInput();
     this.observers.forEach((observer) => {
       if (observer.updateModel) {
@@ -229,15 +223,10 @@ class View {
   eventClick(newValue: number) {
     const halfOfBar: number = (this.options.rightValue + this.options.defaultValue) / 2;
     const isRightBar: boolean = this.options.isRange && newValue > halfOfBar;
-    let isDefault = true;
     if (isRightBar) {
-      isDefault = false;
-      this.options.rightValue = newValue;
-      this.update(newValue, isDefault);
+      this.update(newValue, false);
     } else {
-      isDefault = true;
-      this.options.defaultValue = newValue;
-      this.update(newValue, isDefault);
+      this.update(newValue, true);
     }
   }
 
