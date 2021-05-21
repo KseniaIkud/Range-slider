@@ -24,10 +24,9 @@ describe('subscribe function', () => {
 });
 describe('createWrapper function', () => {
   test('new element should be created', () => {
-    const mock = jest.spyOn(document, 'createElement');
+    jest.spyOn(document, 'createElement');
     testView.createWrapper();
     expect(document.createElement).toHaveBeenCalledTimes(1);
-    mock.mockRestore();
   });
   test('the new element should be added to DOM', () => {
     jest.spyOn(testView.parent, 'append');
@@ -150,5 +149,22 @@ describe('click on bar event', () => {
     testView.clickOnBar();
     expect(testView.getValueByCoords).toHaveBeenCalled();
     expect(testView.eventClick).toHaveBeenCalled();
+  });
+});
+describe('input events', () => {
+  beforeAll(() => {
+    testView.init();
+  });
+  test('onDefaultInput function should call update method with true arg', () => {
+    jest.spyOn(testView, 'update');
+    testView.onDefaultInput();
+    const value = Number(testView.form.defaultInput.value);
+    expect(testView.update).toHaveBeenCalledWith(value, true);
+  });
+  test('onRightInput function should call update method with false arg', () => {
+    jest.spyOn(testView, 'update');
+    testView.onRightInput();
+    const value = Number(testView.form.rightInput.value);
+    expect(testView.update).toHaveBeenCalledWith(value, false);
   });
 });
