@@ -214,6 +214,18 @@ class View {
     this.eventClick(newValue);
   }
 
+  update(newValue: number, isDefault: boolean) {
+    this.setInput();
+    this.observers.forEach((observer) => {
+      if (observer.updateModel) {
+        observer.updateModel(newValue, isDefault);
+      }
+    });
+    this.setAttributesValue();
+    this.thumb.setThumbValue(this.options.isRange,
+      this.options.defaultValue, this.options.rightValue);
+  }
+
   eventClick(newValue: number) {
     const halfOfBar: number = (this.options.rightValue + this.options.defaultValue) / 2;
     const isRightBar: boolean = this.options.isRange && newValue > halfOfBar;
@@ -221,27 +233,11 @@ class View {
     if (isRightBar) {
       isDefault = false;
       this.options.rightValue = newValue;
-      this.setInput();
-      this.observers.forEach((observer) => {
-        if (observer.updateModel) {
-          observer.updateModel(newValue, isDefault);
-        }
-      });
-      this.setAttributesValue();
-      this.thumb.setThumbValue(this.options.isRange,
-        this.options.defaultValue, this.options.rightValue);
+      this.update(newValue, isDefault);
     } else {
       isDefault = true;
       this.options.defaultValue = newValue;
-      this.setInput();
-      this.observers.forEach((observer) => {
-        if (observer.updateModel) {
-          observer.updateModel(newValue, isDefault);
-        }
-      });
-      this.setAttributesValue();
-      this.thumb.setThumbValue(this.options.isRange,
-        this.options.defaultValue, this.options.rightValue);
+      this.update(newValue, isDefault);
     }
   }
 
