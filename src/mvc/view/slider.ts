@@ -41,7 +41,7 @@ class Slider {
 
   setInputValue(isDouble: boolean, value: number, rightValue?: number): void {
     this.defaultInput.value = String(value);
-    if (isDouble) {
+    if (isDouble && this.rightInput) {
       this.rightInput.value = String(rightValue);
     }
   }
