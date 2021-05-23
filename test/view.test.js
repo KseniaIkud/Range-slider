@@ -163,4 +163,54 @@ describe('input events', () => {
     const value = Number(viewTest.form.defaultInput.value);
     expect(viewTest.update).toHaveBeenCalledWith(value, true);
   });
+  test('onInput return callback should call update function with false', () => {
+    jest.spyOn(viewTest, 'update');
+    viewTest.onInput(false)();
+    const value = Number(viewTest.form.defaultInput.value);
+    expect(viewTest.update).toHaveBeenCalledWith(value, false);
+  });
+});
+describe('setInput function', () => {
+  test('should set progress bar on right', () => {
+    viewTest.options = {
+      ...viewTest.options,
+      isRange: false,
+      rightProgressBar: true,
+    };
+    jest.spyOn(viewTest.progressBar, 'setRight');
+    viewTest.setInput();
+    expect(viewTest.progressBar.setRight).toHaveBeenCalled();
+  });
+});
+describe('onMouseOverOut', () => {
+  test('should toggle class for thumb', () => {
+    const { thumbDefault } = viewTest.thumb;
+    jest.spyOn(thumbDefault.classList, 'toggle');
+    viewTest.onMouseOverOut(thumbDefault)();
+    expect(thumbDefault.classList.toggle).toHaveBeenCalledWith('range-slider__thumb_hover');
+  });
+  test('should toggle class for thumbOut', () => {
+    viewTest.options = {
+      ...viewTest.options,
+      overThumbElement: true,
+    };
+    const { thumbOutput } = viewTest.thumb;
+    jest.spyOn(thumbOutput.classList, 'toggle');
+    viewTest.onMouseOverOut(viewTest.thumb.thumbDefault, thumbOutput)();
+    expect(thumbOutput.classList.toggle).toHaveBeenCalledWith('range-slider__value-thumb_big');
+  });
+});
+describe('onMouseUpDown', () => {
+  test('should toggle class for thumbDefault', () => {
+    const { thumbDefault } = viewTest.thumb;
+    jest.spyOn(thumbDefault.classList, 'toggle');
+    viewTest.onMouseUpDown(true)();
+    expect(thumbDefault.classList.toggle).toHaveBeenCalledWith('range-slider__thumb_active');
+  });
+  test('should toggle class for thumbRight', () => {
+    const { thumbRight } = viewTest.thumb;
+    jest.spyOn(thumbRight.classList, 'toggle');
+    viewTest.onMouseUpDown(false)();
+    expect(thumbRight.classList.toggle).toHaveBeenCalledWith('range-slider__thumb_active');
+  });
 });

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1621766839267" clover="3.2.0">
-  <project timestamp="1621766839267" name="All files">
-    <metrics statements="350" coveredstatements="343" conditionals="134" coveredconditionals="123" methods="69" coveredmethods="65" elements="553" coveredelements="531" complexity="0" loc="350" ncloc="350" packages="2" files="8" classes="8"/>
+<coverage generated="1621769724997" clover="3.2.0">
+  <project timestamp="1621769724997" name="All files">
+    <metrics statements="350" coveredstatements="350" conditionals="134" coveredconditionals="129" methods="69" coveredmethods="69" elements="553" coveredelements="548" complexity="0" loc="350" ncloc="350" packages="2" files="8" classes="8"/>
     <package name="mvc">
       <metrics statements="99" coveredstatements="99" conditionals="62" coveredconditionals="60" methods="18" coveredmethods="18"/>
       <file name="model.ts" path="/home/xena/Range-slider/src/mvc/model.ts">
@@ -111,7 +111,7 @@
       </file>
     </package>
     <package name="mvc.view">
-      <metrics statements="251" coveredstatements="244" conditionals="72" coveredconditionals="63" methods="51" coveredmethods="47"/>
+      <metrics statements="251" coveredstatements="251" conditionals="72" coveredconditionals="69" methods="51" coveredmethods="51"/>
       <file name="progressBar.ts" path="/home/xena/Range-slider/src/mvc/view/progressBar.ts">
         <metrics statements="18" coveredstatements="18" conditionals="4" coveredconditionals="4" methods="5" coveredmethods="5"/>
         <line num="1" count="3" type="stmt"/>
@@ -120,16 +120,16 @@
         <line num="6" count="6" type="stmt"/>
         <line num="7" count="6" type="stmt"/>
         <line num="10" count="3" type="stmt"/>
-        <line num="11" count="28" type="stmt"/>
+        <line num="11" count="32" type="stmt"/>
         <line num="14" count="3" type="stmt"/>
-        <line num="15" count="15" type="cond" truecount="2" falsecount="0"/>
-        <line num="16" count="12" type="stmt"/>
-        <line num="17" count="12" type="cond" truecount="2" falsecount="0"/>
-        <line num="19" count="3" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
+        <line num="15" count="17" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="13" type="stmt"/>
+        <line num="17" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
         <line num="24" count="3" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
         <line num="28" count="3" type="stmt"/>
         <line num="30" count="3" type="stmt"/>
       </file>
@@ -186,9 +186,9 @@
         <line num="37" count="3" type="stmt"/>
         <line num="38" count="3" type="stmt"/>
         <line num="42" count="3" type="stmt"/>
-        <line num="43" count="18" type="stmt"/>
-        <line num="44" count="18" type="cond" truecount="4" falsecount="0"/>
-        <line num="45" count="13" type="stmt"/>
+        <line num="43" count="20" type="stmt"/>
+        <line num="44" count="20" type="cond" truecount="4" falsecount="0"/>
+        <line num="45" count="14" type="stmt"/>
         <line num="49" count="3" type="stmt"/>
         <line num="50" count="7" type="stmt"/>
         <line num="51" count="7" type="cond" truecount="2" falsecount="0"/>
@@ -230,14 +230,14 @@
         <line num="47" count="7" type="stmt"/>
         <line num="48" count="7" type="stmt"/>
         <line num="51" count="3" type="stmt"/>
-        <line num="52" count="12" type="cond" truecount="2" falsecount="0"/>
-        <line num="53" count="11" type="stmt"/>
-        <line num="54" count="11" type="cond" truecount="2" falsecount="0"/>
-        <line num="55" count="9" type="stmt"/>
+        <line num="52" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="53" count="12" type="stmt"/>
+        <line num="54" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="55" count="10" type="stmt"/>
         <line num="60" count="3" type="stmt"/>
-        <line num="61" count="15" type="stmt"/>
-        <line num="62" count="15" type="cond" truecount="2" falsecount="0"/>
-        <line num="63" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="61" count="17" type="stmt"/>
+        <line num="62" count="17" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="13" type="cond" truecount="2" falsecount="0"/>
         <line num="66" count="3" type="stmt"/>
         <line num="68" count="3" type="stmt"/>
       </file>
@@ -259,7 +259,7 @@
         <line num="24" count="3" type="stmt"/>
       </file>
       <file name="view.ts" path="/home/xena/Range-slider/src/mvc/view/view.ts">
-        <metrics statements="120" coveredstatements="113" conditionals="42" coveredconditionals="33" methods="26" coveredmethods="22"/>
+        <metrics statements="120" coveredstatements="120" conditionals="42" coveredconditionals="39" methods="26" coveredmethods="26"/>
         <line num="23" count="2" type="stmt"/>
         <line num="48" count="2" type="stmt"/>
         <line num="50" count="2" type="stmt"/>
@@ -304,24 +304,24 @@
         <line num="131" count="8" type="stmt"/>
         <line num="132" count="8" type="stmt"/>
         <line num="135" count="2" type="stmt"/>
-        <line num="136" count="17" type="cond" truecount="2" falsecount="0"/>
-        <line num="137" count="13" type="stmt"/>
-        <line num="138" count="13" type="stmt"/>
+        <line num="136" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="137" count="14" type="stmt"/>
+        <line num="138" count="14" type="stmt"/>
         <line num="140" count="4" type="stmt"/>
         <line num="144" count="2" type="stmt"/>
-        <line num="145" count="15" type="stmt"/>
-        <line num="147" count="15" type="stmt"/>
-        <line num="153" count="15" type="stmt"/>
-        <line num="161" count="15" type="stmt"/>
-        <line num="162" count="15" type="cond" truecount="2" falsecount="2"/>
-        <line num="163" count="0" type="stmt"/>
-        <line num="165" count="15" type="stmt"/>
+        <line num="145" count="17" type="stmt"/>
+        <line num="147" count="17" type="stmt"/>
+        <line num="153" count="17" type="stmt"/>
+        <line num="161" count="17" type="stmt"/>
+        <line num="162" count="17" type="cond" truecount="4" falsecount="0"/>
+        <line num="163" count="1" type="stmt"/>
+        <line num="165" count="17" type="stmt"/>
         <line num="168" count="2" type="stmt"/>
-        <line num="169" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="169" count="10" type="cond" truecount="2" falsecount="0"/>
         <line num="170" count="6" type="stmt"/>
         <line num="171" count="1" type="stmt"/>
-        <line num="174" count="3" type="stmt"/>
-        <line num="175" count="0" type="stmt"/>
+        <line num="174" count="4" type="stmt"/>
+        <line num="175" count="1" type="stmt"/>
         <line num="179" count="2" type="stmt"/>
         <line num="180" count="5" type="stmt"/>
         <line num="181" count="5" type="cond" truecount="2" falsecount="0"/>
@@ -341,25 +341,25 @@
         <line num="201" count="2" type="stmt"/>
         <line num="202" count="2" type="stmt"/>
         <line num="205" count="2" type="stmt"/>
-        <line num="206" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="206" count="7" type="cond" truecount="2" falsecount="0"/>
         <line num="207" count="5" type="stmt"/>
-        <line num="209" count="1" type="stmt"/>
-        <line num="211" count="6" type="stmt"/>
-        <line num="212" count="6" type="stmt"/>
-        <line num="213" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="214" count="2" type="stmt"/>
-        <line num="217" count="6" type="stmt"/>
-        <line num="218" count="6" type="stmt"/>
+        <line num="209" count="2" type="stmt"/>
+        <line num="211" count="7" type="stmt"/>
+        <line num="212" count="7" type="stmt"/>
+        <line num="213" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="214" count="3" type="stmt"/>
+        <line num="217" count="7" type="stmt"/>
+        <line num="218" count="7" type="stmt"/>
         <line num="222" count="9" type="stmt"/>
         <line num="223" count="5" type="stmt"/>
         <line num="224" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="225" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="226" count="1" type="stmt"/>
         <line num="228" count="4" type="stmt"/>
-        <line num="232" count="16" type="stmt"/>
-        <line num="233" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="234" count="0" type="stmt"/>
-        <line num="236" count="0" type="stmt"/>
+        <line num="232" count="18" type="stmt"/>
+        <line num="233" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="234" count="1" type="stmt"/>
+        <line num="236" count="2" type="stmt"/>
         <line num="239" count="2" type="stmt"/>
         <line num="240" count="5" type="stmt"/>
         <line num="242" count="5" type="stmt"/>
@@ -367,11 +367,11 @@
         <line num="245" count="3" type="stmt"/>
         <line num="247" count="3" type="stmt"/>
         <line num="252" count="2" type="stmt"/>
-        <line num="253" count="16" type="cond" truecount="2" falsecount="0"/>
-        <line num="254" count="10" type="stmt"/>
-        <line num="255" count="0" type="stmt"/>
-        <line num="258" count="6" type="stmt"/>
-        <line num="259" count="0" type="stmt"/>
+        <line num="253" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="254" count="11" type="stmt"/>
+        <line num="255" count="1" type="stmt"/>
+        <line num="258" count="7" type="stmt"/>
+        <line num="259" count="1" type="stmt"/>
         <line num="263" count="2" type="stmt"/>
         <line num="264" count="5" type="stmt"/>
         <line num="265" count="5" type="stmt"/>
