@@ -1,5 +1,4 @@
 import Slider from './slider';
-import Track from './track';
 import ProgressBar from './progressBar';
 import Thumb from './thumb';
 import Scale from './scale';
@@ -25,6 +24,8 @@ class View {
 
   wrapper!: HTMLDivElement;
 
+  track!: HTMLDivElement;
+
   singleInput?: HTMLInputElement;
 
   leftInput?: HTMLInputElement;
@@ -32,8 +33,6 @@ class View {
   rightInput?: HTMLInputElement;
 
   form: Slider;
-
-  styles: Track;
 
   progressBar: ProgressBar;
 
@@ -45,11 +44,10 @@ class View {
 
   observers: IObserverView[];
 
-  constructor(parent: HTMLElement, form: Slider, styles: Track, progressBar: ProgressBar,
+  constructor(parent: HTMLElement, form: Slider, progressBar: ProgressBar,
     thumb: Thumb, scale: Scale) {
     this.parent = parent;
     this.form = form;
-    this.styles = styles;
     this.progressBar = progressBar;
     this.thumb = thumb;
     this.scale = scale;
@@ -84,10 +82,11 @@ class View {
       this.options.min,
       this.options.max,
     );
-    this.styles.init(this.wrapper);
-    this.progressBar.createProgressBar(this.styles.style);
+    // this.track.init(this.wrapper);
+    this.createTrack(this.wrapper);
+    this.progressBar.createProgressBar(this.track);
     this.thumb.init(
-      this.styles.style,
+      this.track,
       this.options.isRange,
       this.options.overThumbElement,
       this.options.defaultValue,
@@ -99,7 +98,7 @@ class View {
     this.progressBar.bar.onmousedown = (elem) => {
       this.clickOnBar(elem);
     };
-    this.styles.track.onmousedown = (elem) => {
+    this.track.onmousedown = (elem) => {
       this.clickOnBar(elem);
     };
     this.eventHover();
@@ -131,6 +130,12 @@ class View {
     this.setAttributesValue();
     this.parent.append(this.wrapper);
   };
+
+  createTrack(parent: HTMLDivElement): void {
+    this.track = document.createElement('div');
+    this.track.classList.add('range-slider__track');
+    parent.append(this.track);
+  }
 
   setAttributesValue = () => {
     if (this.options.isRange) {
@@ -197,7 +202,7 @@ class View {
   };
 
   clickOnBar = (elem: MouseEvent) => {
-    const coords: DOMRect = this.styles.track.getBoundingClientRect();
+    const coords: DOMRect = this.track.getBoundingClientRect();
     const newValue = this.getValueByCoords(elem, coords);
     this.onClick(newValue)();
   };

@@ -2,7 +2,6 @@ import Presenter from '../src/mvc/presenter';
 import Model from '../src/mvc/model';
 import View from '../src/mvc/view/view';
 import Slider from '../src/mvc/view/slider';
-import Track from '../src/mvc/view/track';
 import ProgressBar from '../src/mvc/view/progressBar';
 import Thumb from '../src/mvc/view/thumb';
 import Scale from '../src/mvc/view/scale';
@@ -12,7 +11,6 @@ const testPresenter = new Presenter(
   new View(
     document.body,
     new Slider(),
-    new Track(),
     new ProgressBar(),
     new Thumb(),
     new Scale(),

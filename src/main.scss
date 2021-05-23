@@ -45,7 +45,7 @@
     }
   }
 
-  &__style {
+  &__trackWrapper {
     position: relative;
     z-index: 1;
     height: 6px;
@@ -53,14 +53,11 @@
   }
 
   &__track {
-    position: absolute;
+    position: relative;
     z-index: 1;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    height: 6px;
     width: 100%;
-    margin-left: -0.5%;
+    margin-left: -0.25%;
     border-radius: 3px;
     border: 1px solid rgba(31, 32, 65, 0.25);
     background-color: #fff;
@@ -79,7 +76,6 @@
   }
 
   &__thumb {
-    
     position: absolute;
     z-index: 3;
     width: 12px;
@@ -130,18 +126,14 @@
     }
   }
 
-  &__scale {
-    font-size: 20px;
-    position: relative;
-  }
-
   &__value {
+    font-size: 20px;
     position: absolute;
     white-space: nowrap;
     padding-right: 1px;
     width: 15px;
     margin: 10px;
-    bottom: -15px;
+    bottom: -10px;
     transform: rotate(-90deg);
     cursor: pointer;
   }

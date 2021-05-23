@@ -1,5 +1,4 @@
 import Slider from './mvc/view/slider';
-import Track from './mvc/view/track';
 import ProgressBar from './mvc/view/progressBar';
 import Thumb from './mvc/view/thumb';
 import Scale from './mvc/view/scale';
@@ -37,7 +36,6 @@ import Presenter from './mvc/presenter';
       new View(
         this,
         new Slider(),
-        new Track(),
         new ProgressBar(),
         new Thumb(),
         new Scale(),

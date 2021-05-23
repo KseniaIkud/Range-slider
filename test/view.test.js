@@ -1,11 +1,10 @@
 import View from '../src/mvc/view/view';
 import Slider from '../src/mvc/view/slider';
-import Track from '../src/mvc/view/track';
 import ProgressBar from '../src/mvc/view/progressBar';
 import Thumb from '../src/mvc/view/thumb';
 import Scale from '../src/mvc/view/scale';
 
-const viewTest = new View(document.body, new Slider(), new Track(),
+const viewTest = new View(document.body, new Slider(),
   new ProgressBar(), new Thumb(), new Scale());
 
 describe('createWrapper function', () => {
@@ -18,11 +17,6 @@ describe('createWrapper function', () => {
     jest.spyOn(viewTest.parent, 'append');
     viewTest.createWrapper();
     expect(viewTest.parent.append).toHaveBeenCalledTimes(1);
-  });
-  test('setAttributesValue should be called', () => {
-    jest.spyOn(viewTest, 'setAttributesValue');
-    viewTest.createWrapper();
-    expect(viewTest.setAttributesValue).toHaveBeenCalledTimes(1);
   });
 });
 describe('setAttributesValue function', () => {
@@ -102,7 +96,7 @@ describe('mousedown', () => {
   });
   test('mousedown on Track should call clickOnBar function', () => {
     jest.spyOn(viewTest, 'clickOnBar');
-    viewTest.styles.track.dispatchEvent(new MouseEvent('mousedown'));
+    viewTest.track.dispatchEvent(new MouseEvent('mousedown'));
     expect(viewTest.clickOnBar).toHaveBeenCalled();
   });
 });
@@ -125,11 +119,6 @@ describe('onClick function', () => {
     viewTest.onClick(75)();
     expect(viewTest.options.rightValue).toBe(75);
     expect(viewTest.options.defaultValue).toBe(0);
-  });
-  test('attributes should be set', () => {
-    jest.spyOn(viewTest, 'setAttributesValue');
-    viewTest.onClick();
-    expect(viewTest.setAttributesValue).toHaveBeenCalled();
   });
   test('presenter should update data', () => {
     viewTest.options = {
