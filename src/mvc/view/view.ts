@@ -120,12 +120,13 @@ class View {
       this.wrapper.append(scaleElement);
 
       for (let i = 0; i < scaleValues.length; i += 1) {
-        const onClick = () => {
-          this.eventClick(scaleValues[i].value);
-        };
-        scaleValues[i].element.addEventListener('click', onClick);
+        scaleValues[i].element.addEventListener('click', this.onScaleClick(scaleValues[i].value));
       }
     }
+  };
+
+  onScaleClick = (newValue: number) => () => {
+    this.eventClick(newValue);
   };
 
   createWrapper = () => {
@@ -231,60 +232,43 @@ class View {
     }
   }
 
-  eventHover = () => {
-    const onMouseOver = (thumb: HTMLDivElement, thumbOut: HTMLDivElement | undefined) => {
-      if (this.options.overThumbElement && thumbOut) {
-        thumbOut.classList.add('range-slider__value-thumb_big');
-      }
-      thumb.classList.add('range-slider__thumb_hover');
-    };
-    const onDefaultMouseOver = () => {
-      onMouseOver(this.thumb.thumbDefault, this.thumb.thumbOutput);
-    };
-    const onRightMouseOver = () => {
-      onMouseOver(this.thumb.thumbRight, this.thumb.thumbOutputRight);
-    };
-    this.form.defaultInput.addEventListener('mouseover', onDefaultMouseOver);
-    if (this.options.isRange) {
-      this.form.rightInput.addEventListener('mouseover', onRightMouseOver);
+  onMouseOverOut = (thumb: HTMLDivElement, thumbOut: HTMLDivElement | undefined) => () => {
+    if (this.options.overThumbElement && thumbOut) {
+      thumbOut.classList.toggle('range-slider__value-thumb_big');
     }
-    const onMouseOut = (thumb: HTMLDivElement, thumbOut: HTMLDivElement | undefined) => {
-      if (this.options.overThumbElement && thumbOut) {
-        thumbOut.classList.remove('range-slider__value-thumb_big');
-      }
-      thumb.classList.remove('range-slider__thumb_hover');
-    };
-    const onDefaultMouseOut = () => {
-      onMouseOut(this.thumb.thumbDefault, this.thumb.thumbOutput);
-    };
-    const onRightMouseOut = () => {
-      onMouseOut(this.thumb.thumbRight, this.thumb.thumbOutputRight);
-    };
-    this.form.defaultInput.addEventListener('mouseout', onDefaultMouseOut);
+    thumb.classList.toggle('range-slider__thumb_hover');
+  };
+
+  eventHover = () => {
+    this.form.defaultInput.addEventListener('mouseover',
+      this.onMouseOverOut(this.thumb.thumbDefault, this.thumb.thumbOutput));
+    this.form.defaultInput.addEventListener('mouseout',
+      this.onMouseOverOut(this.thumb.thumbDefault, this.thumb.thumbOutput));
     if (this.options.isRange) {
-      this.form.rightInput.addEventListener('mouseout', onRightMouseOut);
+      this.form.rightInput.addEventListener('mouseover',
+        this.onMouseOverOut(this.thumb.thumbRight, this.thumb.thumbOutputRight));
+      this.form.rightInput.addEventListener('mouseout',
+        this.onMouseOverOut(this.thumb.thumbRight, this.thumb.thumbOutputRight));
     }
   };
 
-  eventActive = () => {
-    const onDefaultMouseDown = () => {
-      this.thumb.thumbDefault.classList.add('range-slider__thumb_active');
+  onMouseUpDown = (isDefault: boolean) => {
+    if (isDefault) {
+      return () => {
+        this.thumb.thumbDefault.classList.toggle('range-slider__thumb_active');
+      };
+    }
+    return () => {
+      this.thumb.thumbRight.classList.toggle('range-slider__thumb_active');
     };
-    const onDefaultMouseUp = () => {
-      this.thumb.thumbDefault.classList.remove('range-slider__thumb_active');
-    };
-    const onRightMouseDown = () => {
-      this.thumb.thumbRight.classList.add('range-slider__thumb_active');
-    };
-    const onRightMouseUp = () => {
-      this.thumb.thumbRight.classList.remove('range-slider__thumb_active');
-    };
+  };
 
-    this.form.defaultInput.addEventListener('mousedown', onDefaultMouseDown);
-    this.form.defaultInput.addEventListener('mouseup', onDefaultMouseUp);
+  eventActive = () => {
+    this.form.defaultInput.addEventListener('mousedown', this.onMouseUpDown(true));
+    this.form.defaultInput.addEventListener('mouseup', this.onMouseUpDown(true));
     if (this.options.isRange) {
-      this.form.rightInput.addEventListener('mousedown', onRightMouseDown);
-      this.form.rightInput.addEventListener('mouseup', onRightMouseUp);
+      this.form.rightInput.addEventListener('mousedown', this.onMouseUpDown(false));
+      this.form.rightInput.addEventListener('mouseup', this.onMouseUpDown(false));
     }
   };
 }
