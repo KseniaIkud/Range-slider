@@ -71,9 +71,9 @@ class View {
     this.observers = [];
   }
 
-  subscribe(observer: IObserverView) {
+  subscribe = (observer: IObserverView) => {
     this.observers.push(observer);
-  }
+  };
 
   init = () => {
     this.createWrapper();
@@ -120,13 +120,9 @@ class View {
       this.wrapper.append(scaleElement);
 
       for (let i = 0; i < scaleValues.length; i += 1) {
-        scaleValues[i].element.addEventListener('click', this.onScaleClick(scaleValues[i].value));
+        scaleValues[i].element.addEventListener('click', this.onClick(scaleValues[i].value));
       }
     }
-  };
-
-  onScaleClick = (newValue: number) => () => {
-    this.eventClick(newValue);
   };
 
   createWrapper = () => {
@@ -187,7 +183,7 @@ class View {
     }
   };
 
-  getValueByCoords(element: MouseEvent, coords: DOMRect) {
+  getValueByCoords = (element: MouseEvent, coords: DOMRect) => {
     let length: number = coords.width;
     const range: number = this.options.max - this.options.min;
     let currentPosition: number = element.clientX - coords.left;
@@ -198,15 +194,15 @@ class View {
     const percent: number = (currentPosition / length) * 100;
     const coordsValue: number = Math.round(this.options.min + ((range) * percent) / 100);
     return coordsValue;
-  }
+  };
 
-  clickOnBar(elem: MouseEvent) {
+  clickOnBar = (elem: MouseEvent) => {
     const coords: DOMRect = this.styles.track.getBoundingClientRect();
     const newValue = this.getValueByCoords(elem, coords);
-    this.eventClick(newValue);
-  }
+    this.onClick(newValue)();
+  };
 
-  update(newValue: number, isDefault: boolean) {
+  update = (newValue: number, isDefault: boolean) => {
     if (isDefault) {
       this.options.defaultValue = newValue;
     } else {
@@ -221,9 +217,9 @@ class View {
     this.setAttributesValue();
     this.thumb.setThumbValue(this.options.isRange,
       this.options.defaultValue, this.options.rightValue);
-  }
+  };
 
-  eventClick(newValue: number) {
+  onClick = (newValue: number) => () => {
     const halfOfBar: number = (this.options.rightValue + this.options.defaultValue) / 2;
     const isRightBar: boolean = this.options.isRange && newValue > halfOfBar;
     if (isRightBar) {
@@ -231,7 +227,7 @@ class View {
     } else {
       this.update(newValue, true);
     }
-  }
+  };
 
   onMouseOverOut = (thumb: HTMLDivElement, thumbOut: HTMLDivElement | undefined) => () => {
     if (this.options.overThumbElement && thumbOut) {
