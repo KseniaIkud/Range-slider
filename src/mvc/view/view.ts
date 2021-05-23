@@ -169,20 +169,21 @@ class View {
     this.thumb.placeThumb(this.options.isRange, placeDefault, placeRight);
   };
 
-  onDefaultInput = () => {
-    const isDefault = true;
-    this.update(Number(this.form.defaultInput.value), isDefault);
-  };
-
-  onRightInput = () => {
-    const isDefault = false;
-    this.update(Number(this.form.rightInput.value), isDefault);
+  onInput = (isDefault: boolean) => {
+    if (isDefault) {
+      return () => {
+        this.update(Number(this.form.defaultInput.value), true);
+      };
+    }
+    return () => {
+      this.update(Number(this.form.rightInput.value), isDefault);
+    };
   };
 
   eventInput = () => {
-    this.form.defaultInput.addEventListener('input', this.onDefaultInput);
+    this.form.defaultInput.addEventListener('input', this.onInput(true));
     if (this.options.isRange) {
-      this.form.rightInput.addEventListener('input', this.onRightInput);
+      this.form.rightInput.addEventListener('input', this.onInput(false));
     }
   };
 
