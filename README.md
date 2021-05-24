@@ -39,3 +39,7 @@ Description of range slider settings
 | step | 1 | number | Set sliders step |
 | isVertical | false | boolean | Choose slider positioning, ***false*** for horizontal, ***true*** for vertical |
 | isScale | false | boolean | Choose ***true*** to show a scale near to the slider |
+
+
+## Архитектура
+![UML](/uml/diagram.svg)
