@@ -6,27 +6,38 @@ import ProgressBar from '../src/mvc/view/progressBar';
 import Thumb from '../src/mvc/view/thumb';
 import Scale from '../src/mvc/view/scale';
 
-const testPresenter = new Presenter(
-  new Model({}),
-  new View(
-    document.body,
-    new Slider(),
-    new ProgressBar(),
-    new Thumb(),
-    new Scale(),
-  ),
-);
-
-describe('init function', () => {
-  test('init function should be defined', () => {
-    expect(testPresenter.init).toBeDefined();
+describe('test Presenter', () => {
+  let presenter;
+  beforeEach(() => {
+    presenter = new Presenter(
+      new Model({}),
+      new View(document.body, new Slider(), new ProgressBar(), new Thumb(), new Scale()),
+    );
   });
-  test('init function for model should be called', () => {
-    testPresenter.model.init = jest.fn();
-    testPresenter.init();
-    expect(testPresenter.model.init).toBeCalled();
+  afterEach(() => {
+    document.body.innerHTML = '';
   });
-  test('view should receive data from model', () => {
+  test('Model is initialized', () => {
+    jest.spyOn(presenter.model, 'init');
+    presenter.init();
+    expect(presenter.model.init).toHaveBeenCalled();
+  });
+  test('View is initialized', () => {
+    jest.spyOn(presenter.view, 'init');
+    presenter.init();
+    expect(presenter.view.init).toHaveBeenCalled();
+  });
+  test('presenter subscribed to Model', () => {
+    jest.spyOn(presenter.model, 'subscribe');
+    presenter.init();
+    expect(presenter.model.subscribe).toHaveBeenCalledWith(presenter);
+  });
+  test('presenter subscribed to View', () => {
+    jest.spyOn(presenter.view, 'subscribe');
+    presenter.init();
+    expect(presenter.view.subscribe).toHaveBeenCalledWith(presenter);
+  });
+  test('transfer data from model to view', () => {
     const data = {
       min: 0,
       max: 100,
@@ -39,71 +50,45 @@ describe('init function', () => {
       isScale: true,
       scaleValues: [0, 50, 100],
     };
-    testPresenter.model.dataForView = data;
-    testPresenter.init();
-    expect(testPresenter.view.options).toEqual(data);
+    presenter.model.dataForView = data;
+    presenter.init();
+    expect(presenter.view.options).toEqual(data);
   });
-  test('init function for view should be called', () => {
-    testPresenter.view.init = jest.fn();
-    testPresenter.init();
-    expect(testPresenter.view.init).toBeCalled();
+  test('Model updates with correct arguments, default settings', () => {
+    const updateArgs = {
+      value: 10,
+      isDefault: true,
+    };
+    const { value: correctValue, isDefault: correctOption } = updateArgs;
+    jest.spyOn(presenter.model, 'update');
+    presenter.updateModel(correctValue, correctOption);
+    expect(presenter.model.update).toHaveBeenCalledWith(correctValue, correctOption);
   });
-  test('controller should be subscribed for model', () => {
-    testPresenter.model.subscribe = jest.fn();
-    testPresenter.init();
-    expect(testPresenter.model.subscribe).toHaveBeenCalledWith(testPresenter);
+  test('Model updates with correct arguments, right thumb', () => {
+    const updateArgs = {
+      value: -1001,
+      isDefault: false,
+    };
+    const { value: correctValue, isDefault: correctOption } = updateArgs;
+    jest.spyOn(presenter.model, 'update');
+    presenter.updateModel(correctValue, correctOption);
+    expect(presenter.model.update).toHaveBeenCalledWith(correctValue, correctOption);
   });
-  test('controller should be subscribed for view', () => {
-    testPresenter.view.subscribe = jest.fn();
-    testPresenter.init();
-    expect(testPresenter.view.subscribe).toHaveBeenCalledWith(testPresenter);
+  test('View updates with correct arguments, default (single or left) thumb', () => {
+    const correctThumbValue = 42;
+    presenter.model.defaultValue = correctThumbValue;
+    presenter.updateView();
+    expect(presenter.view.options.defaultValue).toBe(correctThumbValue);
   });
-});
-
-describe('update model function', () => {
-  test('updateModel function should be defined', () => {
-    expect(testPresenter.updateModel).toBeDefined();
-    testPresenter.model.update = jest.fn();
-    testPresenter.updateModel('');
+  test('View updates with correct arguments, right thumb', () => {
+    const correctThumbValue = 0;
+    presenter.model.rightValue = correctThumbValue;
+    presenter.updateView();
+    expect(presenter.view.options.rightValue).toBe(correctThumbValue);
   });
-  test('update function should be called for model with arguments 10 and default', () => {
-    testPresenter.model.update = jest.fn();
-    testPresenter.updateModel(10, 'default');
-    expect(testPresenter.model.update).toHaveBeenCalledWith(10, 'default');
-  });
-  test('update function should be called for model with arguments -1001 and right', () => {
-    testPresenter.model.update = jest.fn();
-    testPresenter.updateModel(-1001, 'right');
-    expect(testPresenter.model.update).toHaveBeenCalledWith(-1001, 'right');
-  });
-});
-describe('update view function', () => {
-  test('updateView function should be defined', () => {
-    expect(testPresenter.updateView).toBeDefined();
-  });
-  test('default (left or single) value for view should be update with new value 42', () => {
-    testPresenter.model.defaultValue = 42;
-    testPresenter.updateView();
-    expect(testPresenter.view.options.defaultValue).toBe(42);
-  });
-  test('default (left or single) value for view should be update with new value 0', () => {
-    testPresenter.model.defaultValue = 0;
-    testPresenter.updateView();
-    expect(testPresenter.view.options.defaultValue).toBe(0);
-  });
-  test('right value for view should be update with new value 0', () => {
-    testPresenter.model.rightValue = 0;
-    testPresenter.updateView();
-    expect(testPresenter.view.options.rightValue).toBe(0);
-  });
-  test('right value for view should be update with new value -100', () => {
-    testPresenter.model.rightValue = -100;
-    testPresenter.updateView();
-    expect(testPresenter.view.options.rightValue).toBe(-100);
-  });
-  test('view function setInput should be called', () => {
-    testPresenter.view.setInput = jest.fn();
-    testPresenter.updateView();
-    expect(testPresenter.view.setInput).toBeCalled();
+  test('setInput function called after View update', () => {
+    jest.spyOn(presenter.view, 'setInput');
+    presenter.updateView();
+    expect(presenter.view.setInput).toHaveBeenCalled();
   });
 });

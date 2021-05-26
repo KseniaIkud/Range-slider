@@ -158,15 +158,14 @@ describe('test View', () => {
       rightValue: 100,
       defaultValue: 0,
     };
-    class Observer {
+    const observer = {
       updateModel(newValue, isDefault) {
         if (isDefault) {
           return newValue;
         }
         return newValue;
-      }
-    }
-    const observer = new Observer();
+      },
+    };
     view.subscribe(observer);
     jest.spyOn(view.observers[0], 'updateModel');
     view.onClick(35)();
