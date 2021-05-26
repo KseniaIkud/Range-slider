@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import View from '../src/mvc/view/view';
 import Slider from '../src/mvc/view/slider';
 import ProgressBar from '../src/mvc/view/progressBar';
