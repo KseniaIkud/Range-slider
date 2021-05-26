@@ -82,7 +82,6 @@ class View {
       this.options.min,
       this.options.max,
     );
-    // this.track.init(this.wrapper);
     this.createTrack(this.wrapper);
     this.progressBar.createProgressBar(this.track);
     this.thumb.init(
