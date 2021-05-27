@@ -151,7 +151,7 @@ describe('test View', () => {
     view.onMouseUpDown(false)();
     expect(thumbRight.classList.toggle).toHaveBeenCalledWith('range-slider__thumb_active');
   });
-  test('subscriber updated date', () => {
+  test('subscriber updated data', () => {
     view.options = {
       ...view.options,
       isRange: true,
