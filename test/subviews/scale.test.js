@@ -1,24 +1,18 @@
 import Scale from '../../src/mvc/view/scale';
 
-const testScale = new Scale();
-
-describe('createScale function', () => {
-  test('new element should be created', () => {
-    const mock = jest.spyOn(document, 'createElement');
-    testScale.createScale([1, 2, 3]);
-    expect(document.createElement).toHaveBeenCalled();
-    mock.mockRestore();
+describe('scale test', () => {
+  let scale;
+  beforeEach(() => {
+    scale = new Scale();
   });
-  test('6 elements should be created (for every value and for scale itself)', () => {
-    const mock = jest.spyOn(document, 'createElement');
-    testScale.createScale([1, 2, 3, 4, 5]);
-    expect(document.createElement).toHaveBeenCalledTimes(6);
-    mock.mockRestore();
+  test('scale created with several elements (for every value and for scale itself)', () => {
+    const scaleValues = [1, 2, 3, 4, 5];
+    jest.spyOn(document, 'createElement');
+    scale.createScale(scaleValues);
+    expect(document.createElement).toHaveBeenCalledTimes(scaleValues.length + 1);
   });
-});
-describe('placeScale function', () => {
-  test('scale position should adapt to different wrapper width', () => {
+  test('scale position adapted to wrapper width', () => {
     const x = 450;
-    expect(testScale.placeScale(x)).toBe((0.42 * x + 777.8) / x);
+    expect(scale.placeScale(x)).toBe((0.42 * x + 777.8) / x);
   });
 });

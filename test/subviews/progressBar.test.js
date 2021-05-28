@@ -1,9 +1,9 @@
 import ProgressBar from '../../src/mvc/view/progressBar';
 
-const progressBar = new ProgressBar();
-
 describe('test progress Bar', () => {
+  let progressBar;
   beforeEach(() => {
+    progressBar = new ProgressBar();
     progressBar.createProgressBar(document.body);
   });
   afterEach(() => {
