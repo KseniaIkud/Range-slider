@@ -1,53 +1,47 @@
 import Slider from '../../src/mvc/view/slider';
 
-const testSlider = new Slider();
-
-describe('setInputValue function for slider with one handle', () => {
-  testSlider.init(document.body, false, 0, 100);
-  test('default value should be set to 20', () => {
-    testSlider.setInputValue(false, 20);
-    expect(testSlider.defaultInput.value).toBe('20');
+describe('slider test', () => {
+  let slider;
+  let createRangeSlider;
+  beforeEach(() => {
+    slider = new Slider();
+    slider.init(document.body, false, 0, 100);
+    createRangeSlider = () => {
+      document.body.innerHTML = '';
+      slider.init(document.body, true, -200, 100);
+    };
   });
-  test('default value should be set to 0', () => {
-    testSlider.setInputValue(false, 0);
-    expect(testSlider.defaultInput.value).toBe('0');
+  afterEach(() => {
+    document.body.innerHTML = '';
   });
-});
-describe('setInputValue function for slider with two handles', () => {
-  testSlider.init(document.body, true, -200, 100);
-  test('left value should be set to -100, right to 0', () => {
-    testSlider.setInputValue(true, -100, 0);
-    expect(testSlider.defaultInput.value).toBe('-100');
-    expect(testSlider.rightInput.value).toBe('0');
+  test('default value set correct', () => {
+    slider.setInputValue(false, 20);
+    expect(slider.defaultInput.value).toBe('20');
   });
-});
-
-describe('init function', () => {
-  test('init function should be defined', () => {
-    expect(testSlider.init).toBeDefined();
+  test('default value might be zero', () => {
+    slider.setInputValue(false, 0);
+    expect(slider.defaultInput.value).toBe('0');
   });
-  test('setMin function should be called', () => {
-    testSlider.setMin = jest.fn();
-    testSlider.init(document.body, true, 0, 10);
-    expect(testSlider.setMin).toHaveBeenCalledWith(true, 0);
+  test('values set for range slider', () => {
+    createRangeSlider();
+    slider.setInputValue(true, -100, 0);
+    expect(slider.defaultInput.value).toBe('-100');
+    expect(slider.rightInput.value).toBe('0');
   });
-  test('if no second argument for setMax, it should be called with 100', () => {
-    testSlider.setMax(false);
-    expect(testSlider.defaultInput.max).toBe('100');
+  test('min and max set for single range slider', () => {
+    slider.setMin(false, 20);
+    expect(slider.defaultInput.min).toBe('20');
+    slider.setMax(false, 50);
+    expect(slider.defaultInput.max).toBe('50');
   });
-  test('setMax function should be called', () => {
-    testSlider.setMax = jest.fn();
-    testSlider.init(document.body, true, 0, 10);
-    expect(testSlider.setMax).toHaveBeenCalledWith(true, 10);
-  });
-  test('createInput function should be called', () => {
-    testSlider.createInput = jest.fn();
-    testSlider.init(document.body, true, 0, 10);
-    expect(testSlider.createInput).toHaveBeenCalledWith(true);
-  });
-  test('createForm function should be called', () => {
-    testSlider.createForm = jest.fn();
-    testSlider.init(document.body, true, 0, 10);
-    expect(testSlider.createForm).toHaveBeenCalledWith(document.body);
+  test('min and max set for double range slider', () => {
+    createRangeSlider();
+    slider.setMin(true, 0);
+    expect(slider.defaultInput.min).toBe('0');
+    expect(slider.rightInput.min).toBe('0');
+    slider.setMax(true, undefined);
+    // 100 by default
+    expect(slider.defaultInput.max).toBe('100');
+    expect(slider.rightInput.max).toBe('100');
   });
 });
