@@ -14,9 +14,6 @@ describe('test Presenter', () => {
       new View(document.body, new Slider(), new ProgressBar(), new Thumb(), new Scale()),
     );
   });
-  afterEach(() => {
-    document.body.innerHTML = '';
-  });
   test('Model is initialized', () => {
     jest.spyOn(presenter.model, 'init');
     presenter.init();
