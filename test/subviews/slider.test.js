@@ -14,7 +14,7 @@ describe('slider test', () => {
   afterEach(() => {
     document.body.innerHTML = '';
   });
-  test('default value set correct', () => {
+  test('default value is set correctly', () => {
     slider.setInputValue(false, 20);
     expect(slider.defaultInput.value).toBe('20');
   });
@@ -22,19 +22,19 @@ describe('slider test', () => {
     slider.setInputValue(false, 0);
     expect(slider.defaultInput.value).toBe('0');
   });
-  test('values set for range slider', () => {
+  test('values are set for range slider', () => {
     createRangeSlider();
     slider.setInputValue(true, -100, 0);
     expect(slider.defaultInput.value).toBe('-100');
     expect(slider.rightInput.value).toBe('0');
   });
-  test('min and max set for single range slider', () => {
+  test('min and max are set for single range slider', () => {
     slider.setMin(false, 20);
     expect(slider.defaultInput.min).toBe('20');
     slider.setMax(false, 50);
     expect(slider.defaultInput.max).toBe('50');
   });
-  test('min and max set for double range slider', () => {
+  test('min and max are set for double range slider', () => {
     createRangeSlider();
     slider.setMin(true, 0);
     expect(slider.defaultInput.min).toBe('0');
