@@ -1,37 +1,59 @@
 import Thumb from '../../src/mvc/view/thumb';
 
-const testThumb = new Thumb();
-
-describe('setThumbValue', () => {
-  test('should not do anything', () => {
-    testThumb.setThumbValue(false, 2);
+describe('thumb test', () => {
+  let thumb;
+  let thumbOptions;
+  let createThumb;
+  beforeEach(() => {
+    thumb = new Thumb();
+    thumbOptions = {
+      isRange: false,
+      newValue: -20,
+      leftPercent: 20,
+      newValueRight: 0,
+      rightPercent: 30,
+    };
+    createThumb = () => { thumb.createThumb(document.body, thumbOptions.isRange); };
   });
-  test('thumb value should be 50', () => {
-    testThumb.createThumbElement(false, document.body);
-    testThumb.setThumbValue(false, 50);
-    expect(testThumb.thumbOutput.textContent).toBe('50');
+  afterEach(() => {
+    document.body.innerHTML = '';
   });
-  test('thumb values should be -200 and 0', () => {
-    testThumb.createThumbElement(true, document.body, document.body);
-    testThumb.setThumbValue(true, -200, 0);
-    expect(testThumb.thumbOutput.textContent).toBe('-200');
-    expect(testThumb.thumbOutputRight.textContent).toBe('0');
+  test('value in the single thumb element over the thumb is correct', () => {
+    const { isRange, newValue } = thumbOptions;
+    thumb.createThumbElement(isRange, document.body);
+    thumb.setThumbValue(isRange, newValue);
+    expect(thumb.thumbOutput.textContent).toBe(String(newValue));
   });
-});
-
-describe('createThumbElement', () => {
-  test('one thumb should be created', () => {
-    const createElementMock = jest.spyOn(document, 'createElement');
-    jest.clearAllMocks();
-    testThumb.createThumbElement(false, document.body);
-    expect(document.createElement).toHaveBeenCalledTimes(1);
-    createElementMock.mockRestore();
+  test('value in both thumb elements over the double thumb are correct', () => {
+    thumbOptions.isRange = true;
+    const { isRange, newValue, newValueRight } = thumbOptions;
+    thumb.createThumbElement(isRange, document.body, document.body);
+    thumb.setThumbValue(isRange, newValue, newValueRight);
+    expect(thumb.thumbOutput.textContent).toBe(String(newValue));
+    expect(thumb.thumbOutputRight.textContent).toBe(String(newValueRight));
   });
-  test('two thumbs should be created', () => {
-    const createElementMock = jest.spyOn(document, 'createElement');
-    jest.clearAllMocks();
-    testThumb.createThumbElement(true, document.body, document.body);
-    expect(document.createElement).toHaveBeenCalledTimes(2);
-    createElementMock.mockRestore();
+  test('thumb value is not set in the abscence of thumb element', () => {
+    thumb.setThumbValue(false, 2);
+  });
+  test('single thumb is placed', () => {
+    createThumb();
+    const { isRange, leftPercent } = thumbOptions;
+    thumb.placeThumb(isRange, leftPercent);
+    expect(thumb.thumbDefault.style.left).toBe(`${leftPercent}%`);
+  });
+  test('double thumb are placed', () => {
+    thumbOptions.isRange = true;
+    createThumb();
+    const { isRange, leftPercent, rightPercent } = thumbOptions;
+    thumb.placeThumb(isRange, leftPercent, rightPercent);
+    expect(thumb.thumbDefault.style.left).toBe(`${leftPercent}%`);
+    expect(thumb.thumbRight.style.right).toBe(`${100 - rightPercent}%`);
+  });
+  test('right thumb is placed on the left corner by default', () => {
+    thumbOptions.isRange = true;
+    createThumb();
+    const { isRange, leftPercent } = thumbOptions;
+    thumb.placeThumb(isRange, leftPercent, undefined);
+    expect(thumb.thumbRight.style.right).toBe('100%');
   });
 });
