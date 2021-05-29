@@ -14,7 +14,7 @@ describe('test View', () => {
   afterEach(() => {
     document.body.innerHTML = '';
   });
-  test('wrapper created', () => {
+  test('wrapper is created', () => {
     jest.spyOn(document, 'createElement');
     view.createWrapper();
     expect(document.createElement).toHaveBeenCalledTimes(1);
@@ -22,7 +22,7 @@ describe('test View', () => {
     view.createWrapper();
     expect(view.parent.append).toHaveBeenCalledTimes(1);
   });
-  test('attributes set for single slider', () => {
+  test('attributes are set for single slider', () => {
     view.options = {
       ...view.options,
       defaultValue: -100,
@@ -31,7 +31,7 @@ describe('test View', () => {
     view.setAttributesValue();
     expect(view.wrapper.getAttribute('default-value')).toBe('-100');
   });
-  test('attributes set for double slider', () => {
+  test('attributes are set for double slider', () => {
     view.options = {
       ...view.options,
       isRange: true,
@@ -42,7 +42,7 @@ describe('test View', () => {
     expect(view.wrapper.getAttribute('left-value')).toBe('10');
     expect(view.wrapper.getAttribute('right-value')).toBe('40');
   });
-  test('values for horizontal slider received from coordinates', () => {
+  test('values for horizontal slider are received from coordinates', () => {
     view.options = {
       ...view.options,
       min: 0,
@@ -57,7 +57,7 @@ describe('test View', () => {
     const element = new MouseEvent('click', { clientX: 864 });
     expect(view.getValueByCoords(element, coords)).toBe(13);
   });
-  test('values for vertical slider received from coordinates', () => {
+  test('values for vertical slider are received from coordinates', () => {
     view.options = {
       ...view.options,
       min: 100,
@@ -72,6 +72,16 @@ describe('test View', () => {
     const element = new MouseEvent('click', { clientY: 265 });
     expect(view.getValueByCoords(element, coords)).toBe(438);
   });
+  test('thumb element is rotated when slider is vertical', () => {
+    view.options = {
+      ...view.options,
+      isVertical: true,
+      overThumbElement: true,
+    };
+    jest.spyOn(view.thumb, 'rotateElements');
+    view.init();
+    expect(view.thumb.rotateElements).toHaveBeenCalled();
+  });
   test('mousedown on ProgressBar should call clickOnBar function', () => {
     jest.spyOn(view, 'clickOnBar');
     view.progressBar.bar.dispatchEvent(new MouseEvent('mousedown'));
@@ -82,7 +92,7 @@ describe('test View', () => {
     view.track.dispatchEvent(new MouseEvent('mousedown'));
     expect(view.clickOnBar).toHaveBeenCalled();
   });
-  test('default value changed by click', () => {
+  test('default value are changed by click', () => {
     view.options = {
       ...view.options,
       isRange: false,
@@ -90,7 +100,7 @@ describe('test View', () => {
     view.onClick(5)();
     expect(view.options.defaultValue).toBe(5);
   });
-  test('left and right valus changed by click', () => {
+  test('left and right values are changed by click', () => {
     view.options = {
       ...view.options,
       isRange: true,
@@ -101,19 +111,19 @@ describe('test View', () => {
     expect(view.options.rightValue).toBe(75);
     expect(view.options.defaultValue).toBe(0);
   });
-  test('input event call update method with default settings', () => {
+  test('input event calls update method with default settings', () => {
     jest.spyOn(view, 'update');
     view.onInput(true)();
     const value = Number(view.form.defaultInput.value);
     expect(view.update).toHaveBeenCalledWith(value, true);
   });
-  test('input event call update method with settings for right thumb', () => {
+  test('input event calls update method with settings for right thumb', () => {
     jest.spyOn(view, 'update');
     view.onInput(false)();
     const value = Number(view.form.rightInput.value);
     expect(view.update).toHaveBeenCalledWith(value, false);
   });
-  test('progress bar set on right', () => {
+  test('progress bar is set on right', () => {
     view.options = {
       ...view.options,
       isRange: false,

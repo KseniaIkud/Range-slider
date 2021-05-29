@@ -105,10 +105,9 @@ class View {
 
     if (this.options.isVertical) {
       this.wrapper.classList.add('range-slider_vertical');
-      if (this.options.overThumbElement) {
-        this.thumb.thumbOutput.classList.add('range-slider__value-thumb_vertical');
-        this.thumb.thumbOutputRight?.classList.add('range-slider__value-thumb_vertical');
-      }
+    }
+    if (this.options.isVertical && this.options.overThumbElement) {
+      this.thumb.rotateElements();
     }
     if (this.options.isScale) {
       const scale = this.scale.createScale(this.options.scaleValues, this.wrapper.offsetWidth);
@@ -214,9 +213,7 @@ class View {
     }
     this.setInput();
     this.observers.forEach((observer) => {
-      if (observer.updateModel) {
-        observer.updateModel(newValue, isDefault);
-      }
+      observer.updateModel(newValue, isDefault);
     });
     this.setAttributesValue();
     this.thumb.setThumbValue(this.options.isRange,
