@@ -1,32 +1,32 @@
-## Демо страница:
+## Demo page:
 https://kseniaikud.github.io/Range-slider/
 
-### Установка
+### Installation
 ```js
     npm install
 ```
-#### Запустить проект в режиме разработки
+#### Launch in dev mode
 ```js
     npm run start
 ```
-#### Запустить проект в режиме произодства
+#### Launch in prod mode
 ```js
     npm run build
 ```
-#### Запустить тесты
+#### Launch tests
 ```js
     npm run test
 ```
-## Как добавить плагин к себе в проект:
-1. Поместите скачанные файлы в необходимую папку
-2. Скачайте и установите библиотеку jquery
-3. Импортируйте файлы (***.js*** and ***.css***) в ваш проект
+## How to add the plugin to your project:
+1. Place the downloaded files in the required folder.
+2. Download and install the jquery library
+3. Import files (***.js*** and ***.css***) into your project
 ```js
     import '../docs/rangeSlider.js'
     import '../docs/rangeSlider.css'
 ```
 
-4. Добавьте слайдер к желаемому html тегу и задайте опции
+4. Ad the slider to the desired html tag and set the options
 ```html
     <div id="id1"></div>
 ```
@@ -39,45 +39,46 @@ https://kseniaikud.github.io/Range-slider/
 ```
 
 ## API
-Описание настроек слайдера
-| Опция | Дефолтное значение | Тип | Описание |
+Slider settings description
+| Option | Default value | Type | Description |
 |:---------:|:---------:|:---------:|:---------:|
-| min | 0 | number | Установить минимум |
-| max | 100 | number | Установить максимум |
-| initialValue | 50 | number | Установить стартовую позицию для ползунка при одиночном значении |
-| leftValue | 50 | number | Установить стартовую позицию для левого ползунка при интервале |
-| rightValue | 70 | number | Установить стартовую позицию для правого ползунка при интервале |
-| isRange | false | boolean | Выбрать тип слайдера, ***false*** для одного значения, ***true*** для интервала |
-| rightProgressBar | false | boolean | Выбрать позицию прогресс бара, ***false*** с левой стороны от бегунка при одиночном значении, ***true*** с правой |
-| overThumbElement | false | boolean | Выберите ***true*** для отображения элемента над бегунком |
-| step | 1 | number | Установить шаг шкалы |
-| isVertical | false | boolean | Выберите положение слайдера, ***false*** для горизонтального, ***true*** для вертикального |
-| isScale | false | boolean | Выберите ***true*** чтобы отобразить шкалу значений |
+| min | 0 | number | Set minimum |
+| max | 100 | number | Set maximum |
+| initialValue | 50 | number | Set the initial position for the slider with a single value |
+| leftValue | 50 | number | Set the initial position for the left slider in a range |
+| rightValue | 70 | number | Set the initial position for the right slider in a range |
+| isRange | false | boolean | Choose the slider type, ***false*** for a single value, ***true*** for a range |
+| rightProgressBar | false | boolean | Choose the position for the progress bar, ***false*** for the left side from slider, ***true*** for the right |
+| overThumbElement | false | boolean | Choose ***true*** to display element above the slider |
+| step | 1 | number | Set the scale step |
+| isVertical | false | boolean | Select the slider orientation, ***false*** for horizontal, ***true*** for vertical |
+| isScale | false | boolean | Choose ***true*** to display scale |
 
 
-## Архитектура
+## Architecture
 
-У плагина MVP-подобная архитектура с Passive View.
+Plugin has MVP-like architecture with Passive View.
 
-### Модель (класс Model)
-Содержит бизнес логику, хранит данные
+### Model (class Model)
+Business logic and data
 
-### Вид (класс  View)
-Содержит расчеты, необходимые для отображения, а также отвечает на взаимодействие с пользователем. Делится на подвиды, каждый из которых представляет компонент слайдера. Вид обращается к подвидам, но подвиды не обращаются друг к другу или к основному виду.
+### View (class  View)
 
-### Предствитель (класс Presenter)
-Подписывается на модель и вид, реагирует на изменения и обновляет их. Передает необходимые данные из модели в вид и наоборот.
+Contains the calculations necessary for display and also handles user interactions. It is divided into subtypes, each of which represents a slider component. The view interacts with the subtypes, but the subtypes do not interact with each other or with the main view
 
-#### Слайдер, подвид (класс Slider)
-Создает сам слайдер, задает значения ползункам. 
+### Presenter (class Presenter)
+Subscribes to the model and view, responds to changes, and updates them. Passes necessary data from the model to the view and vice versa
 
-#### Прогресс бар, подвид (класс ProgressBar)
-Рисует бар в зависимости от выбранной опции: от значения первого ползунка до значения второго ползунка при интервале, от минимамльного значения до значения ползунка при одиночном значении, от значения ползунка до максимального значения при выбранном rightProgressBar: true. Не обращается к другим подвидам или основному виду.
+#### Slider
+Creates the slider itself and sets the values for the handles.
 
-#### Бегунок, подвид (класс Thumb)
-Создает бегунок (бегунки) на треке, а также элемент над бегунком, который показывает значение и который ползает за мышкой .
+#### ProgressBar
+Draws the bar based on the selected option: from the value of the first handle to the value of the second handle for a range, from the minimum value to the handle's value for a single value, or from the handle's value to the maximum value when rightProgressBar: true is selected. Does not interact with other subtypes or the main view.
 
-#### Шкала, подвид (класс Scale)
-Создает шкалу значений, в пределах которых можно двигать ползунок. Рассчитывает положение шкалы.
+#### Thumb
+Creates the handle(s) on the track, as well as an element above the handle that displays the value and follows the mouse.
+
+#### Scale
+Creates the value scale within which the handle can move. Calculates the position of the scale.
 
 ![UML](/uml/diagram.svg)
